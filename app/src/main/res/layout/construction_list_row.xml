@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dp">
+
+        <ImageView
+            android:id="@+id/list_image"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:src="@drawable/construction_image"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/l1"
+        android:layout_gravity="center|start"
+        android:gravity="center|start"
+        android:layout_toRightOf="@+id/thumbnail">
+
+
+        <TextView
+            android:id="@+id/member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/thumbnail"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:text="Member Name"
+            android:gravity="center|start"
+            android:layout_gravity="center|start"
+            android:textColor="#040404"
+            android:padding="2dp"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/construction_mobile_number"
+            android:gravity="center|start"
+            android:layout_gravity="center|start"
+            android:text="Roof Type"
+            android:textStyle="bold"
+            android:textSize="15dip"
+            android:layout_below="@id/l1"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

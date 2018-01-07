@@ -1,7 +1,10 @@
 package com.hatchers.ruralcaravane.CustomerRegistration.Databases;
 
 
-public class CustomerTable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CustomerTable implements Parcelable {
 
     public static final String CUSTOMER_TABLE = "CustomerTable";
 
@@ -44,6 +47,56 @@ public class CustomerTable {
         this.villageIdValue=villageIdValue;
         this.addedDateValue=addedDateValue;
     }
+
+    protected CustomerTable(Parcel in) {
+        customerIdValue = in.readString();
+        customerNameValue = in.readString();
+        villageNameValue = in.readString();
+        customerAddressValue = in.readString();
+        customerMobilenoValue = in.readString();
+        customerAgeValue = in.readString();
+        customerGenderValue = in.readString();
+        upload_statusValue = in.readString();
+        uniqueIdValue = in.readString();
+        imagePathValue = in.readString();
+        aadharIdValue = in.readString();
+        villageIdValue = in.readString();
+        addedDateValue = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(customerIdValue);
+        dest.writeString(customerNameValue);
+        dest.writeString(villageNameValue);
+        dest.writeString(customerAddressValue);
+        dest.writeString(customerMobilenoValue);
+        dest.writeString(customerAgeValue);
+        dest.writeString(customerGenderValue);
+        dest.writeString(upload_statusValue);
+        dest.writeString(uniqueIdValue);
+        dest.writeString(imagePathValue);
+        dest.writeString(aadharIdValue);
+        dest.writeString(villageIdValue);
+        dest.writeString(addedDateValue);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<CustomerTable> CREATOR = new Creator<CustomerTable>() {
+        @Override
+        public CustomerTable createFromParcel(Parcel in) {
+            return new CustomerTable(in);
+        }
+
+        @Override
+        public CustomerTable[] newArray(int size) {
+            return new CustomerTable[size];
+        }
+    };
 
     public String getCustomerIdValue() {
         return customerIdValue;
@@ -148,4 +201,5 @@ public class CustomerTable {
     public void setAddedDateValue(String addedDateValue) {
         this.addedDateValue = addedDateValue;
     }
+
 }

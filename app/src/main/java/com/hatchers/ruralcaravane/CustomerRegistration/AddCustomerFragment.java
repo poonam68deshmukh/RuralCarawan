@@ -202,7 +202,7 @@ public class AddCustomerFragment extends Fragment {
         Date dNow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
         String datetime = ft.format(dNow);
-        uniqueIdTxt.setText(datetime);
+        uniqueIdTxt.setText("CU"+datetime);
     }
 
 

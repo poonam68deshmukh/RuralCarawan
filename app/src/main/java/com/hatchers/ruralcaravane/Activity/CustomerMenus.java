@@ -4,16 +4,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
 import com.hatchers.ruralcaravane.R;
 
 
-public class CustomerActivity extends AppCompatActivity {
-
+public class CustomerMenus extends AppCompatActivity {
+    private  CustomerTable customer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
-
+       customer=  getIntent().getParcelableExtra(CustomerTable.CUSTOMER_TABLE);
         callMenuFragment();
     }
 
@@ -21,7 +22,7 @@ public class CustomerActivity extends AppCompatActivity {
     private void callMenuFragment()
     {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        MenuFragment menuFragment = new MenuFragment();
+        MenuFragment menuFragment = MenuFragment.getInstance(customer);
         fragmentTransaction.replace(R.id.frame_layout,menuFragment).commit();
     }
 

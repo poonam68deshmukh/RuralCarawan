@@ -30,11 +30,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".user_login.LoginActivity" />
-        <activity android:name=".Activity.CustomerActivity" />
+        <activity android:name=".Activity.CustomerMenus" />
         <activity android:name=".CustomerRegistration.CustomerRegistrationActivity" />
         <activity android:name=".KitchenSuitability.FindGeoLocationActivity">
         </activity>
-        <activity android:name=".ConstructionTeamDetails.ConstructionTeamRegistrationActivity"></activity>
     </application>
 
 </manifest>

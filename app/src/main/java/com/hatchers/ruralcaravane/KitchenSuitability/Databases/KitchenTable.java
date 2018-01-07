@@ -1,7 +1,10 @@
 package com.hatchers.ruralcaravane.KitchenSuitability.Databases;
 
 
-public class KitchenTable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class KitchenTable implements Parcelable{
 
 
     public static final String KITCHEN_TABLE="KitchenTable";
@@ -37,6 +40,58 @@ public class KitchenTable {
         this.costOfChullhaValue=costOfChullhaValue;
 
     }
+
+    protected KitchenTable(Parcel in) {
+        kitchen_idValue = in.readString();
+        house_typeValue = in.readString();
+        roof_typeValue = in.readString();
+        kitchen_heightValue = in.readString();
+        upload_statusValue = in.readString();
+        customer_idValue = in.readString();
+        customer_nameValue = in.readString();
+        placeImageValue = in.readString();
+        kitchenUniqueIdValue = in.readString();
+        latitudeValue = in.readString();
+        longitudeValue = in.readString();
+        uploadDateValue = in.readString();
+        geoAddressValue = in.readString();
+        costOfChullhaValue = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(kitchen_idValue);
+        dest.writeString(house_typeValue);
+        dest.writeString(roof_typeValue);
+        dest.writeString(kitchen_heightValue);
+        dest.writeString(upload_statusValue);
+        dest.writeString(customer_idValue);
+        dest.writeString(customer_nameValue);
+        dest.writeString(placeImageValue);
+        dest.writeString(kitchenUniqueIdValue);
+        dest.writeString(latitudeValue);
+        dest.writeString(longitudeValue);
+        dest.writeString(uploadDateValue);
+        dest.writeString(geoAddressValue);
+        dest.writeString(costOfChullhaValue);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<KitchenTable> CREATOR = new Creator<KitchenTable>() {
+        @Override
+        public KitchenTable createFromParcel(Parcel in) {
+            return new KitchenTable(in);
+        }
+
+        @Override
+        public KitchenTable[] newArray(int size) {
+            return new KitchenTable[size];
+        }
+    };
 
     public String getKitchen_idValue() {
         return kitchen_idValue;

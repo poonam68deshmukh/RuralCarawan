@@ -49,7 +49,7 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
     MapViewFragment map;
     TextView placeNameTxt,addresstxt;
     String state,city,area,postalCode;
-    private Button btnpickAddress;
+    private Button btnpickAddress,btn_saveaddress;
     static double getlatitude =0, getlongitude = 0;
 
     public AddKitchenAddress()
@@ -96,14 +96,24 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
 
         return rootView;
     }
+
+
     void initialise(View rootView )
     {
         btnpickAddress=(Button)rootView.findViewById(R.id.btnpickAdress);
+        btn_saveaddress=(Button)rootView.findViewById(R.id.btn_saveaddress);
         placeNameTxt=(TextView) rootView.findViewById(R.id.place_name);
         addresstxt=(TextView) rootView.findViewById(R.id.address_txt);
         toolbar_add_address = (Toolbar) rootView.findViewById(R.id.toolbar_add_address);
         map=new MapViewFragment("maharastra india");
         map.setArguments(getActivity().getIntent().getExtras());
+
+        toolbar_add_address.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         btnpickAddress.setOnClickListener(this);
         if(activityOpenFor==ADDMOREADDRESS)
@@ -118,8 +128,14 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
         toolbar_add_address.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
-
+        btn_saveaddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
 

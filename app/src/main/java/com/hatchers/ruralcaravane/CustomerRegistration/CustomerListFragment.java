@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.hatchers.ruralcaravane.Activity.CustomerActivity;
-import com.hatchers.ruralcaravane.Activity.MenuFragment;
+import com.hatchers.ruralcaravane.Activity.CustomerMenus;
 import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
 import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTableHelper;
-import com.hatchers.ruralcaravane.KitchenSuitability.kitchenSuitabilityFragment;
 import com.hatchers.ruralcaravane.R;
 
 import java.util.ArrayList;
@@ -29,9 +29,8 @@ import java.util.List;
 public class CustomerListFragment extends Fragment {
 
     CustomerListAdapter customerListAdapter;
-    private ListView listView;
-    private FloatingActionButton fab;
-    private FragmentTransaction fragmentTransaction;
+    private RecyclerView customerRecyclerView;
+    private TextView no_cust_txt;
 
     ArrayList<CustomerTable> customerTables;
 
@@ -44,17 +43,30 @@ public class CustomerListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_customer__list, container, false);
-
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        no_cust_txt=(TextView)view.findViewById(R.id.no_cust_txt);
+        customerRecyclerView = (RecyclerView) view.findViewById(R.id.customerRecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        customerRecyclerView.setLayoutManager(layoutManager);
 
         onClickListeners();
 
         customerTables= CustomerTableHelper.getCustomerdataList(getContext());
-        customerListAdapter= new CustomerListAdapter(getContext(), R.layout.list_row,customerTables);
+        customerListAdapter= new CustomerListAdapter(getContext(),customerTables);
 
-        listView = (ListView)view.findViewById(R.id.customerListView);
-        listView.setAdapter(customerListAdapter);
 
+        customerRecyclerView.setAdapter(customerListAdapter);
+        customerListAdapter.notifyDataSetChanged();
+
+        if(!(customerTables.size() >0))
+        {
+            customerRecyclerView.setVisibility(View.GONE);
+            no_cust_txt.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            customerRecyclerView.setVisibility(View.VISIBLE);
+            no_cust_txt.setVisibility(View.GONE);
+        }
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = getActivity().getWindow();
@@ -63,76 +75,67 @@ public class CustomerListFragment extends Fragment {
             window.setStatusBarColor(this.getResources().getColor(R.color.DarkBrown));
         }
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent=new Intent(getActivity(), CustomerActivity.class);
-                startActivity(intent);
-            }
-        });
-
     return view;
     }
-/*
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser) {
-            refreshList();
-        } else {
 
-        }
-    }*/
 
-  /*  private void refreshList()
-    {
-        customerTables= CustomerTableHelper.getCustomerdataList(getContext());
-        customerListAdapter= new CustomerListAdapter(getContext(), R.layout.list_row,customerTables);
-        listView.setAdapter(customerListAdapter);
-        customerListAdapter.notifyDataSetChanged();
-    }*/
-
-    @Override
+   /* @Override
     public void onResume() {
         super.onResume();
         customerListAdapter.notifyDataSetChanged();
-    }
+    }*/
     private void onClickListeners()
     {
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CustomerRegistrationActivity.viewPager.setCurrentItem(1);
-            }
-        });
 
     }
 
 
 
-    public class CustomerListAdapter extends ArrayAdapter<CustomerTable> {
+    public class CustomerListAdapter  extends RecyclerView.Adapter<CustomerListAdapter.ViewHolder> {
 
         private Context context;
         private ArrayList<CustomerTable> customerTableArrayList;
 
-        public CustomerListAdapter(Context context, int textViewResourceId, ArrayList<CustomerTable> customerTableArrayList) {
-
-            super(context, textViewResourceId, customerTableArrayList);
-
+        CustomerListAdapter(Context context,ArrayList<CustomerTable> customerTableArrayList) {
             this.context = context;
             this.customerTableArrayList = customerTableArrayList;
-
-        }
-
-        private class ViewHolder {
-            TextView customer_name,address,mobile,age;
         }
 
         @Override
-        public int getCount() {
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_row, viewGroup, false);
+            CustomerListAdapter.ViewHolder viewHolder = new CustomerListAdapter.ViewHolder(v);
+            context = viewGroup.getContext();
+            return viewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            final CustomerTable customerTable = customerTableArrayList.get(position);
+
+            holder.customer_name.setText(String.valueOf(customerTable.getCustomerNameValue() + ""));
+            holder.address.setText(String.valueOf(customerTable.getCustomerAddressValue() + ""));
+            holder.mobile.setText(String.valueOf("Mobile-"+customerTable.getCustomerMobilenoValue() + ""));
+            holder.age.setText(String.valueOf("Age-"+customerTable.getCustomerAgeValue()+ ""));
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent=new Intent(getActivity(), CustomerMenus.class);
+                    intent.putExtra(CustomerTable.CUSTOMER_TABLE,customerTable);
+                    startActivity(intent);
+
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
             try {
                 return customerTableArrayList.size();
             } catch (Exception e) {
@@ -141,31 +144,21 @@ public class CustomerListFragment extends Fragment {
 
         }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.list_row, null);
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
-                holder = new ViewHolder();
-                holder.customer_name = (TextView) convertView.findViewById(R.id.customer_name);
-                holder.address = (TextView) convertView.findViewById(R.id.customer_address);
-                holder.mobile = (TextView) convertView.findViewById(R.id.customer_mobileno);
-                holder.age = (TextView) convertView.findViewById(R.id.customer_age);
+            TextView customer_name,address,mobile,age;
 
-                convertView.setTag(holder);
+             View itemView;
 
-            } else {
-                holder = (ViewHolder) convertView.getTag();
+            ViewHolder(View itemView) {
+                super(itemView);
+                customer_name = (TextView) itemView.findViewById(R.id.customer_name);
+                address = (TextView) itemView.findViewById(R.id.customer_address);
+                mobile = (TextView) itemView.findViewById(R.id.customer_mobileno);
+                age = (TextView) itemView.findViewById(R.id.customer_age);
+
+                this.itemView = itemView;
             }
-            CustomerTable customerTable = customerTableArrayList.get(position);
-            holder.customer_name.setText(String.valueOf(customerTable.getCustomerNameValue() + ""));
-            holder.address.setText(String.valueOf(customerTable.getCustomerAddressValue() + ""));
-            holder.mobile.setText(String.valueOf("Mobile-"+customerTable.getCustomerMobilenoValue() + ""));
-            holder.age.setText(String.valueOf("Age-"+customerTable.getCustomerAgeValue()+ ""));
-
-            return convertView;
         }
 
     }

@@ -17,9 +17,9 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 
-import com.hatchers.ruralcaravane.ConstructionTeamDetails.ConstructionTeamRegistrationActivity;
-import com.hatchers.ruralcaravane.CustomerRegistration.CustomerRegistrationActivity;
-import com.hatchers.ruralcaravane.KitchenSuitability.kitchenSuitabilityFragment;
+import com.hatchers.ruralcaravane.ConstructionTeamDetails.ConstructionTeamListFragment;
+import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
+import com.hatchers.ruralcaravane.KitchenSuitability.KitchenSuitabilityList;
 import com.hatchers.ruralcaravane.PaymentDetails.PaymentDetailsFragment;
 import com.hatchers.ruralcaravane.Pref_Manager.PrefManager;
 import com.hatchers.ruralcaravane.R;
@@ -33,12 +33,30 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     PrefManager prefManager;
     private  FragmentTransaction fragmentTransaction;
     private LinearLayout kitchen_linear,construction_linear,payment_linear;
+    private CustomerTable customertable;
+    public static MenuFragment getInstance(CustomerTable customertable)
+    {
+        MenuFragment fragment = new MenuFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(CustomerTable.CUSTOMER_TABLE, customertable);
+        fragment.setArguments(args);
+        return fragment;
+
+    }
 
 
     public MenuFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+        {
+            customertable = getArguments().getParcelable(CustomerTable.CUSTOMER_TABLE);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,13 +105,13 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         {
 
             case R.id.kitchen_linear:
-                kitchenSuitabilityFragment kitchenSuitabilityFragment=new kitchenSuitabilityFragment();
-                fragmentTransaction.replace(R.id.frame_layout,kitchenSuitabilityFragment).addToBackStack(null).commit();
+                KitchenSuitabilityList kitchenSuitabilityList=new KitchenSuitabilityList();
+                fragmentTransaction.replace(R.id.frame_layout,kitchenSuitabilityList).addToBackStack(null).commit();
                 break;
 
             case R.id.construction_linear:
-                Intent intent1=new Intent(getActivity(), ConstructionTeamRegistrationActivity.class);
-                startActivity(intent1);
+                ConstructionTeamListFragment constructionTeamListFragment = new ConstructionTeamListFragment();
+                fragmentTransaction.replace(R.id.frame_layout,constructionTeamListFragment).addToBackStack(null).commit();
                 break;
 
             case R.id.payment_linear:
