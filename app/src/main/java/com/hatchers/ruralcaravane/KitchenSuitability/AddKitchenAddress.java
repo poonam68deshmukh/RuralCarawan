@@ -30,6 +30,9 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
+import com.hatchers.ruralcaravane.KitchenSuitability.Databases.KitchenTable;
+import com.hatchers.ruralcaravane.KitchenSuitability.Databases.KitchenTableHelper;
 import com.hatchers.ruralcaravane.R;
 
 import java.io.IOException;
@@ -52,6 +55,34 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
     private Button btnpickAddress,btn_saveaddress;
     static double getlatitude =0, getlongitude = 0;
 
+
+    private CustomerTable customertable;
+    private KitchenTable kitchenTable;
+    public static AddKitchenAddress getInstance(CustomerTable customertable, KitchenTable kitchenTable)
+    {
+        AddKitchenAddress fragment = new AddKitchenAddress();
+        Bundle args = new Bundle();
+        args.putParcelable(CustomerTable.CUSTOMER_TABLE, customertable);
+        args.putParcelable(KitchenTable.KITCHEN_TABLE, kitchenTable);
+        fragment.setArguments(args);
+        return fragment;
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+        {
+            customertable = getArguments().getParcelable(CustomerTable.CUSTOMER_TABLE);
+            kitchenTable = getArguments().getParcelable(KitchenTable.KITCHEN_TABLE);
+        }
+    }
+
+
+
+
     public AddKitchenAddress()
     {
 
@@ -71,14 +102,6 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
 
     }
 
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -135,7 +158,27 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
         btn_saveaddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                if(getlatitude!=0 && getlongitude!=0 && addresstxt.getText().toString().trim()!="")
+                {
+                    kitchenTable.setLatitudeValue(getlatitude+"");
+                    kitchenTable.setLongitudeValue(getlongitude+"");
+                    kitchenTable.setGeoAddressValue(addresstxt.getText().toString());
+
+                    if(KitchenTableHelper.updateKitchenData(getContext(),kitchenTable))
+                    {
+
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(),"Geo Address Not Updated",Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                else
+                {
+                    Toast.makeText(getContext(),"PLease Select Geo Address",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

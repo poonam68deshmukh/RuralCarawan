@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
 import com.hatchers.ruralcaravane.Databases.DatabaseHandler;
 
 import java.util.ArrayList;
@@ -21,11 +22,11 @@ public class KitchenTableHelper {
             SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();
             ContentValues values = new ContentValues();
 
-                values.put(KitchenTable.KITCHEN_ID,kitchenTable.getKitchen_idValue());
+
                 values.put(KitchenTable.HOUSE_TYPE,kitchenTable.getHouse_typeValue());
                 values.put(KitchenTable.ROOF_TYPE,kitchenTable.getRoof_typeValue());
                 values.put(KitchenTable.KITCHEN_HEIGHT,kitchenTable.getKitchen_heightValue());
-                values.put(KitchenTable.UPLOAD_STATUS,kitchenTable.getUpload_statusValue());
+                values.put(KitchenTable.UPLOAD_STATUS,"0");
                 values.put(KitchenTable.CUSTOMER_ID,kitchenTable.getCustomer_idValue());
                 values.put(KitchenTable.CUSTOMER_NAME,kitchenTable.getCustomer_nameValue());
                 values.put(KitchenTable.PLACE_IMAGE,kitchenTable.getPlaceImageValue());
@@ -35,9 +36,12 @@ public class KitchenTableHelper {
                 values.put(KitchenTable.UPLOAD_DATE,kitchenTable.getUploadDateValue());
                 values.put(KitchenTable.GEO_ADDRESS,kitchenTable.getGeoAddressValue());
                 values.put(KitchenTable.COST_OF_CHULLHA,kitchenTable.getCostOfChullhaValue());
-
-            if (db.insert(KitchenTable.KITCHEN_TABLE, null, values) > 0)
+                values.put(KitchenTable.STEP1_IMAGE,kitchenTable.getStep1_imageValue());
+                values.put(KitchenTable.STEP2_IMAGE,kitchenTable.getStep2_imageValue());
+                long i=   db.insert(KitchenTable.KITCHEN_TABLE, null, values);
+            if ( i> 0)
             {
+                kitchenTable.setKitchen_idValue(String.valueOf(i));
                // Toast.makeText(context,"KItchen data inserted",Toast.LENGTH_LONG).show();
                 db.close();
                 return true;
@@ -76,11 +80,13 @@ public class KitchenTableHelper {
             values.put(KitchenTable.UPLOAD_DATE,kitchen_table.getUploadDateValue());
             values.put(KitchenTable.GEO_ADDRESS,kitchen_table.getGeoAddressValue());
             values.put(KitchenTable.COST_OF_CHULLHA,kitchen_table.getCostOfChullhaValue());
+            values.put(KitchenTable.STEP1_IMAGE,kitchen_table.getStep1_imageValue());
+            values.put(KitchenTable.STEP2_IMAGE,kitchen_table.getStep2_imageValue());
 
 
 
             // upadating Row
-            if(db.update(KitchenTable.KITCHEN_TABLE, values, KitchenTable.KITCHEN_ID+"="+kitchen_table.getKitchen_idValue(), null)>0)
+            if(db.update(KitchenTable.KITCHEN_TABLE, values, KitchenTable.KITCHEN_UNIQUE_ID+"='"+kitchen_table.getKitchen_idValue()+"'", null)>0)
             {
                 Toast.makeText(context,"Kitchen data updated",Toast.LENGTH_LONG).show();
                 db.close();
@@ -98,12 +104,12 @@ public class KitchenTableHelper {
         }
     }
 
-    public static ArrayList<KitchenTable> getKitchenDataList(Context context)
+    public static ArrayList<KitchenTable> getKitchenDataList(Context context, CustomerTable customerTable)
     {
         ArrayList<KitchenTable> customerTableArrayList = new ArrayList<KitchenTable>();
         SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();
         // Cursor cursor = db.rawQuery("SELECT * FROM " + Message_Table.TABLE_MESSAGE, null);
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ KitchenTable.KITCHEN_TABLE,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ KitchenTable.KITCHEN_TABLE+" WHERE "+KitchenTable.CUSTOMER_ID+"='"+customerTable.getUniqueIdValue()+"'",null);
         try
         {
             cursor.moveToFirst();
@@ -125,6 +131,8 @@ public class KitchenTableHelper {
                 kitchen_table.setUploadDateValue(cursor.getString(cursor.getColumnIndex(KitchenTable.UPLOAD_DATE)));
                 kitchen_table.setGeoAddressValue(cursor.getString(cursor.getColumnIndex(KitchenTable.GEO_ADDRESS)));
                 kitchen_table.setCostOfChullhaValue(cursor.getString(cursor.getColumnIndex(KitchenTable.COST_OF_CHULLHA)));
+                kitchen_table.setStep1_imageValue(cursor.getString(cursor.getColumnIndex(KitchenTable.STEP1_IMAGE)));
+                kitchen_table.setStep2_imageValue(cursor.getString(cursor.getColumnIndex(KitchenTable.STEP2_IMAGE)));
 
                 customerTableArrayList.add(kitchen_table);
                 cursor.moveToNext();
@@ -174,6 +182,37 @@ public class KitchenTableHelper {
 
             return true;
         } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    public static boolean updateUploadStatus(Context context, KitchenTable kitchen_table)
+    {
+        try {
+            SQLiteDatabase db =  new DatabaseHandler(context).getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+
+            values.put(KitchenTable.UPLOAD_STATUS,"0");
+
+
+
+            // upadating Row
+            if(db.update(KitchenTable.KITCHEN_TABLE, values, KitchenTable.KITCHEN_UNIQUE_ID+"='"+kitchen_table.getKitchen_idValue()+"'", null)>0)
+            {
+                Toast.makeText(context,"Kitchen data updated",Toast.LENGTH_LONG).show();
+                db.close();
+                return true;
+            }
+            else
+            {
+                db.close();
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
             return false;
         }
     }

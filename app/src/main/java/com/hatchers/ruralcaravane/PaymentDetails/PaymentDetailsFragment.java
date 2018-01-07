@@ -29,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
+import com.hatchers.ruralcaravane.KitchenSuitability.KitchenSuitabilityList;
 import com.hatchers.ruralcaravane.PaymentDetails.Databases.PaymentDetailsHelper;
 import com.hatchers.ruralcaravane.PaymentDetails.Databases.PaymentTable;
 import com.hatchers.ruralcaravane.R;
@@ -61,6 +63,28 @@ public class PaymentDetailsFragment extends Fragment {
 
     public PaymentDetailsFragment() {
         // Required empty public constructor
+    }
+
+
+
+    private CustomerTable customertable;
+    public static PaymentDetailsFragment getInstance(CustomerTable customertable)
+    {
+        PaymentDetailsFragment fragment = new PaymentDetailsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(CustomerTable.CUSTOMER_TABLE, customertable);
+        fragment.setArguments(args);
+        return fragment;
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+        {
+            customertable = getArguments().getParcelable(CustomerTable.CUSTOMER_TABLE);
+        }
     }
 
 

@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.hatchers.ruralcaravane.ConstructionTeamDetails.Databases.ConstructionTable;
 import com.hatchers.ruralcaravane.ConstructionTeamDetails.Databases.ConstructionTableHelper;
+import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
+import com.hatchers.ruralcaravane.KitchenSuitability.KitchenSuitabilityList;
 import com.hatchers.ruralcaravane.R;
 
 import java.util.ArrayList;
@@ -38,6 +40,27 @@ public class ConstructionTeamListFragment extends Fragment {
 
     ArrayList<ConstructionTable> constructionTables;
 
+
+    private CustomerTable customertable;
+    public static ConstructionTeamListFragment getInstance(CustomerTable customertable)
+    {
+        ConstructionTeamListFragment fragment = new ConstructionTeamListFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(CustomerTable.CUSTOMER_TABLE, customertable);
+        fragment.setArguments(args);
+        return fragment;
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+        {
+            customertable = getArguments().getParcelable(CustomerTable.CUSTOMER_TABLE);
+        }
+    }
+
     public ConstructionTeamListFragment() {
         // Required empty public constructor
     }
@@ -52,14 +75,6 @@ public class ConstructionTeamListFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,69 +121,4 @@ public class ConstructionTeamListFragment extends Fragment {
 
 
 
-    public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionListAdapter.ViewHolder>
-    {
-        private Context context;
-        private ArrayList<ConstructionTable> constructionTableArrayList;
-
-        ConstructionListAdapter(Context context,ArrayList<ConstructionTable> constructionTableArrayList) {
-            this.context = context;
-            this.constructionTableArrayList = constructionTableArrayList;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.construction_list_row, viewGroup, false);
-            ViewHolder viewHolder = new ViewHolder(v);
-            context = viewGroup.getContext();
-
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            final ConstructionTable constructionTable = constructionTableArrayList.get(position);
-
-            holder.member_name.setText(String.valueOf(constructionTable.getTechnicianNameValue() + ""));
-            holder.construction_mobile_number.setText(String.valueOf(constructionTable.getTechnicianMobileNoValue() + ""));
-
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v)
-                {
-
-                }
-            });
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            try {
-                return constructionTableArrayList.size();
-            } catch (Exception e) {
-                return 0;
-            }
-
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-
-            TextView member_name,construction_mobile_number;
-
-            View itemView;
-
-            ViewHolder(View itemView)
-            {
-                super(itemView);
-                member_name = (TextView) itemView.findViewById(R.id.member_name);
-                construction_mobile_number = (TextView) itemView.findViewById(R.id.construction_mobile_number);
-
-                this.itemView = itemView;
-            }
-        }
-
-    }
 }

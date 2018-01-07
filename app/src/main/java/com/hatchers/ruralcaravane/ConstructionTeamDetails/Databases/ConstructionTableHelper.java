@@ -27,8 +27,6 @@ public class ConstructionTableHelper {
                 values.put(ConstructionTable.TECHNICIAN_ADDRESS,constructionTable.getTechnicianAddressValue());
                 values.put(ConstructionTable.TECHNICIAN_GENDER,constructionTable.getTechnicianGenderValue());
                 values.put(ConstructionTable.UPLOAD_STATUS,constructionTable.getUploadStatusValue());
-                values.put(ConstructionTable.HALF_COMPLETION_IMAGE,constructionTable.getHalfCompletionImageValue());
-                values.put(ConstructionTable.COMPLETION_IMAGE,constructionTable.getCompletionImageValue());
                 values.put(ConstructionTable.CUSTOMER_ID,constructionTable.getCustomerIdValue());
                 values.put(ConstructionTable.KITCHEN_ID,constructionTable.getKitchenIdValue());
                 values.put(ConstructionTable.TECHNICIAN_UNIQUE_ID,constructionTable.getTechnicianUniqueIdValue());
@@ -68,8 +66,6 @@ public class ConstructionTableHelper {
             values.put(ConstructionTable.TECHNICIAN_ADDRESS,constructionTable.getTechnicianAddressValue());
             values.put(ConstructionTable.TECHNICIAN_GENDER,constructionTable.getTechnicianGenderValue());
             values.put(ConstructionTable.UPLOAD_STATUS,constructionTable.getUploadStatusValue());
-            values.put(ConstructionTable.HALF_COMPLETION_IMAGE,constructionTable.getHalfCompletionImageValue());
-            values.put(ConstructionTable.COMPLETION_IMAGE,constructionTable.getCompletionImageValue());
             values.put(ConstructionTable.CUSTOMER_ID,constructionTable.getCustomerIdValue());
             values.put(ConstructionTable.KITCHEN_ID,constructionTable.getKitchenIdValue());
             values.put(ConstructionTable.TECHNICIAN_UNIQUE_ID,constructionTable.getTechnicianUniqueIdValue());
@@ -115,8 +111,6 @@ public class ConstructionTableHelper {
                 constructionTable.setCustomerIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.CUSTOMER_ID)));
                 constructionTable.setKitchenIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.KITCHEN_ID)));
                 constructionTable.setDateTimeValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.DATETIME)));
-                constructionTable.setHalfCompletionImageValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.HALF_COMPLETION_IMAGE)));
-                constructionTable.setCompletionImageValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.COMPLETION_IMAGE)));
                 constructionTable.setUploadStatusValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.UPLOAD_STATUS)));
                 constructionTable.setTechnicianGenderValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_GENDER)));
 
@@ -155,8 +149,6 @@ public class ConstructionTableHelper {
                 constructionTable.setCustomerIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.CUSTOMER_ID)));
                 constructionTable.setKitchenIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.KITCHEN_ID)));
                 constructionTable.setDateTimeValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.DATETIME)));
-                constructionTable.setHalfCompletionImageValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.HALF_COMPLETION_IMAGE)));
-                constructionTable.setCompletionImageValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.COMPLETION_IMAGE)));
                 constructionTable.setUploadStatusValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.UPLOAD_STATUS)));
                 constructionTable.setTechnicianGenderValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_GENDER)));
 

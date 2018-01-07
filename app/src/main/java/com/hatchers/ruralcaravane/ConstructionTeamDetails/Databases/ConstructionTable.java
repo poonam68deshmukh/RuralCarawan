@@ -11,16 +11,15 @@ public class ConstructionTable {
             TECHNICIAN_ADDRESS="technician_address",TECHNICIAN_MOBILENO="technician_mobileno",
             TECHNICIAN_AGE="technician_age", TECHNICIAN_GENDER="technician_gender",
             UPLOAD_STATUS="upload_status",TECHNICIAN_UNIQUE_ID="technician_unique_id",
-            CUSTOMER_ID="customer_id",KITCHEN_ID="kitchen_id",HALF_COMPLETION_IMAGE="half_completion_image",
-            COMPLETION_IMAGE="completion_image",DATETIME="date_time";
+            CUSTOMER_ID="customer_id",KITCHEN_ID="kitchen_id",DATETIME="date_time";
 
-    public static final String CREATE_CONSTRUCTION_TEAM_TABLE="CREATE TABLE " + CONSTRUCTION_TEAM_TABLE+ "("+TECHNICIAN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+TECHNICIAN_NAME+" TEXT,"+TECHNICIAN_ADDRESS+" TEXT,"+TECHNICIAN_AGE+" INTEGER,"+TECHNICIAN_GENDER+" TEXT,"+TECHNICIAN_MOBILENO+" INTEGER, "+UPLOAD_STATUS+" TEXT, "+HALF_COMPLETION_IMAGE+" TEXT, "+COMPLETION_IMAGE+" TEXT, "+TECHNICIAN_UNIQUE_ID+" INTEGER, "+CUSTOMER_ID+" INTEGER, "+KITCHEN_ID+" INTEGER, "+DATETIME+" TEXT)";
+    public static final String CREATE_CONSTRUCTION_TEAM_TABLE="CREATE TABLE " + CONSTRUCTION_TEAM_TABLE+ "("+TECHNICIAN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+TECHNICIAN_NAME+" TEXT,"+TECHNICIAN_ADDRESS+" TEXT,"+TECHNICIAN_AGE+" INTEGER,"+TECHNICIAN_GENDER+" TEXT,"+TECHNICIAN_MOBILENO+" INTEGER, "+UPLOAD_STATUS+" TEXT, "+TECHNICIAN_UNIQUE_ID+" INTEGER, "+CUSTOMER_ID+" INTEGER, "+KITCHEN_ID+" INTEGER, "+DATETIME+" TEXT)";
 
     private  String technicianIdValue,technicianNameValue,
             technicianAddressValue,technicianMobileNoValue,
             technicianAgeValue,technicianGenderValue,
-            uploadStatusValue,halfCompletionImageValue,completionImageValue,
-            customerIdValue,kitchenIdValue,dateTimeValue,technicianUniqueIdValue;
+            uploadStatusValue, customerIdValue,kitchenIdValue,
+            dateTimeValue,technicianUniqueIdValue;
 
     public ConstructionTable() {
     }
@@ -33,8 +32,6 @@ public class ConstructionTable {
         this.technicianAgeValue = technicianAgeValue;
         this.technicianGenderValue = technicianGenderValue;
         this.uploadStatusValue=uploadStatusValue;
-        this.halfCompletionImageValue=halfCompletionImageValue;
-        this.completionImageValue=completionImageValue;
         this.customerIdValue=customerIdValue;
         this.kitchenIdValue=kitchenIdValue;
         this.dateTimeValue=dateTimeValue;
@@ -96,22 +93,6 @@ public class ConstructionTable {
 
     public void setUploadStatusValue(String uploadStatusValue) {
         this.uploadStatusValue = uploadStatusValue;
-    }
-
-    public String getHalfCompletionImageValue() {
-        return halfCompletionImageValue;
-    }
-
-    public void setHalfCompletionImageValue(String halfCompletionImageValue) {
-        this.halfCompletionImageValue = halfCompletionImageValue;
-    }
-
-    public String getCompletionImageValue() {
-        return completionImageValue;
-    }
-
-    public void setCompletionImageValue(String completionImageValue) {
-        this.completionImageValue = completionImageValue;
     }
 
     public String getCustomerIdValue() {

@@ -1,9 +1,7 @@
 package com.hatchers.ruralcaravane.KitchenSuitability;
 
 import android.app.AlertDialog;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,10 +32,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
+import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
 import com.hatchers.ruralcaravane.KitchenSuitability.Databases.KitchenTable;
 import com.hatchers.ruralcaravane.KitchenSuitability.Databases.KitchenTableHelper;
-import com.hatchers.ruralcaravane.PaymentDetails.PaymentDetailsFragment;
 import com.hatchers.ruralcaravane.R;
 
 import java.io.ByteArrayOutputStream;
@@ -50,7 +47,7 @@ import java.util.Date;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class kitchenSuitabilityFragment extends Fragment implements
+public class KitchenSuitabilityFragment extends Fragment implements
         AdapterView.OnItemSelectedListener {
 
 
@@ -69,8 +66,29 @@ public class kitchenSuitabilityFragment extends Fragment implements
     private GoogleApiClient client;
     private TextView kitchenUniqueIdText;
 
-    public kitchenSuitabilityFragment() {
+    public KitchenSuitabilityFragment() {
         // Required empty public constructor
+    }
+
+
+    private CustomerTable customertable;
+    public static KitchenSuitabilityFragment getInstance(CustomerTable customertable)
+    {
+        KitchenSuitabilityFragment fragment = new KitchenSuitabilityFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(CustomerTable.CUSTOMER_TABLE, customertable);
+        fragment.setArguments(args);
+        return fragment;
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+        {
+            customertable = getArguments().getParcelable(CustomerTable.CUSTOMER_TABLE);
+        }
     }
 
     @Override
@@ -196,7 +214,7 @@ public class kitchenSuitabilityFragment extends Fragment implements
                                 takePicture.setImageResource(R.mipmap.chullha);
 
                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                AddKitchenAddress paymentDetailsFragment=new AddKitchenAddress();
+                                AddKitchenAddress paymentDetailsFragment=AddKitchenAddress.getInstance(customertable,kitchen_table);
                                 fragmentTransaction.replace(R.id.frame_layout,paymentDetailsFragment).commit();
 
                             }
@@ -228,11 +246,14 @@ public class kitchenSuitabilityFragment extends Fragment implements
     {
 
         kitchen_table = new KitchenTable();
-
         kitchen_table.setHouse_typeValue(house_type.getSelectedItem().toString());
         kitchen_table.setRoof_typeValue(roof_type.getSelectedItem().toString());
         kitchen_table.setKitchen_heightValue(kitchen_height.getText().toString());
         kitchen_table.setKitchenUniqueIdValue(kitchenUniqueIdText.getText().toString());
+        kitchen_table.setCustomer_idValue(customertable.getUniqueIdValue());
+        Date date=new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        kitchen_table.setUploadDateValue(formatter.format(date));
 
     }
 
@@ -288,8 +309,7 @@ public class kitchenSuitabilityFragment extends Fragment implements
     {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+        File wallpaperDirectory = new File(Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
         // have the object build the directory structure, if needed.
         if (!wallpaperDirectory.exists()) {
             wallpaperDirectory.mkdirs();

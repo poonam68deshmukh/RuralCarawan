@@ -105,17 +105,17 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         {
 
             case R.id.kitchen_linear:
-                KitchenSuitabilityList kitchenSuitabilityList=new KitchenSuitabilityList();
+                KitchenSuitabilityList kitchenSuitabilityList= KitchenSuitabilityList.getInstance(customertable);
                 fragmentTransaction.replace(R.id.frame_layout,kitchenSuitabilityList).addToBackStack(null).commit();
                 break;
 
             case R.id.construction_linear:
-                ConstructionTeamListFragment constructionTeamListFragment = new ConstructionTeamListFragment();
+                ConstructionTeamListFragment constructionTeamListFragment = ConstructionTeamListFragment.getInstance(customertable);
                 fragmentTransaction.replace(R.id.frame_layout,constructionTeamListFragment).addToBackStack(null).commit();
                 break;
 
             case R.id.payment_linear:
-                PaymentDetailsFragment paymentDetailsFragment=new PaymentDetailsFragment();
+                PaymentDetailsFragment paymentDetailsFragment=PaymentDetailsFragment.getInstance(customertable);
                 fragmentTransaction.replace(R.id.frame_layout,paymentDetailsFragment).addToBackStack(null).commit();
                 break;
 
