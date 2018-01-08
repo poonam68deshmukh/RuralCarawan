@@ -1,18 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-    android:background="@mipmap/background_image"
+                android:background="@mipmap/background_image"
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_add_address"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/Brown"
+        app:navigationIcon="@drawable/back_arrow"
         app:title="Current Location"
-        app:titleTextColor="#fff"/>
+        app:titleTextColor="#fff">
+
+
+    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="fill_parent"

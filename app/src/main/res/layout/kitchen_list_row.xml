@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip">
+
+        <ImageView
+            android:id="@+id/list_image"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:padding="5dp"
+            android:src="@drawable/kitchen_image"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/l1"
+        android:layout_toRightOf="@+id/thumbnail">
+
+
+        <TextView
+            android:id="@+id/houseType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/thumbnail"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:text="Customer Name"
+            android:gravity="center|start"
+            android:layout_gravity="center|start"
+            android:textColor="#040404"
+            android:padding="2dp"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/roofType"
+        android:gravity="center|start"
+        android:layout_gravity="center|start"
+        android:text="Roof Type"
+        android:textStyle="bold"
+        android:textSize="15dip"
+        android:layout_below="@id/l1"/>
+</RelativeLayout>

@@ -27,9 +27,9 @@ public class PaymentDetailsHelper {
             values.put(PaymentTable.ADVANCE_AMOUNT,paymentTable.getAdvance_amountValue());
             values.put(PaymentTable.REMAINING_AMOUNT,paymentTable.getReamaining_amountValue());
             values.put(PaymentTable.UPLOAD_STATUS,paymentTable.getUpload_statusValue());
-            values.put(PaymentTable.IMAGE_PATH,paymentTable.getImagePathValue());
+        //    values.put(PaymentTable.IMAGE_PATH,paymentTable.getImagePathValue());
             values.put(PaymentTable.CUSTOMER_ID,paymentTable.getCustomerIdValue());
-            values.put(PaymentTable.CUSTOMER_NAME,paymentTable.getCustomerName());
+         //   values.put(PaymentTable.CUSTOMER_NAME,paymentTable.getCustomerName());
 
             if (db.insert(PaymentTable.PAYMENT_TABLE, null, values) > 0)
             {
@@ -61,9 +61,9 @@ public class PaymentDetailsHelper {
             values.put(PaymentTable.ADVANCE_AMOUNT,paymentTable.getAdvance_amountValue());
             values.put(PaymentTable.REMAINING_AMOUNT,paymentTable.getReamaining_amountValue());
             values.put(PaymentTable.UPLOAD_STATUS,paymentTable.getUpload_statusValue());
-            values.put(PaymentTable.IMAGE_PATH,paymentTable.getImagePathValue());
+            //values.put(PaymentTable.IMAGE_PATH,paymentTable.getImagePathValue());
             values.put(PaymentTable.CUSTOMER_ID,paymentTable.getCustomerIdValue());
-            values.put(PaymentTable.CUSTOMER_NAME,paymentTable.getCustomerName());
+           /// values.put(PaymentTable.CUSTOMER_NAME,paymentTable.getCustomerName());
 
             // upadating Row
             if(db.update(PaymentTable.PAYMENT_TABLE, values, PaymentTable.PAYMENT_ID+"="+paymentTable.getPayment_idValue(), null)>0)
@@ -102,9 +102,9 @@ public class PaymentDetailsHelper {
                 paymentTable.setAdvance_amountValue(cursor.getString(cursor.getColumnIndex(PaymentTable.ADVANCE_AMOUNT)));
                 paymentTable.setReamaining_amountValue(cursor.getString(cursor.getColumnIndex(PaymentTable.REMAINING_AMOUNT)));
                 paymentTable.setUpload_statusValue(cursor.getString(cursor.getColumnIndex(PaymentTable.UPLOAD_STATUS)));
-                paymentTable.setImagePathValue(cursor.getString(cursor.getColumnIndex(PaymentTable.IMAGE_PATH)));
+               // paymentTable.setImagePathValue(cursor.getString(cursor.getColumnIndex(PaymentTable.IMAGE_PATH)));
                 paymentTable.setCustomerIdValue(cursor.getString(cursor.getColumnIndex(PaymentTable.CUSTOMER_ID)));
-                paymentTable.setCustomerName(cursor.getString(cursor.getColumnIndex(PaymentTable.CUSTOMER_NAME)));
+              //  paymentTable.setCustomerName(cursor.getString(cursor.getColumnIndex(PaymentTable.CUSTOMER_NAME)));
 
                 paymentTableArrayList.add(paymentTable);
                 cursor.moveToNext();

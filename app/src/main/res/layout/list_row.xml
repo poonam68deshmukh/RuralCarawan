@@ -17,7 +17,7 @@
             android:id="@+id/list_image"
             android:layout_width="50dip"
             android:layout_height="50dip"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/user_profile"/>
 
     </LinearLayout>
 

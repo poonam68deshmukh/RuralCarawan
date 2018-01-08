@@ -1,6 +1,7 @@
 package com.hatchers.ruralcaravane.KitchenSuitability;
 
 import android.app.AlertDialog;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -119,19 +120,19 @@ public class kitchenSuitabilityFragment extends Fragment implements
             Bitmap bitmap = BitmapFactory.decodeFile(profile.getAbsolutePath());
             takePicture.setImageBitmap(bitmap);
 
-
             // to set the background color (color should have some alpha val)
             //  diagonalView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             // to make the solid color diagonal
             //  diagonalView.setSolidColor(getResources().getColor(R.color.colorPrimaryDark));
 
-        } else {
+        }
+        else
+        {
             takePicture.setImageResource(R.mipmap.take_picture_image);
-
         }
 
-
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -141,7 +142,8 @@ public class kitchenSuitabilityFragment extends Fragment implements
     }
 
 
-    private void initializations(View view) {
+    private void initializations(View view)
+    {
         kitchen_toolbar = (Toolbar) view.findViewById(R.id.kitchen_toolbar);
         kitchen_btnBack = (ImageButton) view.findViewById(R.id.kitchen_btnBack);
         house_type = (Spinner) view.findViewById(R.id.house_type_survey);
@@ -150,7 +152,6 @@ public class kitchenSuitabilityFragment extends Fragment implements
         takePicture = (ImageView) view.findViewById(R.id.takePicture);
         upload = (Button) view.findViewById(R.id.upload);
         kitchenUniqueIdText=(TextView)view.findViewById(R.id.kitchenUniqueIdText);
-
 
     }
 
@@ -194,10 +195,9 @@ public class kitchenSuitabilityFragment extends Fragment implements
                                 kitchen_height.setText("");
                                 takePicture.setImageResource(R.mipmap.chullha);
 
-
                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                                 AddKitchenAddress paymentDetailsFragment=new AddKitchenAddress();
-                                fragmentTransaction.replace(R.id.frame_layout,paymentDetailsFragment).addToBackStack(null).commit();
+                                fragmentTransaction.replace(R.id.frame_layout,paymentDetailsFragment).commit();
 
                             }
                         });
@@ -219,6 +219,7 @@ public class kitchenSuitabilityFragment extends Fragment implements
                 }
             }
         });
+
 
     }
 

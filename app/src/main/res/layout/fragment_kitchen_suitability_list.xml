@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background_image"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.hatchers.ruralcaravane.KitchenSuitability.KitchenSuitabilityList">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="#816830"
+        android:id="@+id/kitchenListToolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arrow"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:id="@+id/kitchenList_btnBack"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_title"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="Kitchen List"
+                android:layout_marginLeft="15dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_below="@id/kitchenListToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/kitchenRecyclerView"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/kitchenList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/kitchenRecyclerView"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        app:fabSize="normal"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/add_kitchen_list" />
+
+    </FrameLayout>
+
+</RelativeLayout>
+
