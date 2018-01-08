@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:nestedScrollingEnabled="true"
     android:background="@mipmap/background_image"
-    tools:context=".CustomerRegistration.AddCustomerFragment">
+    tools:context=".customer_registration.AddCustomerFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -144,38 +144,85 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_below="@id/customername_layout"
-        android:background="@drawable/shape"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/villagename_layout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp">
+            <!-- city -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/city_spinnerLayout"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/shape">
 
-        <android.support.design.widget.TextInputEditText
-            android:drawableLeft="@drawable/village_name1"
-            android:background="@android:color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Village Name "
-            android:textColorHint="#816830"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center"
-            android:drawablePadding="20dp"
-            android:id="@+id/village_name"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:textSize="18dp"
-            android:padding="15dp"
-            />
 
-    </android.support.design.widget.TextInputLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/house_type"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center|start"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_below="@id/villagename_layout"
+                <Spinner
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/city_spinner"
+                    android:padding="5dp"
+                    android:layout_marginLeft="50dp"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|end"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/spinner_drop_down"/>
+
+            </FrameLayout>
+
+            <!-- village -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/village_spinnerLayout"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/shape">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/house_type"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center|start"/>
+
+                <Spinner
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/village_spinner"
+                    android:padding="5dp"
+                    android:layout_marginLeft="50dp"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|end"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/spinner_drop_down"/>
+
+            </FrameLayout>
+
+
+
+            <android.support.design.widget.TextInputLayout
         android:background="@drawable/shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -7,7 +7,7 @@
     android:nestedScrollingEnabled="true"
     xmlns:squint="http://schemas.android.com/apk/res-auto"
     android:background="@mipmap/background_image"
-    tools:context=".ConstructionTeamDetails.ConstructionTeamRegistrationFragment">
+    tools:context=".construction_team.ConstructionTeamRegistrationFragment">
 
 
     <android.support.v7.widget.Toolbar

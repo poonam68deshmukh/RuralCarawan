@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@mipmap/background_image"
+    tools:context="com.hatchers.ruralcaravane.kitchen_suitability.KitchenConstuctionFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="#816830"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/back_arrow"
+        app:title="Kitchen Details"
+        android:id="@+id/kitchen_const_Toolbar">
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:paddingBottom="20dp">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/housetype_txt"
+            android:textColor="@color/black"
+            android:gravity="center|start"
+            android:background="@drawable/shape"
+            android:text="House Type : " />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="20dp"
+            android:id="@+id/roogtype_txt"
+            android:textColor="@color/black"
+            android:background="@drawable/shape"
+            android:gravity="center|start"
+            android:text="Roof Type : " />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/height_txt"
+            android:textColor="@color/black"
+            android:background="@drawable/shape"
+            android:gravity="center|start"
+            android:layout_marginLeft="20dp"
+            android:text="Height : " />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/const_list" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_const"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/add_kitchen_list"
+            android:layout_marginRight="20dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/background_image"
-    tools:context=".KitchenSuitability.KitchenSuitabilityFragment">
+    tools:context=".kitchen_suitability.KitchenSuitabilityFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -117,20 +117,22 @@
 
         <Spinner
             android:background="@android:color/transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
             android:id="@+id/house_type_survey"
             android:padding="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
+            android:layout_marginRight="20dp"
             android:spinnerMode="dropdown"
             />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/spinner_dropdown_house"
-            android:layout_gravity="center"
+            android:layout_gravity="center|end"
             android:layout_marginRight="10dp"
             android:src="@drawable/spinner_drop_down"/>
 
@@ -244,8 +246,6 @@
         android:layout_marginBottom="10dp"
         android:text="Next"
         android:id="@+id/upload"/>
-
-
 
         </LinearLayout>
 

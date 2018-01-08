@@ -54,10 +54,5 @@
         android:textStyle="bold"
         android:textSize="15dip"
         android:layout_below="@id/l1"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/constructionRecyclerView"
-        android:scrollbars="vertical"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
 </RelativeLayout>

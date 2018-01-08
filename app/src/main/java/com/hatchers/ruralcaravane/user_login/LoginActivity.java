@@ -1,6 +1,5 @@
 package com.hatchers.ruralcaravane.user_login;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.hatchers.ruralcaravane.Pref_Manager.PrefManager;
+import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.user_login.apihelper.Login_ApiHelper;
 

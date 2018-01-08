@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -22,7 +22,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBVzSc95wc04gt_bCX2g1EekwVqnwJjVOU" />
 
-        <activity android:name=".Activity.SplashActivity">
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,10 +30,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".user_login.LoginActivity" />
-        <activity android:name=".Activity.CustomerMenus" />
-        <activity android:name=".CustomerRegistration.CustomerRegistrationActivity" />
-        <activity android:name=".KitchenSuitability.FindGeoLocationActivity">
+        <activity android:name=".activity.CustomerMenus" />
+        <activity android:name=".customer_registration.CustomerRegistrationActivity" />
+        <activity android:name=".kitchen_suitability.FindGeoLocationActivity">
         </activity>
+        <activity android:name=".scaner.AdharScanner" />
     </application>
 
 </manifest>

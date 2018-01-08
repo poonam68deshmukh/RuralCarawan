@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/background_image"
-    tools:context="com.hatchers.ruralcaravane.PaymentDetails.PaymentDetailsFragment">
+    tools:context="com.hatchers.ruralcaravane.payment_details.PaymentDetailsFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
