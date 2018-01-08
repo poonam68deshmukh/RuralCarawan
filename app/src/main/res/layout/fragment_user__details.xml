@@ -1,0 +1,162 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+    android:background="@mipmap/background_image"
+    tools:context="com.hatchers.ruralcaravane.user_login.UserDetailsFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="#816830"
+        android:id="@+id/userDetailsToolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arrow"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:id="@+id/userDetails_btnBack"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_title"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="User Registration Details"
+                android:layout_marginLeft="15dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_below="@id/userDetailsToolbar"
+        android:id="@+id/imageShapeFrame"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+
+    <ImageView
+        android:layout_below="@id/userDetailsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_shape"
+        android:background="@drawable/shape4"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profileImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/user_registration_profile"
+            app:border_color="@color/DarkBrown"
+            app:border_width="2dp" />
+
+
+    </FrameLayout>
+
+        <RelativeLayout
+            android:layout_below="@id/imageShapeFrame"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:drawableLeft="@drawable/user"
+                android:drawablePadding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Name"
+                android:textColorHint="@color/DarkBrown"
+                android:padding="20dp"
+                android:textSize="20dp"
+                android:id="@+id/name"/>
+
+
+
+           <!-- <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/passwordlayout"
+                android:layout_below="@id/name">
+
+                <TextView
+                    android:drawableLeft="@drawable/password"
+                    android:drawablePadding="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="Password "
+                    android:textColorHint="@color/DarkBrown"
+                    android:textSize="20dp"
+                    android:id="@+id/password"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:id="@+id/password_visible"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/eye_show"/>
+            </FrameLayout>-->
+
+
+
+            <TextView
+                android:drawableLeft="@drawable/date_of_birth"
+                android:drawablePadding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:padding="20dp"
+                android:text="Date of birth"
+                android:textSize="20dp"
+                android:textColorHint="@color/DarkBrown"
+                android:id="@+id/date_of_birth"/>
+
+
+            <TextView
+                android:drawableLeft="@drawable/mobile_number"
+                android:drawablePadding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/date_of_birth"
+                android:padding="20dp"
+                android:textColorHint="@color/DarkBrown"
+                android:text="Mobile Number  "
+                android:textSize="20dp"
+                android:id="@+id/mobile_number"/>
+
+
+            <TextView
+                android:drawableLeft="@drawable/village_name"
+                android:drawablePadding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mobile_number"
+                android:padding="20dp"
+                android:textColorHint="@color/DarkBrown"
+                android:text="Village Name  "
+                android:textSize="20dp"
+                android:id="@+id/village_name"/>
+
+        </RelativeLayout>
+</RelativeLayout>
