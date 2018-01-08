@@ -14,7 +14,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +25,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTable;
 import com.hatchers.ruralcaravane.CustomerRegistration.Databases.CustomerTableHelper;
-import com.hatchers.ruralcaravane.KitchenSuitability.kitchenSuitabilityFragment;
 import com.hatchers.ruralcaravane.R;
 
 import java.io.ByteArrayOutputStream;
@@ -150,6 +147,7 @@ public class AddCustomerFragment extends Fragment {
                         sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                         sweetAlertDialog.setTitleText("Customer Data Added Successfully");
                         sweetAlertDialog.setConfirmText("Ok");
+
                         sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                             @Override

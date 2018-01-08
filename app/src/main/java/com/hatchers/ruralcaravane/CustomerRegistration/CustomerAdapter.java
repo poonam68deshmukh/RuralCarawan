@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class CustomerAdapter extends FragmentPagerAdapter {
+public class CustomerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
