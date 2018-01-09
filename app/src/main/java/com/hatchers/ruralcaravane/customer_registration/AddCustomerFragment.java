@@ -40,6 +40,9 @@ import com.hatchers.ruralcaravane.customer_registration.model.City;
 import com.hatchers.ruralcaravane.customer_registration.model.CityVillageList;
 import com.hatchers.ruralcaravane.customer_registration.model.Village;
 import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.file.FileHelper;
+import com.hatchers.ruralcaravane.file.FileType;
+import com.hatchers.ruralcaravane.file.Folders;
 import com.hatchers.ruralcaravane.scaner.AadhaarCard;
 import com.hatchers.ruralcaravane.scaner.AdharScanner;
 import com.hatchers.ruralcaravane.scaner.AdharXMLParser;
@@ -62,7 +65,7 @@ public class AddCustomerFragment extends Fragment {
 
     private static final String IMAGE_DIRECTORY = "/RuraralCaravane";
     private int CAMERA = 1,GALLERY=2,ADHARSCAN=3;;
-
+    Bitmap custBitmap;
     CustomerTable customer_table;
     private String selected_gender = "";
     private Button save,ScanByAadhar;
@@ -117,6 +120,7 @@ public class AddCustomerFragment extends Fragment {
         {
             Bitmap bitmap = BitmapFactory.decodeFile(profile.getAbsolutePath());
             profileImage.setImageBitmap(bitmap);
+            custBitmap=bitmap;
 
             // to set the background color (color should have some alpha val)
             //  diagonalView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -127,6 +131,7 @@ public class AddCustomerFragment extends Fragment {
         else
         {
             profileImage.setImageResource(R.drawable.user_profile);
+            custBitmap=null;
         }
 
     }
@@ -337,6 +342,7 @@ public class AddCustomerFragment extends Fragment {
                                 sweetAlertDialog.dismissWithAnimation();
 
                                 profileImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
+                                custBitmap=null;
                                 customer_name.setText("");
                                 customer_address.setText("");
                                 customer_mobileno.setText("");
@@ -476,9 +482,10 @@ public class AddCustomerFragment extends Fragment {
                 Uri contentURI = data.getData();
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
-                    String path = saveImage(bitmap);
+
                     Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
                     profileImage.setImageBitmap(bitmap);
+                    custBitmap=bitmap;
                    // diagonalView.setImageBitmap(bitmap);
                     //diagonalView.setBitmap(bitmap);
 
@@ -491,43 +498,13 @@ public class AddCustomerFragment extends Fragment {
         } else if (requestCode == CAMERA) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             profileImage.setImageBitmap(thumbnail);
-            saveImage(thumbnail);
+            custBitmap=thumbnail;
            // diagonalView.setImageBitmap(thumbnail);
             //diagonalView.setBitmap(thumbnail);
-
-
-            Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
-        }
+  }
     }
 
-    public String saveImage(Bitmap myBitmap)
-    {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
-        }
 
-        try {
-            File f = new File(wallpaperDirectory, "profile.jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(getContext(),
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-    }
 
     private boolean setCustomerData()
     {
@@ -544,7 +521,7 @@ public class AddCustomerFragment extends Fragment {
         customer_table.setVillageIdValue(villageId);
         customer_table.setAddedDateValue(getCurrentDateTime());
         customer_table.setUpload_statusValue("0");
-
+        FileHelper.savePNGImage(Folders.CHULHAFOLDER,custBitmap);
         return false;
     }
 
