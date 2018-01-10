@@ -116,38 +116,14 @@ public class AddCustomerFragment extends Fragment {
         villageSelectedListner();
         setProfilePhoto();
 
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getActivity(),
-                    Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED) {
-            }
-
-            else {
-                //Request Camera Permission
-                checkLocationPermission();
-            }
-            }
-
-        else {
-            // setLocationListener();
-
-        }
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
-        }
-
         return view;
     }
 
 
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 99;
 
-    private void checkLocationPermission() {
+    private void checkLocationPermission()
+    {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -184,7 +160,8 @@ public class AddCustomerFragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_CAMERA: {
                 // If request is cancelled, the result arrays are empty.
@@ -244,7 +221,25 @@ public class AddCustomerFragment extends Fragment {
 
     private void initializations(View view)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+            }
+
+            else {
+                //Request Camera Permission
+                checkLocationPermission();
+            }
+        }
+
+        else {
+            // setLocationListener();
+
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
