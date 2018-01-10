@@ -49,7 +49,6 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
     private String selectedGender = "";
     PrefManager prefManager;
     private int ADHARSCAN=01;
-
     ConstructionTable constructionTable;
 
     public static ConstructionTeamRegistrationFragment newInstance(KitchenTable kitchenTable)
