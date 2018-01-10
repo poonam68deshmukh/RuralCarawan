@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.hatchers.ruralcaravane.R;
 

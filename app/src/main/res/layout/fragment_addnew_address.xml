@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@mipmap/background_image"
+                android:background="@color/colorWhite"
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -9,7 +9,7 @@
         android:id="@+id/toolbar_add_address"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/Brown"
+        android:background="@color/colorAccent"
         app:navigationIcon="@drawable/back_arrow"
         app:title="Current Location"
         app:titleTextColor="#fff">
@@ -43,16 +43,16 @@
                 android:id="@+id/btnpickAdress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/Brown"
+                android:background="@color/colorAccent"
                 android:textAllCaps="false"
                 android:text="Tap to pick your location"
-                android:textColor="#fff"/>
+                android:textColor="@color/colorWhite"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:background="@mipmap/background_image">
+                android:background="@color/colorWhite">
 
                <ImageView
                    android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="18dp"
-                    android:textColor="@color/DarkBrown"
+                    android:textColor="@color/colorAccent"
                     android:id="@+id/place_name"
                     android:gravity="center|start"
                     android:layout_marginLeft="5dp"
@@ -74,7 +74,7 @@
                     android:text="Place name"/>
 
                 <TextView
-                    android:textColor="@color/DarkBrown"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/loc_img"
@@ -94,8 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:background="@color/Brown"
-        android:textColor="#fff"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

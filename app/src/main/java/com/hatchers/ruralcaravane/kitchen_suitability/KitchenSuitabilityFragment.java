@@ -175,7 +175,7 @@ public class KitchenSuitabilityFragment extends Fragment implements
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.DarkBrown));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
 
 
@@ -252,6 +252,7 @@ public class KitchenSuitabilityFragment extends Fragment implements
 
     private void setKitchenData()
     {
+
         kitchen_table = new KitchenTable();
         kitchen_table.setHouse_typeValue(house_type.getSelectedItem().toString());
         kitchen_table.setRoof_typeValue(roof_type.getSelectedItem().toString());

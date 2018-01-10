@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerVertical="true"
-    android:background="@mipmap/background_image"
+    android:background="@color/colorWhite"
     tools:context="com.hatchers.ruralcaravane.user_login.UserDetailsFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="#816830"
+        android:background="@color/colorAccent"
         android:id="@+id/userDetailsToolbar">
 
         <LinearLayout
@@ -42,7 +42,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_below="@id/userDetailsToolbar"
         android:id="@+id/imageShapeFrame"
         android:layout_width="match_parent"
@@ -53,8 +53,7 @@
         android:layout_below="@id/userDetailsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/image_shape"
-        android:background="@drawable/shape4"/>
+        android:id="@+id/image_shape"/>
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -65,15 +64,17 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:src="@drawable/user_registration_profile"
-            app:border_color="@color/DarkBrown"
+            app:border_color="@color/colorWhite"
             app:border_width="2dp" />
 
 
-    </FrameLayout>
+    </FrameLayout>-->
 
         <RelativeLayout
-            android:layout_below="@id/imageShapeFrame"
-            android:layout_marginTop="15dp"
+            android:layout_below="@id/userDetailsToolbar"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -84,7 +85,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Customer Name"
-                android:textColorHint="@color/DarkBrown"
                 android:padding="20dp"
                 android:textSize="20dp"
                 android:id="@+id/name"/>
@@ -121,16 +121,15 @@
 
 
             <TextView
-                android:drawableLeft="@drawable/date_of_birth"
+                android:drawableLeft="@drawable/customer_age"
                 android:drawablePadding="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name"
                 android:padding="20dp"
-                android:text="Date of birth"
+                android:text="Age"
                 android:textSize="20dp"
-                android:textColorHint="@color/DarkBrown"
-                android:id="@+id/date_of_birth"/>
+                android:id="@+id/age"/>
 
 
             <TextView
@@ -138,9 +137,8 @@
                 android:drawablePadding="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/date_of_birth"
+                android:layout_below="@id/age"
                 android:padding="20dp"
-                android:textColorHint="@color/DarkBrown"
                 android:text="Mobile Number  "
                 android:textSize="20dp"
                 android:id="@+id/mobile_number"/>
@@ -153,10 +151,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/mobile_number"
                 android:padding="20dp"
-                android:textColorHint="@color/DarkBrown"
                 android:text="Village Name  "
                 android:textSize="20dp"
                 android:id="@+id/village_name"/>
+
 
         </RelativeLayout>
 </RelativeLayout>

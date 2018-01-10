@@ -9,14 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 import com.hatchers.ruralcaravane.user_login.apihelper.Login_ApiHelper;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class
-LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private Button login;
     private EditText edtName, edtPassword;
@@ -35,7 +34,7 @@ LoginActivity extends AppCompatActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.LoginStatusColor));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorAccent));
         }
     }
 

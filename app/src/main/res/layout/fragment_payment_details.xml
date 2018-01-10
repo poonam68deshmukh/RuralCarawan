@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background_image"
+    android:background="@color/colorWhite"
     tools:context="com.hatchers.ruralcaravane.payment_details.PaymentDetailsFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="#816830"
+        android:background="@color/colorAccent"
         android:id="@+id/payment_toolbar">
 
         <LinearLayout
@@ -32,7 +32,7 @@
                 android:id="@+id/toolbar_title"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWhite"
                 android:text=" Payment Details "
                 android:layout_marginLeft="15dp"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
@@ -78,7 +78,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Cost Of Chullha "
-            android:textColorHint="#816830"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
@@ -108,7 +107,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Advance Amount "
-                android:textColorHint="#816830"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
@@ -138,7 +136,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Remaining Amount "
-                    android:textColorHint="#816830"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
@@ -169,7 +166,7 @@
     <Button
         android:text="Save"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -83,10 +83,8 @@ public class KitchenTableHelper {
             values.put(KitchenTable.STEP1_IMAGE,kitchen_table.getStep1_imageValue());
             values.put(KitchenTable.STEP2_IMAGE,kitchen_table.getStep2_imageValue());
 
-
-
             // upadating Row
-            if(db.update(KitchenTable.KITCHEN_TABLE, values, KitchenTable.KITCHEN_UNIQUE_ID+"='"+kitchen_table.getKitchen_idValue()+"'", null)>0)
+            if(db.update(KitchenTable.KITCHEN_TABLE, values, KitchenTable.KITCHEN_UNIQUE_ID+"='"+kitchen_table.getKitchenUniqueIdValue()+"'", null)>0)
             {
                 Toast.makeText(context,"Kitchen data updated",Toast.LENGTH_LONG).show();
                 db.close();
@@ -156,9 +154,7 @@ public class KitchenTableHelper {
 
             Toast.makeText(context, "Kitchen Data Deleted Successfully", Toast.LENGTH_SHORT).show();
 
-
             db.close();
-
 
             return true;
         } catch (Exception e) {
@@ -173,12 +169,9 @@ public class KitchenTableHelper {
 
             db.execSQL("DELETE FROM " + KitchenTable.KITCHEN_TABLE ); //delete all rows in titlebackground table
 
-
             Toast.makeText(context,"Kitchen data Deleted Successfully",Toast.LENGTH_SHORT).show();
 
-
             db.close();
-
 
             return true;
         } catch (Exception e) {

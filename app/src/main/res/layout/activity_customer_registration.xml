@@ -1,15 +1,19 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@mipmap/background_image"
+    android:background="@color/colorWhite"
     tools:context=".customer_registration.CustomerRegistrationActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
-        android:background="@color/Brown"
+        android:background="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -18,50 +22,27 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="#816830"
+        android:background="@color/colorAccent"
         app:title="Customer Information"
         android:id="@+id/customer_toolbar">
 
-      <!--  <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/toolbar_title"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:text="Customer Information "
-                android:layout_marginLeft="15dp"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
-
-        </LinearLayout>
--->
     </android.support.v7.widget.Toolbar>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs_layout"
-        android:layout_below="@id/customer_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabTextColor="@color/white"
-        app:tabMode="fixed"
-        app:tabGravity="fill"/>
-
-        <FrameLayout
-            android:id="@+id/simpleFrameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs_layout"
+            android:layout_below="@id/customer_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@color/DarkGrey"
+            app:tabSelectedTextColor="@color/colorWhite"
+            app:tabMode="fixed"
+            android:background="@color/colorAccent"
+            app:tabGravity="fill"/>
+
+        <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,10 +52,12 @@
 
     </android.support.v4.view.ViewPager>
 
-    <!--<FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/customerActivity_FrameLayout">
+    </LinearLayout>
 
-    </FrameLayout>-->
-</android.support.design.widget.CoordinatorLayout>
+    <FrameLayout
+        android:id="@+id/frame_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</RelativeLayout>

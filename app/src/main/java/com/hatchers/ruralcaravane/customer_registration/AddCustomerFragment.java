@@ -1,9 +1,11 @@
 package com.hatchers.ruralcaravane.customer_registration;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
@@ -13,8 +15,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +52,15 @@ import com.hatchers.ruralcaravane.scaner.AadhaarCard;
 import com.hatchers.ruralcaravane.scaner.AdharScanner;
 import com.hatchers.ruralcaravane.scaner.AdharXMLParser;
 
+import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,7 +116,105 @@ public class AddCustomerFragment extends Fragment {
         villageSelectedListner();
         setProfilePhoto();
 
-    return view;
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+            }
+
+            else {
+                //Request Camera Permission
+                checkLocationPermission();
+            }
+            }
+
+        else {
+            // setLocationListener();
+
+        }
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
+        }
+
+        return view;
+    }
+
+
+    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 99;
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.CAMERA)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Camera Permission Needed")
+                        .setMessage("This app needs the camera permission, please accept to use location functionality")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.CAMERA},
+                                        MY_PERMISSIONS_REQUEST_CAMERA );
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA );
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                try {
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        // permission was granted, yay! Do the
+                        // location-related task you need to do.
+                        if (ContextCompat.checkSelfPermission(getActivity(),
+                                Manifest.permission.CAMERA)
+                                == PackageManager.PERMISSION_GRANTED) {
+
+
+                        }
+
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+                        Toast.makeText(getActivity(), "permission denied", Toast.LENGTH_LONG).show();
+                    }
+                    return;
+                } catch (Exception e) {
+                }
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private void setProfilePhoto()
@@ -142,7 +248,7 @@ public class AddCustomerFragment extends Fragment {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.DarkBrown));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
         cityArrayList =new ArrayList<City>();
         villageArrayList = new ArrayList<Village>();
@@ -453,28 +559,23 @@ public class AddCustomerFragment extends Fragment {
         }
         if(requestCode == ADHARSCAN)
         {
-
             String adharData=data.getStringExtra("MESSAGE");
-            Uri a=data.getData();
 
-            try
-            {
-                try
-                {
-                    AadhaarCard newCard = new AdharXMLParser().parse(adharData);
-                    customer_name.setText(newCard.name);
+
+            //try
+            //{
+
+                    parseQRCode(adharData);
+                   /* AadhaarCard newCard = new AdharXMLParser().parse(adharData);
+                  0  customer_name.setText(newCard.name);
                     customer_address.setText(newCard.getAddress());
-                    customer_age.setText(newCard.yob);
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-            catch (XmlPullParserException e)
+                    customer_age.setText(newCard.yob);*/
+
+           // }
+            /*catch (XmlPullParserException e)
             {
                 e.printStackTrace();
-            }
+            }*/
 
             }
         if (requestCode == GALLERY) {
@@ -503,6 +604,69 @@ public class AddCustomerFragment extends Fragment {
             //diagonalView.setBitmap(thumbnail);
   }
     }
+
+    void parseQRCode(String qrResponse)
+    {
+
+        String newWord = qrResponse.substring(0,1)+qrResponse.substring(2);       /* String a="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<PrintLetterBarcodeData \n" +
+                "uid=\"275821312546\" \n" +
+                "name=\"Prasad Wamanrao Gote\" \n" +
+                "gender=\"M\" \n" +
+                "yob=\"1990\" \n" +
+                "co=\"S/O Wamanrao Gote\" \n" +
+                "lm=\"GUAVA TREE\" \n" +
+                "loc=\"NEW SWAMI VIVEKANAND HOUSING SOC, PLOT N. 12 N-8\" \n" +
+                "vtc=\"CIDCO\" \n" +
+                "dist=\"Aurangabad\" \n" +
+                "state=\"Maharashtra\" \n" +
+                "pc=\"431003\"/>";
+       */
+
+       /*
+       </?xml version="1.0" encoding="UTF-8"?> <PrintLetterBarcodeData uid="679503416602" name="Gopika Narayan Nikam" gender="FEMALE" yob="1994" co="null" lm="near kumavat mangal karyalay" loc="suyong colony,padampura" vtc="Aurangabad" po="Kranti Chowk" dist="Aurangabad" state="Maharashtra" pc="431005" dob="30-07-1994"/>
+       */
+       XmlPullParser parser = null;
+        InputStream stream = null;
+        try {
+            parser = Xml.newPullParser();
+            stream = new ByteArrayInputStream(newWord.getBytes("UTF-8"));
+            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            parser.setInput(stream, null);
+            parser.nextTag();
+            if (!parser.getName().equals("PrintLetterBarcodeData")) {
+                // not an Aadhaar QR Code
+                // mIntentIntegrator.initiateScan();
+                return;
+            }
+            String uid = parser.getAttributeValue(null, "uid");
+            String name = parser.getAttributeValue(null, "name");
+            String pincode = parser.getAttributeValue(null, "pc");
+            String gender = parser.getAttributeValue(null,"gender");
+            String year = parser.getAttributeValue(null,"yob");
+            String houseName = parser.getAttributeValue(null,"co");
+            Toast.makeText(getActivity(),name,Toast.LENGTH_LONG).show();
+            customer_name.setText(name);
+            //customer_address.setText(newCard.getAddress());
+            //customer_age.setText(newCard.yob);
+
+        } catch(XmlPullParserException xppe) {
+
+        } catch (IOException ioe) {
+
+        } finally {
+            try {
+                if (stream != null) {
+                    stream.close();
+                }
+            } catch (IOException ioe)
+            {
+
+            }
+
+        }
+    }
+
 
 
 

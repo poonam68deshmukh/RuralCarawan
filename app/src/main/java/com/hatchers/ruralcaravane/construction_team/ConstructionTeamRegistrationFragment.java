@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.hatchers.ruralcaravane.construction_team.database.ConstructionTable;
 import com.hatchers.ruralcaravane.construction_team.database.ConstructionTableHelper;
 import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
+import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -27,6 +29,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class ConstructionTeamRegistrationFragment extends Fragment {
 
     private KitchenTable kitchenTable;
+    private  FragmentTransaction fragmentTransaction;
     private Toolbar construction_toolbar;
     private ImageButton construction_btnBack;
     private Button saveBtn,register_Byscanid;
@@ -35,6 +38,7 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
     private RadioGroup radioGroupGender;
     private RadioButton male, female;
     private String selectedGender = "";
+    PrefManager prefManager;
 
     ConstructionTable constructionTable;
 
@@ -72,6 +76,13 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
         setGender();
 
 
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
+        }
 
 
         return view;
@@ -79,7 +90,9 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
 
     private void initializations(View view)
     {
+        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         construction_toolbar = (Toolbar) view.findViewById(R.id.construction_toolbar);
+
         construction_btnBack = (ImageButton) view.findViewById(R.id.construction_btnBack);
         register_Byscanid=(Button)view.findViewById(R.id.register_Byscanid);
         saveBtn = (Button) view.findViewById(R.id.saveBtn);

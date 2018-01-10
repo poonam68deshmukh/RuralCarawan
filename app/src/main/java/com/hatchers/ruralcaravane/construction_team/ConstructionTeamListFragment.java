@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -90,6 +92,9 @@ public class ConstructionTeamListFragment extends Fragment {
         constructionTables= ConstructionTableHelper.getConstructionTeamList(getContext());
         constructionListAdapter=new ConstructionListAdapter(getContext(),constructionTables);
 
+        constructionRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        constructionRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         constructionRecyclerView.setAdapter(constructionListAdapter);
         constructionListAdapter.notifyDataSetChanged();
 
@@ -114,9 +119,13 @@ public class ConstructionTeamListFragment extends Fragment {
             }
         });
 
+        constructionTeamListToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
     }
-
-
 
 }

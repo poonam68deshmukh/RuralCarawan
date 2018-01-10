@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hatchers.ruralcaravane.R;
@@ -31,6 +35,7 @@ public class KitchenConstuctionFragment extends Fragment {
     private ConstructionListAdapter constructionListAdapter;
     private FloatingActionButton add_construction;
     private TextView houseTypeTxt, roofTypeTxt, heightTxt;
+    private Toolbar kitchen_const_Toolbar;
 
 
     public KitchenConstuctionFragment()
@@ -66,6 +71,13 @@ public class KitchenConstuctionFragment extends Fragment {
 
         setKitchenData();
 
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
+        }
 
         return view;
     }
@@ -77,6 +89,7 @@ public class KitchenConstuctionFragment extends Fragment {
         houseTypeTxt = (TextView)view.findViewById(R.id.housetype_txt);
         roofTypeTxt = (TextView)view.findViewById(R.id.roogtype_txt);
         heightTxt = (TextView)view.findViewById(R.id.height_txt);
+        kitchen_const_Toolbar=(Toolbar)view.findViewById(R.id.kitchen_const_Toolbar);
 
         constructionRecyclerView = (RecyclerView) view.findViewById(R.id.const_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -84,6 +97,9 @@ public class KitchenConstuctionFragment extends Fragment {
 
         constructionTables= ConstructionTableHelper.getConstructionTeamListByKitchen(getContext(),kitchenTable.getKitchenUniqueIdValue());
         constructionListAdapter=new ConstructionListAdapter(getContext(),constructionTables);
+
+        constructionRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        constructionRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         constructionRecyclerView.setAdapter(constructionListAdapter);
         constructionListAdapter.notifyDataSetChanged();
@@ -105,6 +121,13 @@ public class KitchenConstuctionFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 ConstructionTeamRegistrationFragment constructionTeamRegistrationFragment= ConstructionTeamRegistrationFragment.newInstance(kitchenTable);
                 fragmentTransaction.replace(R.id.frame_layout,constructionTeamRegistrationFragment).addToBackStack(null).commit();
+            }
+        });
+
+        kitchen_const_Toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
     }

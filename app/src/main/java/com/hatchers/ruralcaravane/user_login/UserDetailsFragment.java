@@ -2,22 +2,22 @@ package com.hatchers.ruralcaravane.user_login;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 
 
 public class UserDetailsFragment extends Fragment {
 
 
+    PrefManager prefManager;
     private ImageButton userDetails_btnBack;
-
+    private TextView name,age,mobile_number,village_name;
     public UserDetailsFragment() {
         // Required empty public constructor
     }
@@ -31,6 +31,7 @@ public class UserDetailsFragment extends Fragment {
 
         initialization(view);
 
+        setUserDetails();
         //passwordClick();
 
         userDetails_btnBack.setOnClickListener(new View.OnClickListener() {
@@ -44,11 +45,26 @@ public class UserDetailsFragment extends Fragment {
 
     private void initialization(View view)
     {
+        prefManager=new PrefManager(getActivity());
         /*passwordTxt=(TextView)view.findViewById(R.id.password);
         visiblePassword=(ImageView)view.findViewById(R.id.password_visible);*/
         userDetails_btnBack=(ImageButton)view.findViewById(R.id.userDetails_btnBack);
+        name=(TextView)view.findViewById(R.id.name);
+        age=(TextView)view.findViewById(R.id.age);
+        mobile_number=(TextView)view.findViewById(R.id.mobile_number);
+        village_name=(TextView)view.findViewById(R.id.village_name);
+
     }
 
+
+    private void setUserDetails()
+    {
+        name.setText(String.valueOf("  " + prefManager.getUserName()));
+        age.setText(String.valueOf("  " + prefManager.getBirthday()));
+        mobile_number.setText(String.valueOf("  " + prefManager.getMobile()));
+        village_name.setText(String.valueOf("  " + prefManager.getVillageName()));
+
+    }
     /*private void passwordClick()
     {
         visiblePassword.setOnClickListener(new View.OnClickListener() {

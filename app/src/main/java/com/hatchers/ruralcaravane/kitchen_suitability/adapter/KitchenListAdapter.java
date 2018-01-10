@@ -18,6 +18,7 @@ import com.hatchers.ruralcaravane.kitchen_suitability.KitchenSuitabilityFragment
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
 import com.hatchers.ruralcaravane.R;
 import java.util.ArrayList;
+
 public class KitchenListAdapter extends RecyclerView.Adapter<KitchenListAdapter.ViewHolder>
 {
     private Context context;

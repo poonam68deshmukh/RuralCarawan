@@ -1,20 +1,13 @@
 package com.hatchers.ruralcaravane.scaner;
 
-import android.util.Log;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
 
 
 /**

@@ -18,13 +18,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.android.gms.maps.model.LatLng;
+import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
+import com.hatchers.ruralcaravane.googlemap.MapViewFragment;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTableHelper;
-import com.hatchers.ruralcaravane.R;
-import com.hatchers.ruralcaravane.googlemap.MapViewFragment;
 
 import java.io.IOException;
 import java.util.List;
@@ -102,6 +101,14 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
         View rootView = inflater.inflate(R.layout.fragment_addnew_address, container, false);
         initialise( rootView );
         clickListners();
+
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
+        }
 
         return rootView;
     }
@@ -184,7 +191,6 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
                             }
                         });
                     }
-
                 }
 
                 else

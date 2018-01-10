@@ -2,6 +2,8 @@ package com.hatchers.ruralcaravane.customer_registration;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -45,6 +47,8 @@ public class CustomerListFragment extends Fragment {
         customerTables= CustomerTableHelper.getCustomerdataList(getContext());
         customerListAdapter= new CustomerListAdapter(getContext(),customerTables);
 
+        customerRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        customerRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         customerRecyclerView.setAdapter(customerListAdapter);
         customerListAdapter.notifyDataSetChanged();
@@ -64,7 +68,7 @@ public class CustomerListFragment extends Fragment {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.DarkBrown));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
 
     return view;
@@ -81,9 +85,6 @@ public class CustomerListFragment extends Fragment {
 
 
     }
-
-
-
 
 
 }

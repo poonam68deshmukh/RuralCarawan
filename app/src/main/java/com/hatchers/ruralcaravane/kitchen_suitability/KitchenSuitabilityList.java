@@ -5,6 +5,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -79,6 +81,10 @@ public class KitchenSuitabilityList extends Fragment {
         kitchenRecyclerView.setLayoutManager(layoutManager);
         kitchenTables= KitchenTableHelper.getKitchenDataList(getContext(),customertable);
         kitchenListAdapter=new KitchenListAdapter(getContext(),kitchenTables);
+
+        kitchenRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        kitchenRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         kitchenRecyclerView.setAdapter(kitchenListAdapter);
         kitchenListAdapter.notifyDataSetChanged();
 
@@ -87,7 +93,7 @@ public class KitchenSuitabilityList extends Fragment {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.DarkBrown));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
 
     }
@@ -111,8 +117,5 @@ public class KitchenSuitabilityList extends Fragment {
             }
         });
     }
-
-
-
 
 }

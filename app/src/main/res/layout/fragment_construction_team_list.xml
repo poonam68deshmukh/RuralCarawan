@@ -2,14 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.hatchers.ruralcaravane.construction_team.ConstructionTeamListFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="#816830"
-        app:titleTextColor="@color/white"
+        android:background="@color/colorAccent"
+        app:titleTextColor="@color/colorWhite"
         app:title="Construction Team List"
         app:navigationIcon="@drawable/back_arrow"
         android:id="@+id/constructionTeamListToolbar">

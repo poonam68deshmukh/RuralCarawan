@@ -9,6 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:visibility="gone"
-        android:background="#fff">
+        android:background="@color/colorWhite">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -60,10 +61,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/save_location_btn"
-        android:background="@color/Brown"
+        android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:text="Save Current Location"
-        android:textColor="#fff"/>
+        android:textColor="@color/colorWhite"/>
 
 </LinearLayout>
 

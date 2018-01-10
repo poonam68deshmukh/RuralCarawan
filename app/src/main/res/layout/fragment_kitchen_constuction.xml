@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@mipmap/background_image"
+    android:background="@color/colorWhite"
     tools:context="com.hatchers.ruralcaravane.kitchen_suitability.KitchenConstuctionFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="#816830"
+        android:background="@color/colorAccent"
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/back_arrow"
         app:title="Kitchen Details"
