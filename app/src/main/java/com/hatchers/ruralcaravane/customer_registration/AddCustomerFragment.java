@@ -662,6 +662,7 @@ public class AddCustomerFragment extends Fragment {
             } catch (IOException ioe)
             {
 
+                
             }
 
         }
