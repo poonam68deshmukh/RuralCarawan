@@ -1,4 +1,4 @@
-package com.hatchers.ruralcaravane.layout_utils;
+package com.hatchers.ruralcaravane.utils;
 
 import android.content.Context;
 import android.content.res.Resources;

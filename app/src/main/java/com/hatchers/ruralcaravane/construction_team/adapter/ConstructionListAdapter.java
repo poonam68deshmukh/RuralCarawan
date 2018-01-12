@@ -61,17 +61,6 @@ public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionLi
 
             }
         });
-
-        File image = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep1_imageValue(), FileType.PNG);
-        Glide.with(context)
-                .load(image.getAbsoluteFile())
-                .into(holder.half_constructed_image);
-
-        File image1 = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep2_imageValue(), FileType.PNG);
-        Glide.with(context)
-                .load(image1.getAbsoluteFile())
-                .into(holder.complete_constructed_image);
-
     }
 
     @Override
@@ -88,7 +77,6 @@ public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionLi
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView member_name,construction_mobile_number,age,member_address,member_gender;
-        ImageView half_constructed_image,complete_constructed_image;
         View itemView;
 
         ViewHolder(View itemView)
@@ -100,9 +88,6 @@ public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionLi
             age=(TextView)itemView.findViewById(R.id.age);
             member_address=(TextView)itemView.findViewById(R.id.member_address);
             member_gender=(TextView)itemView.findViewById(R.id.member_gender);
-            half_constructed_image=(ImageView)itemView.findViewById(R.id.half_constructed_image);
-            complete_constructed_image=(ImageView)itemView.findViewById(R.id.complete_constructed_image);
-
             this.itemView = itemView;
         }
     }

@@ -152,7 +152,8 @@ public class KitchenSuitabilityFragment extends Fragment implements
 
     }
 
-    private void onclicklisteners() {
+    private void onclicklisteners()
+    {
         kitchen_btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,7 +238,6 @@ public class KitchenSuitabilityFragment extends Fragment implements
         Date date=new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         kitchen_table.setUploadDateValue(formatter.format(date));
-
     }
 
     private void showPictureDialog()
@@ -288,7 +288,6 @@ public class KitchenSuitabilityFragment extends Fragment implements
             //Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -351,7 +350,6 @@ public class KitchenSuitabilityFragment extends Fragment implements
 
         return response;
     }
-
 
     private void generateUniqueId()
     {

@@ -1,18 +1,21 @@
 package com.hatchers.ruralcaravane.user_login.apihelper;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.hatchers.ruralcaravane.customer_registration.CustomerRegistrationActivity;
 import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 import com.hatchers.ruralcaravane.app.MyApplication;
 import com.hatchers.ruralcaravane.constants.WebServiceUrls;
+import com.hatchers.ruralcaravane.user_login.model.LoginUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,12 +24,10 @@ import org.json.JSONObject;
 import java.util.Hashtable;
 import java.util.Map;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 
 public class Login_ApiHelper
 {
-    public static boolean userLoginApi(final Activity activity, final SweetAlertDialog sweetAlertDialog)
+    public static void userLoginApi(final Activity activity, final LoginUser loginUser)
     {
         StringRequest strReq = new StringRequest(Request.Method.POST, WebServiceUrls.urlUserLogin,new Response.Listener<String>() {
             @Override
@@ -51,27 +52,23 @@ public class Login_ApiHelper
                             prefManager.setPassword(jsonObject.getString("password"));
 
                             prefManager.createLogin(jsonObject.getString("mobile"));
-                            sweetAlertDialog.dismiss();
-                            // new PrefManager(activity).setRegistration_skipped(false);
-                            Intent intent = new Intent(activity, CustomerRegistrationActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            activity.startActivity(intent);
-                            activity.finish();
+
+
+                            loginUser.fireOnLoginEvent(LoginUser.LOGIN_SUCCESS);
+
                         }
                         else
                         {
-                            sweetAlertDialog.dismiss();
-                            Toast.makeText(activity,"Invalid Login...", Toast.LENGTH_SHORT).show();
+                           loginUser.fireOnLoginEvent(LoginUser.LOGIN_FAILED);
                         }
 
                     }
                     else
                     {
-                        sweetAlertDialog.dismiss();
-                        Toast.makeText(activity,"Invalid Login...", Toast.LENGTH_SHORT).show();
+                        loginUser.fireOnLoginEvent(LoginUser.LOGIN_RESPONSE_FAILED);
                     }
                 } catch (JSONException e) {
-                    sweetAlertDialog.dismiss();
+                    loginUser.fireOnLoginEvent(LoginUser.LOGIN_JSON_ERROR);
                     e.printStackTrace();
                 }
             }
@@ -80,10 +77,27 @@ public class Login_ApiHelper
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                sweetAlertDialog.dismiss();
-                Toast.makeText(activity,error.toString(),Toast.LENGTH_SHORT).show();
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    loginUser.fireOnLoginEvent(LoginUser.LOGIN_NO_CONNECTION_ERROR);
+                }
+                else if (error instanceof ServerError)
+                {
+                    loginUser.fireOnLoginEvent(LoginUser.LOGIN_SERVER_ERROR);
+                }
+                else if (error instanceof NetworkError)
+                {
+                    loginUser.fireOnLoginEvent(LoginUser.LOGIN_NEWORK_ERROR);
+                }
+                else if (error instanceof ParseError)
+                {
+                    loginUser.fireOnLoginEvent(LoginUser.LOGIN_PARSE_ERROR);
+                }
+                else
+                {
+                    loginUser.fireOnLoginEvent(LoginUser.LOGIN_UNKNOWN_ERROR);
+                }
 
-               }
+            }
         }) {
 
 
@@ -101,7 +115,6 @@ public class Login_ApiHelper
         };
 
         MyApplication.getInstance().addToRequestQueue(strReq);
-        return true;
 
     }
 

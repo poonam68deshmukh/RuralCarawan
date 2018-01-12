@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class WebCustomer_ApiHelper
 {
-    public static boolean getCityList(final Activity activity, final CityVillageList cityList)
+    public static void getCityList(final Activity activity, final CityVillageList cityList)
     {
         StringRequest strReq = new StringRequest(Request.Method.POST, WebServiceUrls.urlGetCityList,new Response.Listener<String>() {
             @Override
@@ -129,11 +129,10 @@ public class WebCustomer_ApiHelper
         };
 
         MyApplication.getInstance().addToRequestQueue(strReq);
-        return true;
 
     }
 
-    public static boolean getVillageList(final Activity activity, final CityVillageList cityVillageList, final String cityId)
+    public static void getVillageList(final Activity activity, final CityVillageList cityVillageList, final String cityId)
     {
         StringRequest strReq = new StringRequest(Request.Method.POST, WebServiceUrls.urlGetVillageList,new Response.Listener<String>() {
             @Override
@@ -231,7 +230,6 @@ public class WebCustomer_ApiHelper
         };
 
         MyApplication.getInstance().addToRequestQueue(strReq);
-        return true;
 
     }
 

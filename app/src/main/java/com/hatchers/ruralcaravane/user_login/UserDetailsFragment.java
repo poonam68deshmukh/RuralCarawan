@@ -12,9 +12,8 @@ import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 
 
-public class UserDetailsFragment extends Fragment {
-
-
+public class UserDetailsFragment extends Fragment
+{
     PrefManager prefManager;
     private ImageButton userDetails_btnBack;
     private TextView name,age,mobile_number,village_name;
@@ -24,22 +23,15 @@ public class UserDetailsFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
        View view= inflater.inflate(R.layout.fragment_user__details, container, false);
 
         initialization(view);
-
         setUserDetails();
-        //passwordClick();
+        clickListeners();
 
-        userDetails_btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
         return view;
     }
 
@@ -56,6 +48,15 @@ public class UserDetailsFragment extends Fragment {
 
     }
 
+    private void clickListeners()
+    {
+        userDetails_btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+    }
 
     private void setUserDetails()
     {
@@ -65,6 +66,7 @@ public class UserDetailsFragment extends Fragment {
         village_name.setText(String.valueOf("  " + prefManager.getVillageName()));
 
     }
+
     /*private void passwordClick()
     {
         visiblePassword.setOnClickListener(new View.OnClickListener() {

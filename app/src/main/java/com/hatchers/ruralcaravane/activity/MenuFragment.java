@@ -35,6 +35,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     private LinearLayout kitchen_linear,payment_linear;
     private CustomerTable customertable;
 
+    public MenuFragment()
+    {
+        // Required empty public constructor
+    }
+
     public static MenuFragment getInstance(CustomerTable customertable)
     {
         MenuFragment fragment = new MenuFragment();
@@ -42,11 +47,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         args.putParcelable(CustomerTable.CUSTOMER_TABLE, customertable);
         fragment.setArguments(args);
         return fragment;
-    }
-
-
-    public MenuFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -64,10 +64,17 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
        View view= inflater.inflate(R.layout.fragment_menu, container, false);
 
+        initialization(view);
 
-        initToolbar(view);
-        setHasOptionsMenu(true);
+        return view;
+    }
 
+
+    private void initialization(View view)
+    {
+        menu_toolbar = (Toolbar)view.findViewById(R.id.menu_toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(menu_toolbar);
+        prefManager=new PrefManager(getActivity());
 
         kitchen_linear=(LinearLayout)view.findViewById(R.id.kitchen_linear);
         payment_linear=(LinearLayout)view.findViewById(R.id.payment_linear);
@@ -85,18 +92,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccent));
         }
 
-        return view;
-    }
-
-
-    private void initToolbar(View view)
-    {
-        menu_toolbar = (Toolbar)view.findViewById(R.id.menu_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(menu_toolbar);
-        prefManager=new PrefManager(getActivity());
     }
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
 
         switch (view.getId())
         {
@@ -117,30 +116,4 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId())
-        {
-            case R.id.profile:
-                UserDetailsFragment userDetailsFragment=new UserDetailsFragment();
-                fragmentTransaction.replace(R.id.frame_layout,userDetailsFragment).addToBackStack(null).commit();
-                break;
-
-            case R.id.logout:
-                prefManager.setLogOut();
-                Intent i= new Intent(getActivity(), LoginActivity.class);
-                startActivity(i);
-                getActivity().finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
