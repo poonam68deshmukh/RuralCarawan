@@ -1,7 +1,6 @@
 package com.hatchers.ruralcaravane.kitchen_suitability;
 
-import android.content.Context;
-import android.net.Uri;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hatchers.ruralcaravane.R;
@@ -35,6 +35,7 @@ public class KitchenConstuctionFragment extends Fragment {
     private ConstructionListAdapter constructionListAdapter;
     private FloatingActionButton add_construction;
     private TextView houseTypeTxt, roofTypeTxt, heightTxt;
+    private ImageView kitchenConstructionImage;
     private Toolbar kitchen_const_Toolbar;
 
 
@@ -105,6 +106,7 @@ public class KitchenConstuctionFragment extends Fragment {
         constructionListAdapter.notifyDataSetChanged();
 
     }
+
 
     private void setKitchenData()
     {

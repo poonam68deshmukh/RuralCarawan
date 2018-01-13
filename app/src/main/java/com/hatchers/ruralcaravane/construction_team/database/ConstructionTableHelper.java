@@ -10,6 +10,8 @@ import com.hatchers.ruralcaravane.database.DatabaseHandler;
 
 import java.util.ArrayList;
 
+import static com.hatchers.ruralcaravane.current_date_time_function.CurrentDateTime.getCurrentDateTime;
+
 
 public class ConstructionTableHelper {
 
@@ -31,6 +33,9 @@ public class ConstructionTableHelper {
                 values.put(ConstructionTable.TECHNICIAN_UNIQUE_ID,constructionTable.getTechnicianUniqueIdValue());
                 values.put(ConstructionTable.DATETIME,constructionTable.getDateTimeValue());
                 values.put(ConstructionTable.KITCHEN_UNIQUE_ID,constructionTable.getKitchentUniqueId());
+                values.put(ConstructionTable.ADDED_BY_ID,constructionTable.getAddedByIdValue());
+                values.put(ConstructionTable.ADDED_DATE,getCurrentDateTime());
+                values.put(ConstructionTable.UPDATE_DATE,constructionTable.getUpdateDateValue());
 
 
 
@@ -71,9 +76,12 @@ public class ConstructionTableHelper {
             values.put(ConstructionTable.TECHNICIAN_UNIQUE_ID,constructionTable.getTechnicianUniqueIdValue());
             values.put(ConstructionTable.DATETIME,constructionTable.getDateTimeValue());
             values.put(ConstructionTable.KITCHEN_UNIQUE_ID,constructionTable.getKitchentUniqueId());
+            values.put(ConstructionTable.ADDED_BY_ID,constructionTable.getAddedByIdValue());
+            values.put(ConstructionTable.ADDED_DATE,getCurrentDateTime());
+            values.put(ConstructionTable.UPDATE_DATE,getCurrentDateTime());
 
             // upadating Row
-            if(db.update(ConstructionTable.CONSTRUCTION_TEAM_TABLE, values, ConstructionTable.TECHNICIAN_ID+"="+constructionTable.getTechnicianIdValue(), null)>0)
+            if(db.update(ConstructionTable.CONSTRUCTION_TEAM_TABLE, values, ConstructionTable.TECHNICIAN_UNIQUE_ID+"="+constructionTable.getTechnicianUniqueIdValue(), null)>0)
             {
                 Toast.makeText(context,"Construction team member data updated",Toast.LENGTH_LONG).show();
                 db.close();
@@ -91,42 +99,6 @@ public class ConstructionTableHelper {
         }
     }
 
-    public static ConstructionTable getConstructionTeamData(Context context)
-    {
-        SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();
-        // Cursor cursor = db.rawQuery("SELECT * FROM " + Message_Table.TABLE_MESSAGE, null);
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ ConstructionTable.CONSTRUCTION_TEAM_TABLE+" WHERE "+ ConstructionTable.TECHNICIAN_ID,null);
-        try
-        {
-            cursor.moveToFirst();
-            while (cursor.isAfterLast() == false)
-            {
-                ConstructionTable constructionTable = new ConstructionTable();
-
-                constructionTable.setTechnicianIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_ID)));
-                constructionTable.setTechnicianNameValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_NAME)));
-                constructionTable.setTechnicianMobileNoValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_MOBILENO)));
-                constructionTable.setTechnicianAgeValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_AGE)));
-                constructionTable.setTechnicianAddressValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_ADDRESS)));
-                constructionTable.setTechnicianUniqueIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_UNIQUE_ID)));
-                constructionTable.setCustomerIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.CUSTOMER_ID)));
-                constructionTable.setKitchenIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.KITCHEN_ID)));
-                constructionTable.setDateTimeValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.DATETIME)));
-                constructionTable.setUploadStatusValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.UPLOAD_STATUS)));
-                constructionTable.setTechnicianGenderValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_GENDER)));
-                constructionTable.setKitchentUniqueId(cursor.getString(cursor.getColumnIndex(ConstructionTable.KITCHEN_UNIQUE_ID)));
-
-
-                cursor.moveToNext();
-                return  constructionTable;
-            }
-            return null;
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
-    }
 
 
     public static ArrayList<ConstructionTable> getConstructionTeamList(Context context)
@@ -154,6 +126,9 @@ public class ConstructionTableHelper {
                 constructionTable.setUploadStatusValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.UPLOAD_STATUS)));
                 constructionTable.setTechnicianGenderValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_GENDER)));
                 constructionTable.setKitchentUniqueId(cursor.getString(cursor.getColumnIndex(ConstructionTable.KITCHEN_UNIQUE_ID)));
+                constructionTable.setAddedByIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.ADDED_BY_ID)));
+                constructionTable.setAddedDateValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.ADDED_DATE)));
+                constructionTable.setUpdateDateValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.UPDATE_DATE)));
 
 
                 constructionTableArrayList.add(constructionTable);
@@ -192,6 +167,9 @@ public class ConstructionTableHelper {
                 constructionTable.setUploadStatusValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.UPLOAD_STATUS)));
                 constructionTable.setTechnicianGenderValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.TECHNICIAN_GENDER)));
                 constructionTable.setKitchentUniqueId(cursor.getString(cursor.getColumnIndex(ConstructionTable.KITCHEN_UNIQUE_ID)));
+                constructionTable.setAddedByIdValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.ADDED_BY_ID)));
+                constructionTable.setAddedDateValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.ADDED_DATE)));
+                constructionTable.setUpdateDateValue(cursor.getString(cursor.getColumnIndex(ConstructionTable.UPDATE_DATE)));
 
                 constructionTableArrayList.add(constructionTable);
                 cursor.moveToNext();

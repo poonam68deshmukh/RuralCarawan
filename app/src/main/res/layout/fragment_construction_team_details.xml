@@ -61,6 +61,10 @@
             android:weightSum="1">
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -74,6 +78,7 @@
 
             <Button
                 android:layout_marginTop="40dp"
+                android:layout_below="@id/customerRegistration_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_Byscanid"
@@ -93,6 +98,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"
+                android:layout_below="@id/register_Byscanid"
                 android:background="@drawable/shape"
                 android:id="@+id/customername_layout">
 
@@ -244,8 +250,63 @@
 
             </LinearLayout>
 
-            <Button
+            <LinearLayout
+                android:id="@+id/images"
+                android:gravity="center"
                 android:layout_below="@id/radio_layout"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:text="Half Constructed Image"/>
+
+            <ImageView
+                android:id="@+id/half_constructed_image"
+                android:src="@drawable/camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/images1"
+                    android:gravity="center"
+                    android:layout_toRightOf="@id/images"
+                    android:layout_below="@id/radio_layout"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:text="Complete Constructed Image"/>
+
+                    <ImageView
+                        android:id="@+id/complete_constructed_image"
+                        android:src="@drawable/camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"/>
+
+                </LinearLayout>
+
+            <Button
+                android:layout_below="@id/images1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape1"
@@ -256,6 +317,8 @@
                 android:textColor="@color/colorWhite"
                 android:id="@+id/saveBtn"
                 android:text="Save"/>
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

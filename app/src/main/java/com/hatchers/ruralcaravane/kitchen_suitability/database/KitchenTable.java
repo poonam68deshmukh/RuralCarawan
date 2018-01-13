@@ -9,30 +9,31 @@ public class KitchenTable implements Parcelable{
 
     public static final String KITCHEN_TABLE="KitchenTable";
 
-    public static final String KITCHEN_ID="kitchen_id",KITCHEN_UNIQUE_ID="unique_id",
-                               HOUSE_TYPE="house_type",ROOF_TYPE="roof_type",
-                               KITCHEN_HEIGHT="kitchen_height",UPLOAD_STATUS="upload_status",
-                               PLACE_IMAGE="place_image",LATITUDE="latitude",LONGITUDE="longitude",
-                               GEO_ADDRESS="geo_address",UPLOAD_DATE="upload_date",
-                               COST_OF_CHULLHA="cost_of_chullha",CUSTOMER_ID = "customer_id",
-                               CUSTOMER_NAME="customer_name",STEP1_IMAGE="step1_image",STEP2_IMAGE="step2_image";
+    public static final String KITCHEN_ID="kitchen_id",KITCHEN_UNIQUE_ID="unique_id",HOUSE_TYPE="house_type",
+                               ROOF_TYPE="roof_type",KITCHEN_HEIGHT="kitchen_height",UPLOAD_STATUS="upload_status",
+                               PLACE_IMAGE="place_image",LATITUDE="latitude",LONGITUDE="longitude",GEO_ADDRESS="geo_address",
+                               UPLOAD_DATE="upload_date",COST_OF_CHULLHA="cost_of_chullha",CUSTOMER_ID = "customer_id",
+                               CUSTOMER_NAME="customer_name",STEP1_IMAGE="step1_image",STEP2_IMAGE="step2_image",
+                               ADDED_DATE="added_date",USER_UNIQUE_ID="user_unique_id",ADDED_BY_ID="added_by_id",
+                               UPDATE_DATE="update_date";
 
     public static final String CREATE_KITCHEN_TABLE="CREATE TABLE " + KITCHEN_TABLE +
-            "("+KITCHEN_ID+" TEXT PRIMARY KEY ,"+HOUSE_TYPE+" TEXT,"+ROOF_TYPE+" TEXT,"
+            "("+KITCHEN_ID+" int PRIMARY KEY ,"+HOUSE_TYPE+" TEXT,"+ROOF_TYPE+" TEXT,"
             +KITCHEN_HEIGHT+" TEXT, "+UPLOAD_STATUS+" TEXT, "+CUSTOMER_ID+" TEXT, "+CUSTOMER_NAME+" TEXT, "
             +PLACE_IMAGE+" TEXT, "+KITCHEN_UNIQUE_ID+" TEXT, "+LATITUDE+" TEXT, "+LONGITUDE+" TEXT, "
             +GEO_ADDRESS+" TEXT, "+UPLOAD_DATE+" TEXT, "+STEP1_IMAGE+" TEXT, "+STEP2_IMAGE+" TEXT, "
-            +COST_OF_CHULLHA+" TEXT)";
+            +COST_OF_CHULLHA+" TEXT, "+ADDED_DATE+" TEXT, "+USER_UNIQUE_ID+" TEXT, "+ADDED_BY_ID+" TEXT, "+UPDATE_DATE+" TEXT)";
 
     private String kitchen_idValue,house_typeValue,roof_typeValue,kitchen_heightValue,
             upload_statusValue,customer_idValue,customer_nameValue,placeImageValue,
             kitchenUniqueIdValue,latitudeValue,longitudeValue,uploadDateValue,geoAddressValue,
-            costOfChullhaValue,step1_imageValue,step2_imageValue;
+            costOfChullhaValue,step1_imageValue,step2_imageValue,addedDateValue,userUniqueIdValue,
+            addedByIdValue,updateDateValue;
 
     public KitchenTable() {
     }
 
-    public KitchenTable(String kitchen_idValue, String house_typeValue, String roof_typeValue, String kitchen_heightValue, String upload_statusValue,String customer_idValue,String customer_nameValue,String placeImageValue,String geoAddressValue,String costOfChullhaValue,String kitchenUniqueIdValue,String latitudeValue,String longitudeValue,String uploadDateValue,String step1_imageValue,String step2_imageValue) {
+    public KitchenTable(String kitchen_idValue, String house_typeValue, String roof_typeValue, String kitchen_heightValue, String upload_statusValue,String customer_idValue,String customer_nameValue,String placeImageValue,String geoAddressValue,String costOfChullhaValue,String kitchenUniqueIdValue,String latitudeValue,String longitudeValue,String uploadDateValue,String step1_imageValue,String step2_imageValue,String addedDateValue,String userUniqueIdValue,String addedByIdValue,String updateDateValue) {
         this.kitchen_idValue = kitchen_idValue;
         this.house_typeValue = house_typeValue;
         this.roof_typeValue = roof_typeValue;
@@ -49,6 +50,10 @@ public class KitchenTable implements Parcelable{
         this.costOfChullhaValue=costOfChullhaValue;
         this.step1_imageValue=step1_imageValue;
         this.step2_imageValue=step2_imageValue;
+        this.addedDateValue=addedDateValue;
+        this.userUniqueIdValue=userUniqueIdValue;
+        this.addedByIdValue=addedByIdValue;
+        this.updateDateValue=updateDateValue;
 
     }
 
@@ -69,6 +74,10 @@ public class KitchenTable implements Parcelable{
         costOfChullhaValue = in.readString();
         step1_imageValue=in.readString();
         step2_imageValue=in.readString();
+        addedDateValue=in.readString();
+        userUniqueIdValue=in.readString();
+        addedByIdValue=in.readString();
+        updateDateValue=in.readString();
     }
 
     @Override
@@ -89,6 +98,10 @@ public class KitchenTable implements Parcelable{
         dest.writeString(costOfChullhaValue);
         dest.writeString(step1_imageValue);
         dest.writeString(step2_imageValue);
+        dest.writeString(addedDateValue);
+        dest.writeString(userUniqueIdValue);
+        dest.writeString(addedByIdValue);
+        dest.writeString(updateDateValue);
     }
 
     @Override
@@ -234,6 +247,38 @@ public class KitchenTable implements Parcelable{
 
     public void setStep2_imageValue(String step2_imageValue) {
         this.step2_imageValue = step2_imageValue;
+    }
+
+    public String getAddedDateValue() {
+        return addedDateValue;
+    }
+
+    public void setAddedDateValue(String addedDateValue) {
+        this.addedDateValue = addedDateValue;
+    }
+
+    public String getUserUniqueIdValue() {
+        return userUniqueIdValue;
+    }
+
+    public void setUserUniqueIdValue(String userUniqueIdValue) {
+        this.userUniqueIdValue = userUniqueIdValue;
+    }
+
+    public String getAddedByIdValue() {
+        return addedByIdValue;
+    }
+
+    public void setAddedByIdValue(String addedByIdValue) {
+        this.addedByIdValue = addedByIdValue;
+    }
+
+    public String getUpdateDateValue() {
+        return updateDateValue;
+    }
+
+    public void setUpdateDateValue(String updateDateValue) {
+        this.updateDateValue = updateDateValue;
     }
 }
 

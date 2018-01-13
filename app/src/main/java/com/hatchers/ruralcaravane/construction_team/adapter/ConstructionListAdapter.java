@@ -1,23 +1,31 @@
 package com.hatchers.ruralcaravane.construction_team.adapter;
 
+
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hatchers.ruralcaravane.construction_team.database.ConstructionTable;
 import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.file.FileHelper;
+import com.hatchers.ruralcaravane.file.FileType;
+import com.hatchers.ruralcaravane.file.Folders;
+import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
 
+import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by Nikam on 07/01/2018.
- */
+
 
 public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionListAdapter.ViewHolder>
 {
+    KitchenTable kitchenTable;
     private Context context;
     private ArrayList<ConstructionTable> constructionTableArrayList;
 
@@ -41,6 +49,9 @@ public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionLi
 
         holder.member_name.setText(String.valueOf(constructionTable.getTechnicianNameValue() + ""));
         holder.construction_mobile_number.setText(String.valueOf(constructionTable.getTechnicianMobileNoValue() + ""));
+        holder.member_address.setText(String.valueOf(constructionTable.getTechnicianAddressValue() + ""));
+        holder.age.setText("Age- "+String.valueOf(constructionTable.getTechnicianAgeValue() + ""));
+        holder.member_gender.setText(String.valueOf(constructionTable.getTechnicianGenderValue() + ""));
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +62,15 @@ public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionLi
             }
         });
 
+        File image = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep1_imageValue(), FileType.PNG);
+        Glide.with(context)
+                .load(image.getAbsoluteFile())
+                .into(holder.half_constructed_image);
+
+        File image1 = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep2_imageValue(), FileType.PNG);
+        Glide.with(context)
+                .load(image1.getAbsoluteFile())
+                .into(holder.complete_constructed_image);
 
     }
 
@@ -64,17 +84,24 @@ public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionLi
 
     }
 
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView member_name,construction_mobile_number;
-
+        TextView member_name,construction_mobile_number,age,member_address,member_gender;
+        ImageView half_constructed_image,complete_constructed_image;
         View itemView;
 
         ViewHolder(View itemView)
         {
             super(itemView);
+
             member_name = (TextView) itemView.findViewById(R.id.member_name);
             construction_mobile_number = (TextView) itemView.findViewById(R.id.construction_mobile_number);
+            age=(TextView)itemView.findViewById(R.id.age);
+            member_address=(TextView)itemView.findViewById(R.id.member_address);
+            member_gender=(TextView)itemView.findViewById(R.id.member_gender);
+            half_constructed_image=(ImageView)itemView.findViewById(R.id.half_constructed_image);
+            complete_constructed_image=(ImageView)itemView.findViewById(R.id.complete_constructed_image);
 
             this.itemView = itemView;
         }

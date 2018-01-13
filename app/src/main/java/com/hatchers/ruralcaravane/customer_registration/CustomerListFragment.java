@@ -42,16 +42,10 @@ public class CustomerListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         customerRecyclerView.setLayoutManager(layoutManager);
 
-        onClickListeners();
-
-        customerTables= CustomerTableHelper.getCustomerdataList(getContext());
-        customerListAdapter= new CustomerListAdapter(getContext(),customerTables);
 
         customerRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         customerRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        customerRecyclerView.setAdapter(customerListAdapter);
-        customerListAdapter.notifyDataSetChanged();
+        setData();
 
         if(!(customerTables.size() >0))
         {
@@ -63,7 +57,6 @@ public class CustomerListFragment extends Fragment {
             customerRecyclerView.setVisibility(View.VISIBLE);
             no_cust_txt.setVisibility(View.GONE);
         }
-
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -74,16 +67,18 @@ public class CustomerListFragment extends Fragment {
     return view;
     }
 
-
-   /* @Override
-    public void onResume() {
-        super.onResume();
-        customerListAdapter.notifyDataSetChanged();
-    }*/
-    private void onClickListeners()
+    public void setData()
     {
-
-
+        try {
+            customerTables = CustomerTableHelper.getCustomerdataList(getContext());
+            customerListAdapter = new CustomerListAdapter(getContext(), customerTables);
+            customerRecyclerView.setAdapter(customerListAdapter);
+            customerListAdapter.notifyDataSetChanged();
+        }
+        catch (Exception e)
+        {
+                e.printStackTrace();
+        }
     }
 
 

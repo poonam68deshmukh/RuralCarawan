@@ -6,17 +6,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hatchers.ruralcaravane.activity.CustomerMenus;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
 import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.file.FileHelper;
+import com.hatchers.ruralcaravane.file.FileType;
+import com.hatchers.ruralcaravane.file.Folders;
 
+import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by Nikam on 07/01/2018.
- */
+import de.hdodenhof.circleimageview.CircleImageView;
+
+
 
 public class CustomerListAdapter  extends RecyclerView.Adapter<CustomerListAdapter.ViewHolder> {
 
@@ -46,6 +52,10 @@ public class CustomerListAdapter  extends RecyclerView.Adapter<CustomerListAdapt
         holder.mobile.setText(String.valueOf("Mobile-"+customerTable.getCustomerMobilenoValue() + ""));
         holder.age.setText(String.valueOf("Age-"+customerTable.getCustomerAgeValue()+ ""));
 
+        File image = FileHelper.createfile(Folders.CUSTOMERFOLDER, customerTable.getImagePathValue(), FileType.PNG);
+        Glide.with(context)
+                .load(image.getAbsoluteFile())
+                .into(holder.user_profile);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,15 +83,18 @@ public class CustomerListAdapter  extends RecyclerView.Adapter<CustomerListAdapt
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView customer_name,address,mobile,age;
+        CircleImageView user_profile;
 
         View itemView;
 
         ViewHolder(View itemView) {
             super(itemView);
+
             customer_name = (TextView) itemView.findViewById(R.id.customer_name);
             address = (TextView) itemView.findViewById(R.id.customer_address);
             mobile = (TextView) itemView.findViewById(R.id.customer_mobileno);
             age = (TextView) itemView.findViewById(R.id.customer_age);
+            user_profile=(CircleImageView)itemView.findViewById(R.id.customer_image);
 
             this.itemView = itemView;
         }

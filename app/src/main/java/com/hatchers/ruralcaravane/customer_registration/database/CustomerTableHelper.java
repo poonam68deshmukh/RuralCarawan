@@ -10,6 +10,8 @@ import com.hatchers.ruralcaravane.database.DatabaseHandler;
 
 import java.util.ArrayList;
 
+import static com.hatchers.ruralcaravane.current_date_time_function.CurrentDateTime.getCurrentDateTime;
+
 
 public class CustomerTableHelper {
 
@@ -19,20 +21,23 @@ public class CustomerTableHelper {
             SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();
             ContentValues values = new ContentValues();
 
-                values.put(CustomerTable.CUSTOMER_ID, customer_table.getCustomerIdValue());
+
                 values.put(CustomerTable.CUSTOMER_MOBILENO, customer_table.getCustomerMobilenoValue());
                 values.put(CustomerTable.CUSTOMER_AGE, customer_table.getCustomerAgeValue());
                 values.put(CustomerTable.CUSTOMER_NAME,customer_table.getCustomerNameValue());
                 values.put(CustomerTable.VILLAGE_NAME,customer_table.getVillageNameValue());
                 values.put(CustomerTable.CUSTOMER_ADDRESS,customer_table.getCustomerAddressValue());
                 values.put(CustomerTable.CUSTOMER_GENDER,customer_table.getCustomerGenderValue());
-                values.put(CustomerTable.UPLOAD_STATUS,customer_table.getUpload_statusValue());
+                values.put(CustomerTable.UPLOAD_STATUS,"0");
                 values.put(CustomerTable.UNIQUE_ID,customer_table.getUniqueIdValue());
                 values.put(CustomerTable.IMAGE_PATH,customer_table.getImagePathValue());
                 values.put(CustomerTable.AADHAR_ID,customer_table.getAadharIdValue());
                 values.put(CustomerTable.VILLAGE_ID,customer_table.getVillageIdValue());
-                values.put(CustomerTable.ADDED_DATE,customer_table.getAddedDateValue());
+                values.put(CustomerTable.ADDED_DATE,getCurrentDateTime());
                 values.put(CustomerTable.CITY_ID,customer_table.getCityId());
+                values.put(CustomerTable.ADDED_BY_ID,customer_table.getAddedByIdValue());
+                values.put(CustomerTable.UPLOAD_DATE,customer_table.getUploadDateValue());
+                values.put(CustomerTable.UPDATE_DATE,customer_table.getUpdateDateValue());
 
             if (db.insert(CustomerTable.CUSTOMER_TABLE, null, values) > 0)
             {
@@ -56,28 +61,17 @@ public class CustomerTableHelper {
         }
     }
 
-
     public static boolean updateCustomerData(Context context, CustomerTable customer_table)
     {
         try {
             SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(CustomerTable.CUSTOMER_ID, Integer.parseInt(customer_table.getCustomerIdValue()));
-            values.put(CustomerTable.CUSTOMER_MOBILENO, Integer.parseInt(customer_table.getCustomerMobilenoValue()));
-            values.put(CustomerTable.CUSTOMER_AGE, Integer.parseInt(customer_table.getCustomerAgeValue()));
-            values.put(CustomerTable.CUSTOMER_NAME,customer_table.getCustomerNameValue());
-            values.put(CustomerTable.CUSTOMER_ADDRESS,customer_table.getCustomerAddressValue());
-            values.put(CustomerTable.VILLAGE_NAME,customer_table.getVillageNameValue());
-            values.put(CustomerTable.CUSTOMER_ADDRESS,customer_table.getCustomerAddressValue());
-            values.put(CustomerTable.CUSTOMER_GENDER,customer_table.getCustomerGenderValue());
-            values.put(CustomerTable.UPLOAD_STATUS,customer_table.getUpload_statusValue());
-            values.put(CustomerTable.UNIQUE_ID,customer_table.getUniqueIdValue());
-            values.put(CustomerTable.IMAGE_PATH,customer_table.getImagePathValue());
-            values.put(CustomerTable.AADHAR_ID,customer_table.getAadharIdValue());
-            values.put(CustomerTable.VILLAGE_ID,customer_table.getVillageIdValue());
-            values.put(CustomerTable.ADDED_DATE,customer_table.getAddedDateValue());
+            values.put(CustomerTable.UPLOAD_STATUS,"1");
             values.put(CustomerTable.CITY_ID,customer_table.getCityId());
+            values.put(CustomerTable.UPLOAD_DATE,getCurrentDateTime());
+            values.put(CustomerTable.UPDATE_DATE,getCurrentDateTime());
+
 
             // upadating Row
             if(db.update(CustomerTable.CUSTOMER_TABLE, values, CustomerTable.CUSTOMER_ID+"="+customer_table.getCustomerIdValue(), null)>0)
@@ -99,21 +93,19 @@ public class CustomerTableHelper {
     }
 
 
-    public static CustomerTable getCustomerData(Context context)
+    public static CustomerTable getUnUploadCustomerData(Context context)
     {
         SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();
         // Cursor cursor = db.rawQuery("SELECT * FROM " + Message_Table.TABLE_MESSAGE, null);
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ CustomerTable.CUSTOMER_TABLE+" WHERE "+ CustomerTable.CUSTOMER_ID,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ CustomerTable.CUSTOMER_TABLE+" WHERE  "+ CustomerTable.UPLOAD_STATUS+"='1'",null);
         try
         {
-            cursor.moveToFirst();
-            while (cursor.isAfterLast() == false)
-            {
-               CustomerTable customer = new CustomerTable();
 
-                customer.setCustomerIdValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_ID)));
-                customer.setCustomerNameValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_NAME)));
-                customer.setCustomerAddressValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_ADDRESS)));
+            cursor.moveToFirst();
+            CustomerTable customer = new CustomerTable();
+            customer.setCustomerIdValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_ID)));
+            customer.setCustomerNameValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_NAME)));
+            customer.setCustomerAddressValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_ADDRESS)));
                 customer.setCustomerMobilenoValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_MOBILENO)));
                 customer.setCustomerAgeValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_AGE)));
                 customer.setCustomerGenderValue(cursor.getString(cursor.getColumnIndex(CustomerTable.CUSTOMER_GENDER)));
@@ -125,11 +117,14 @@ public class CustomerTableHelper {
                 customer.setVillageIdValue(cursor.getString(cursor.getColumnIndex(CustomerTable.VILLAGE_ID)));
                 customer.setAddedDateValue(cursor.getString(cursor.getColumnIndex(CustomerTable.ADDED_DATE)));
                 customer.setCityId(cursor.getString(cursor.getColumnIndex(CustomerTable.CITY_ID)));
+                customer.setAddedByIdValue(cursor.getString(cursor.getColumnIndex(CustomerTable.ADDED_BY_ID)));
+                customer.setUploadDateValue(cursor.getString(cursor.getColumnIndex(CustomerTable.UPLOAD_DATE)));
+                customer.setUpdateDateValue(cursor.getString(cursor.getColumnIndex(CustomerTable.UPDATE_DATE)));
 
-                cursor.moveToNext();
+
                 return  customer;
-            }
-            return null;
+
+
         }
         catch (Exception e)
 
@@ -166,6 +161,9 @@ public class CustomerTableHelper {
                 customer.setVillageIdValue(cursor.getString(cursor.getColumnIndex(CustomerTable.VILLAGE_ID)));
                 customer.setAddedDateValue(cursor.getString(cursor.getColumnIndex(CustomerTable.ADDED_DATE)));
                 customer.setCityId(cursor.getString(cursor.getColumnIndex(CustomerTable.CITY_ID)));
+                customer.setAddedByIdValue(cursor.getString(cursor.getColumnIndex(CustomerTable.ADDED_BY_ID)));
+                customer.setUploadDateValue(cursor.getString(cursor.getColumnIndex(CustomerTable.UPLOAD_DATE)));
+                customer.setUpdateDateValue(cursor.getString(cursor.getColumnIndex(CustomerTable.UPDATE_DATE)));
 
                 customerTableArrayList.add(customer);
                 cursor.moveToNext();

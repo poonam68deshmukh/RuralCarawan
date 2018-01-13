@@ -13,17 +13,19 @@ public class CustomerTable implements Parcelable {
             CUSTOMER_MOBILENO="customer_mobileno",CUSTOMER_AGE="customer_age",
             CUSTOMER_GENDER="customer_gender",UPLOAD_STATUS="upload_status",
             UNIQUE_ID="unique_id",IMAGE_PATH="image_path",AADHAR_ID="aadhar_id",
-            VILLAGE_ID="village_id",ADDED_DATE="added_date",CITY_ID="city_id";
+            VILLAGE_ID="village_id",ADDED_DATE="added_date",CITY_ID="city_id",
+            ADDED_BY_ID="added_by_id",UPLOAD_DATE="upload_date",UPDATE_DATE="update_date";
 
     public static final String CREATE_CUSTOMER_TABLE="CREATE TABLE " + CUSTOMER_TABLE+
-            "("+CUSTOMER_ID+" TEXT PRIMARY KEY ,"+CUSTOMER_NAME+" TEXT,"+CUSTOMER_ADDRESS+" TEXT,"
+            "("+CUSTOMER_ID+" int PRIMARY KEY ,"+CUSTOMER_NAME+" TEXT,"+CUSTOMER_ADDRESS+" TEXT,"
             +CUSTOMER_AGE+" TEXT,"+CUSTOMER_GENDER+" TEXT,"+CUSTOMER_MOBILENO+" TEXT,"+VILLAGE_NAME+" TEXT,"
             +UPLOAD_STATUS+" TEXT, "+UNIQUE_ID+" TEXT, "+IMAGE_PATH+" TEXT, "+AADHAR_ID+" TEXT, "
-            +VILLAGE_ID+" TEXT, "+CITY_ID+" TEXT, "+ADDED_DATE+" TEXT)";
+            +VILLAGE_ID+" TEXT, "+CITY_ID+" TEXT, "+ADDED_DATE+" TEXT, "+ADDED_BY_ID+" TEXT, "+UPLOAD_DATE+" TEXT, "+UPDATE_DATE+" TEXT )";
 
     private String customerIdValue,customerNameValue,villageNameValue,customerAddressValue,
             customerMobilenoValue,customerAgeValue,customerGenderValue,upload_statusValue,
-            uniqueIdValue,imagePathValue,aadharIdValue,villageIdValue,addedDateValue,cityId;
+            uniqueIdValue,imagePathValue,aadharIdValue,villageIdValue,addedDateValue,cityId,
+            addedByIdValue,uploadDateValue,updateDateValue;
 
 
     public CustomerTable() {
@@ -36,7 +38,7 @@ public class CustomerTable implements Parcelable {
                          String customerGenderValue,String upload_statusValue,
                          String uniqueIdValue,String imagePathValue,String aadharIdValue,
                          String villageIdValue,String addedDateValue,
-                         String cityId)
+                         String cityId,String addedByIdValue,String uploadDateValue,String updateDateValue)
     {
         this.customerIdValue = customerIdValue;
         this.customerNameValue = customerNameValue;
@@ -52,6 +54,9 @@ public class CustomerTable implements Parcelable {
         this.villageIdValue=villageIdValue;
         this.addedDateValue=addedDateValue;
         this.cityId=cityId;
+        this.addedByIdValue=addedByIdValue;
+        this.uploadDateValue=uploadDateValue;
+        this.updateDateValue=updateDateValue;
     }
 
     protected CustomerTable(Parcel in) {
@@ -68,6 +73,9 @@ public class CustomerTable implements Parcelable {
         aadharIdValue = in.readString();
         villageIdValue = in.readString();
         addedDateValue = in.readString();
+        addedByIdValue=in.readString();;
+        uploadDateValue=in.readString();
+        updateDateValue=in.readString();
     }
 
     @Override
@@ -85,6 +93,9 @@ public class CustomerTable implements Parcelable {
         dest.writeString(aadharIdValue);
         dest.writeString(villageIdValue);
         dest.writeString(addedDateValue);
+        dest.writeString(addedByIdValue);
+        dest.writeString(uploadDateValue);
+        dest.writeString(updateDateValue);
     }
 
     @Override
@@ -214,5 +225,29 @@ public class CustomerTable implements Parcelable {
 
     public void setCityId(String cityId) {
         this.cityId = cityId;
+    }
+
+    public String getAddedByIdValue() {
+        return addedByIdValue;
+    }
+
+    public void setAddedByIdValue(String addedByIdValue) {
+        this.addedByIdValue = addedByIdValue;
+    }
+
+    public String getUploadDateValue() {
+        return uploadDateValue;
+    }
+
+    public void setUploadDateValue(String uploadDateValue) {
+        this.uploadDateValue = uploadDateValue;
+    }
+
+    public String getUpdateDateValue() {
+        return updateDateValue;
+    }
+
+    public void setUpdateDateValue(String updateDateValue) {
+        this.updateDateValue = updateDateValue;
     }
 }

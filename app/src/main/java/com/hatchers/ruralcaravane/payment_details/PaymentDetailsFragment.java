@@ -30,7 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.construction_team.database.ConstructionTable;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
+import com.hatchers.ruralcaravane.file.FileHelper;
+import com.hatchers.ruralcaravane.file.Folders;
 import com.hatchers.ruralcaravane.payment_details.database.PaymentDetailsHelper;
 import com.hatchers.ruralcaravane.payment_details.database.PaymentTable;
 
@@ -41,30 +44,34 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.hatchers.ruralcaravane.current_date_time_function.CurrentDateTime.getCurrentDateTime;
 
 public class PaymentDetailsFragment extends Fragment {
 
 
-    private static final String IMAGE_DIRECTORY = "/RuraralCaravane";
+
     private int CAMERA = 1;
     private int RESULT_CANCELED;
-
+    Bitmap payBitmap;
     private Toolbar payment_toolbar;
     private ImageButton payment_btnBack;
     private TextInputEditText payment_amount,advance_amount,remaining_amount;
     private ImageView takePhoto;
     private Button savePayment;
+    private TextView paymentUniqueId;
 
 
     PaymentTable paymentTable;
 
+
     public PaymentDetailsFragment() {
         // Required empty public constructor
     }
-
-
 
     private CustomerTable customertable;
     public static PaymentDetailsFragment getInstance(CustomerTable customertable)
@@ -102,21 +109,6 @@ public class PaymentDetailsFragment extends Fragment {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        File profile = new File(wallpaperDirectory, "profile.jpg");
-        if(profile.exists())
-        {
-            Bitmap bitmap = BitmapFactory.decodeFile(profile.getAbsolutePath());
-            takePhoto.setImageBitmap(bitmap);
-
-        }
-        else
-        {
-            //takePhoto.setImageResource(R.mipmap.receipt);
-
-        }
-
 
         return view;
     }
@@ -131,6 +123,7 @@ public class PaymentDetailsFragment extends Fragment {
         savePayment = (Button) view.findViewById(R.id.savePayment);
 
     }
+
     private void onClickListeners()
     {
         payment_btnBack.setOnClickListener(new View.OnClickListener() {
@@ -157,8 +150,8 @@ public class PaymentDetailsFragment extends Fragment {
                             .setTitleText("Please wait");
 
                     sweetAlertDialog.show();
-
-                    if(PaymentDetailsHelper.insertPaymentDeatilsData(getContext(), paymentTable))
+                    FileHelper.savePNGImage(Folders.CHULHAFOLDER,payBitmap,"PAY_"+paymentTable.getPaymentUniqueIdValue());
+                    if(PaymentDetailsHelper.insertPaymentDetailsData(getContext(), paymentTable))
                     {
                         sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                         sweetAlertDialog.setTitleText("Payment Details Added Successfully");
@@ -172,6 +165,7 @@ public class PaymentDetailsFragment extends Fragment {
                                 advance_amount.setText("");
                                 remaining_amount.setText("");
                                 takePhoto.setImageResource(R.mipmap.receipt);
+                                payBitmap=null;
                             }
                         });
                     }
@@ -192,7 +186,6 @@ public class PaymentDetailsFragment extends Fragment {
             }
         });
     }
-
 
     private void showPictureDialog()
     {
@@ -237,48 +230,34 @@ public class PaymentDetailsFragment extends Fragment {
         if (requestCode == CAMERA) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             takePhoto.setImageBitmap(thumbnail);
-            saveImage(thumbnail);
-            Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
+            payBitmap=thumbnail;
+            //Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public String saveImage(Bitmap myBitmap)
-    {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
-        }
-
-        try {
-            File f = new File(wallpaperDirectory, "profile.jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(getContext(),
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-    }
-
 
     private void setPaymentDetailsData()
     {
         paymentTable=new PaymentTable();
 
         paymentTable.setPayment_amountValue(payment_amount.getText().toString());
-        paymentTable.setAdvance_amountValue(advance_amount.getText().toString());
-        paymentTable.setReamaining_amountValue(remaining_amount.getText().toString());
+        paymentTable.setTotalPaidValue(advance_amount.getText().toString());
+        paymentTable.setRemaining_amountValue(remaining_amount.getText().toString());
+        paymentTable.setDateOfPaymentValue(getCurrentDateTime());
+        paymentTable.setUpdateDateValue(getCurrentDateTime());
+        paymentTable.setUpload_statusValue("0");
+        paymentTable.setPaymentUniqueIdValue(generateUniqueId());
+
+    }
+
+
+    private String generateUniqueId()
+    {
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
+        String datetime = ft.format(dNow);
+        paymentUniqueId.setText("PAY"+datetime);
+
+        return "" ;
     }
 
     private boolean checkValidation()
@@ -309,16 +288,4 @@ public class PaymentDetailsFragment extends Fragment {
         return response;
     }
 
-  /*  private void calculateAmount()
-    {
-        String totalCost= payment_amount.getText().toString();
-        String advanceCost= advance_amount.getText().toString();
-
-        int totalCostFinal=Integer.parseInt(totalCost);
-        int advanceCostFinal=Integer.parseInt(advanceCost);
-
-        Integer TotalAmount=totalCostFinal-advanceCostFinal;
-
-        remaining_amount.setText(String.valueOf(TotalAmount));
-    }*/
-}
+  }

@@ -13,17 +13,14 @@ import static com.hatchers.ruralcaravane.file.FileType.PDF;
 import static com.hatchers.ruralcaravane.file.FileType.PNG;
 import static com.hatchers.ruralcaravane.file.Folders.APPROOTFOLDER;
 
-/**
- * Created by Administrator on 17.03.2017.
- */
 
 public   class FileHelper {
 
 
 
-    public static File creatfile(String folder,String name,String type)
+    public static File createfile(String CUSTOMERFOLDER,String name,String type)
     {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(APPROOTFOLDER),folder );
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(APPROOTFOLDER),CUSTOMERFOLDER);
 
         //Create the storage directory if it does not exist
         if (! mediaStorageDir.exists())
@@ -97,25 +94,26 @@ public   class FileHelper {
         return mediaFile;
     }
 
-public boolean deleteFile(File file)
-{
+    public boolean deleteFile(File file)
+    {
 
     return file.delete();
 }
+
     public static boolean isFileExists(File file)
     {
         return file.exists();
     }
 
 
-    public static void savePNGImage(String folder,Bitmap myBitmap)
+    public static void savePNGImage(String folder,Bitmap myBitmap,String name)
     {
         try {
 
             FileOutputStream fo = null;
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-            File image = FileHelper.creatfile(folder, "", FileType.PNG);
+            File image = FileHelper.createfile(folder, name, FileType.PNG);
             try {
                 fo = new FileOutputStream(image);
 

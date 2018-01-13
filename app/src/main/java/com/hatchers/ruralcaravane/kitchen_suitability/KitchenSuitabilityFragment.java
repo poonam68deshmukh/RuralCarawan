@@ -1,20 +1,16 @@
 package com.hatchers.ruralcaravane.kitchen_suitability;
 
 import android.app.AlertDialog;
-import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,32 +24,30 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
+import com.hatchers.ruralcaravane.file.FileHelper;
+import com.hatchers.ruralcaravane.file.Folders;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTableHelper;
-import com.hatchers.ruralcaravane.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.hatchers.ruralcaravane.current_date_time_function.CurrentDateTime.getCurrentDateTime;
+
 
 public class KitchenSuitabilityFragment extends Fragment implements
         AdapterView.OnItemSelectedListener {
 
-
-    private static final String IMAGE_DIRECTORY = "/RuraralCaravane";
     private int CAMERA = 1;
 
+    Bitmap kitBitmap;
     private Toolbar kitchen_toolbar;
     private ImageButton kitchen_btnBack;
     private Spinner house_type, roof_type;
@@ -65,6 +59,7 @@ public class KitchenSuitabilityFragment extends Fragment implements
     FrameLayout layout;
     private GoogleApiClient client;
     private TextView kitchenUniqueIdText;
+
 
     public KitchenSuitabilityFragment() {
         // Required empty public constructor
@@ -108,36 +103,12 @@ public class KitchenSuitabilityFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_kitchen__suitability, container, false);
 
         initializations(view);
-        setProfilePhoto();
         onclicklisteners();
         generateUniqueId();
-
-
 
         return view;
     }
 
-    private void setProfilePhoto()
-    {
-
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        File profile = new File(wallpaperDirectory, "Area_Picture.jpg");
-        if (profile.exists()) {
-            Bitmap bitmap = BitmapFactory.decodeFile(profile.getAbsolutePath());
-            takePicture.setImageBitmap(bitmap);
-
-            // to set the background color (color should have some alpha val)
-            //  diagonalView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            // to make the solid color diagonal
-            //  diagonalView.setSolidColor(getResources().getColor(R.color.colorPrimaryDark));
-
-        }
-        else
-        {
-            takePicture.setImageResource(R.mipmap.take_picture_image);
-        }
-    }
 
     private void initializations(View view)
     {
@@ -205,6 +176,7 @@ public class KitchenSuitabilityFragment extends Fragment implements
                             .setTitleText("Please wait");
                     sweetAlertDialog.show();
 
+                    FileHelper.savePNGImage(Folders.CHULHAFOLDER,kitBitmap,"KIT_"+kitchen_table.getKitchenUniqueIdValue());
 
                     if(KitchenTableHelper.insertKitchenData(getContext(), kitchen_table))
                     {
@@ -220,6 +192,7 @@ public class KitchenSuitabilityFragment extends Fragment implements
                                 roof_type.setAdapter(null);
                                 kitchen_height.setText("");
                                 takePicture.setImageResource(R.mipmap.chullha);
+                                kitBitmap=null;
 
                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                                 AddKitchenAddress addKitchenAddress=AddKitchenAddress.getInstance(customertable,kitchen_table);
@@ -252,13 +225,14 @@ public class KitchenSuitabilityFragment extends Fragment implements
 
     private void setKitchenData()
     {
-
         kitchen_table = new KitchenTable();
         kitchen_table.setHouse_typeValue(house_type.getSelectedItem().toString());
         kitchen_table.setRoof_typeValue(roof_type.getSelectedItem().toString());
         kitchen_table.setKitchen_heightValue(kitchen_height.getText().toString());
         kitchen_table.setKitchenUniqueIdValue(kitchenUniqueIdText.getText().toString());
         kitchen_table.setCustomer_idValue(customertable.getUniqueIdValue());
+        kitchen_table.setPlaceImageValue("KIT_"+kitchen_table.getKitchenUniqueIdValue());
+        kitchen_table.setAddedDateValue(getCurrentDateTime());
         kitchen_table.setUpload_statusValue("0");
         Date date=new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -309,38 +283,12 @@ public class KitchenSuitabilityFragment extends Fragment implements
         if (requestCode == CAMERA) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             takePicture.setImageBitmap(thumbnail);
-            saveImage(thumbnail);
-            Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
+            kitBitmap=thumbnail;
+            //savePNGImage(thumbnail);
+            //Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public String saveImage(Bitmap myBitmap)
-    {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
-        }
-
-        try {
-            File f = new File(wallpaperDirectory, "profile.jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(getContext(),
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -412,5 +360,6 @@ public class KitchenSuitabilityFragment extends Fragment implements
         String datetime = ft.format(dNow);
         kitchenUniqueIdText.setText("KIT"+datetime);
     }
+
 
 }

@@ -110,6 +110,7 @@
 
 
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/house_type"
@@ -121,9 +122,6 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:id="@+id/house_type_survey"
-            android:padding="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
             android:layout_marginRight="20dp"
             android:spinnerMode="dropdown"
             />
@@ -142,7 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/roofTpye_spinnerLayout"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:orientation="horizontal"
@@ -151,6 +149,7 @@
 
 
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/roof_type"
@@ -158,12 +157,11 @@
 
         <Spinner
             android:background="@android:color/transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
             android:id="@+id/roof_type"
-            android:padding="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
             android:spinnerMode="dropdown"
             />
 
@@ -171,7 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_dropdown_roof"
-            android:layout_gravity="center"
+            android:layout_gravity="center|end"
             android:layout_marginRight="10dp"
             android:src="@drawable/spinner_drop_down"/>
 
@@ -198,7 +196,7 @@
             android:layout_marginRight="20dp"
             android:layout_gravity="center"
             android:maxLength="2"
-            android:drawablePadding="20dp"
+            android:drawablePadding="15dp"
             android:imeOptions="actionNext"
             android:id="@+id/kitchen_height"
             android:inputType="number"
@@ -226,13 +224,12 @@
             android:layout_below="@id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape3"
             android:layout_marginTop="25dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:scaleType="centerCrop"
             android:id="@+id/takePicture"
-            android:src="@mipmap/take_picture_image"/>
+            android:src="@drawable/camera"/>
 
         <Button
         android:layout_below="@id/takePicture"

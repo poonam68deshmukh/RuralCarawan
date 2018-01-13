@@ -1,24 +1,18 @@
 package com.hatchers.ruralcaravane.customer_registration;
 
-import android.Manifest;
+
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,59 +29,55 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.customer_registration.apihelper.WebCustomer_ApiHelper;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTableHelper;
-import com.hatchers.ruralcaravane.customer_registration.apihelper.WebCustomer_ApiHelper;
 import com.hatchers.ruralcaravane.customer_registration.listener.CityListner;
 import com.hatchers.ruralcaravane.customer_registration.listener.VillageListner;
 import com.hatchers.ruralcaravane.customer_registration.model.City;
 import com.hatchers.ruralcaravane.customer_registration.model.CityVillageList;
 import com.hatchers.ruralcaravane.customer_registration.model.Village;
-import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.file.FileHelper;
-import com.hatchers.ruralcaravane.file.FileType;
 import com.hatchers.ruralcaravane.file.Folders;
-import com.hatchers.ruralcaravane.scaner.AadhaarCard;
 import com.hatchers.ruralcaravane.scaner.AdharScanner;
-import com.hatchers.ruralcaravane.scaner.AdharXMLParser;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.hatchers.ruralcaravane.current_date_time_function.CurrentDateTime.getCurrentDateTime;
 
 
 public class AddCustomerFragment extends Fragment {
 
-    private static final String IMAGE_DIRECTORY = "/RuraralCaravane";
     private int CAMERA = 1,GALLERY=2,ADHARSCAN=3;;
     Bitmap custBitmap;
     CustomerTable customer_table;
     private String selected_gender = "";
     private Button save,ScanByAadhar;
-    private int RESULT_CANCELED;
-    private ImageView profileImage;
     private FloatingActionButton fab;
     private RadioGroup radioGroupGender;
     private RadioButton male, female;
     private TextView uniqueIdTxt;
-    private EditText customer_name, customer_address, customer_mobileno, customer_age;
+    private CircleImageView profileImage;
+    private TextInputEditText customer_name, customer_address, customer_mobileno, customer_age,aadhar_id;
     private Spinner citySpinner, villageSpinner;
     private ArrayList<City> cityArrayList;
     private ArrayList<Village> villageArrayList;
-    private String villageId;
-    private String currentDateTime;
+    private String villageId,cityid;
+    private int RESULT_CANCELED;
+
 
     public AddCustomerFragment() {
         // Required empty public constructor
@@ -105,35 +94,17 @@ public class AddCustomerFragment extends Fragment {
         CityVillageList cityList=new CityVillageList();
         WebCustomer_ApiHelper.getCityList(getActivity(),cityList);
         setCityEvent(cityList);
-
         initializations(view);
         generateUniqueId();
-        setGender();
         onclicklisteners();
         setCitySpinnerList();
         citySelectedListner();
         setVillageSpinnerList();
         villageSelectedListner();
-        setProfilePhoto();
+        setGender();
 
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getActivity(),
-                    Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED) {
-            }
-
-            else {
-                //Request Camera Permission
-                checkLocationPermission();
-            }
-            }
-
-        else {
-            // setLocationListener();
-
-        }
-        if (android.os.Build.VERSION.SDK_INT >= 21)
+        if (Build.VERSION.SDK_INT >= 21)
         {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -145,106 +116,10 @@ public class AddCustomerFragment extends Fragment {
     }
 
 
-    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 99;
-
-    private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.CAMERA)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Camera Permission Needed")
-                        .setMessage("This app needs the camera permission, please accept to use location functionality")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(getActivity(),
-                                        new String[]{Manifest.permission.CAMERA},
-                                        MY_PERMISSIONS_REQUEST_CAMERA );
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.CAMERA},
-                        MY_PERMISSIONS_REQUEST_CAMERA );
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_CAMERA: {
-                // If request is cancelled, the result arrays are empty.
-                try {
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                        // permission was granted, yay! Do the
-                        // location-related task you need to do.
-                        if (ContextCompat.checkSelfPermission(getActivity(),
-                                Manifest.permission.CAMERA)
-                                == PackageManager.PERMISSION_GRANTED) {
-
-
-                        }
-
-                    } else {
-
-                        // permission denied, boo! Disable the
-                        // functionality that depends on this permission.
-                        Toast.makeText(getActivity(), "permission denied", Toast.LENGTH_LONG).show();
-                    }
-                    return;
-                } catch (Exception e) {
-                }
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }
-
-    private void setProfilePhoto()
-    {
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        File profile = new File(wallpaperDirectory, "profile.jpg");
-        if(profile.exists())
-        {
-            Bitmap bitmap = BitmapFactory.decodeFile(profile.getAbsolutePath());
-            profileImage.setImageBitmap(bitmap);
-            custBitmap=bitmap;
-
-            // to set the background color (color should have some alpha val)
-            //  diagonalView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            // to make the solid color diagonal
-            //  diagonalView.setSolidColor(getResources().getColor(R.color.colorPrimaryDark));
-
-        }
-        else
-        {
-            profileImage.setImageResource(R.drawable.user_profile);
-            custBitmap=null;
-        }
-
-    }
 
     private void initializations(View view)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -253,19 +128,20 @@ public class AddCustomerFragment extends Fragment {
         cityArrayList =new ArrayList<City>();
         villageArrayList = new ArrayList<Village>();
         save = (Button) view.findViewById(R.id.saveBtn);
-        customer_name = (EditText) view.findViewById(R.id.customer_name);
-        customer_address = (EditText) view.findViewById(R.id.customer_address);
-        customer_mobileno = (EditText) view.findViewById(R.id.customer_mobileno);
-        customer_age = (EditText) view.findViewById(R.id.customer_age);
+        customer_name = (TextInputEditText) view.findViewById(R.id.customer_name);
+        customer_address = (TextInputEditText) view.findViewById(R.id.customer_address);
+        customer_mobileno = (TextInputEditText) view.findViewById(R.id.customer_mobileno);
+        customer_age = (TextInputEditText) view.findViewById(R.id.customer_age);
         radioGroupGender = (RadioGroup) view.findViewById(R.id.radio_gender);
         male = (RadioButton) view.findViewById(R.id.male);
         female = (RadioButton) view.findViewById(R.id.female);
         fab=(FloatingActionButton)view.findViewById(R.id.fab);
-        profileImage=(ImageView)view.findViewById(R.id.profileImage);
+        profileImage=(CircleImageView) view.findViewById(R.id.profileImage);
         uniqueIdTxt=(TextView)view.findViewById(R.id.uniqueIdTxt);
         ScanByAadhar=(Button)view.findViewById(R.id.ScanByAadhar);
         citySpinner = (Spinner)view.findViewById(R.id.city_spinner);
         villageSpinner = (Spinner)view.findViewById(R.id.village_spinner);
+        aadhar_id=(TextInputEditText)view.findViewById(R.id.aadhar_id);
     }
 
     private void setCitySpinnerList()
@@ -288,6 +164,8 @@ public class AddCustomerFragment extends Fragment {
                 WebCustomer_ApiHelper.getVillageList(getActivity(),cityVillageList,city.getId());
                 setVillageEvent(cityVillageList);
                 citySpinner.setSelection(position);
+                cityid=city.getId();
+
             }
 
             @Override
@@ -436,6 +314,8 @@ public class AddCustomerFragment extends Fragment {
                             .setTitleText("Please wait");
                     sweetAlertDialog.show();
 
+                    FileHelper.savePNGImage(Folders.CUSTOMERFOLDER,custBitmap,customer_table.getImagePathValue());
+
                     if(CustomerTableHelper.insertCustomerData(getContext(), customer_table))
                     {
                         sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
@@ -446,7 +326,6 @@ public class AddCustomerFragment extends Fragment {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismissWithAnimation();
-
                                 profileImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
                                 custBitmap=null;
                                 customer_name.setText("");
@@ -454,8 +333,13 @@ public class AddCustomerFragment extends Fragment {
                                 customer_mobileno.setText("");
                                 customer_age.setText("");
                                 uniqueIdTxt.setText("");
+                                aadhar_id.setText("");
                                 male.setChecked(false);
                                 female.setChecked(false);
+                                generateUniqueId();
+                                if( getActivity() instanceof CustomerRegistrationActivity) {
+                                    ((CustomerRegistrationActivity) getActivity()).viewPager.setCurrentItem(0);
+                                }
 
                             }
                         });
@@ -584,15 +468,15 @@ public class AddCustomerFragment extends Fragment {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
 
-                    Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
                     profileImage.setImageBitmap(bitmap);
                     custBitmap=bitmap;
                    // diagonalView.setImageBitmap(bitmap);
                     //diagonalView.setBitmap(bitmap);
 
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                    //e.printStackTrace();
+                   // Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -626,6 +510,9 @@ public class AddCustomerFragment extends Fragment {
        /*
        </?xml version="1.0" encoding="UTF-8"?> <PrintLetterBarcodeData uid="679503416602" name="Gopika Narayan Nikam" gender="FEMALE" yob="1994" co="null" lm="near kumavat mangal karyalay" loc="suyong colony,padampura" vtc="Aurangabad" po="Kranti Chowk" dist="Aurangabad" state="Maharashtra" pc="431005" dob="30-07-1994"/>
        */
+
+
+       //</?xml version="1.0" encoding="UTF-8"?> <PrintLetterBarcodeData uid="679503416602" name="Gopika Narayan Nikam" gender="FEMALE" yob="1994" co="null" lm="near kumavat mangal karyalay" loc="suyong colony,padampura" vtc="Aurangabad" po="Kranti Chowk" dist="Aurangabad" state="Maharashtra" pc="431005" dob="30-07-1994"/>
        XmlPullParser parser = null;
         InputStream stream = null;
         try {
@@ -644,11 +531,35 @@ public class AddCustomerFragment extends Fragment {
             String pincode = parser.getAttributeValue(null, "pc");
             String gender = parser.getAttributeValue(null,"gender");
             String year = parser.getAttributeValue(null,"yob");
+            String location = parser.getAttributeValue(null,"loc");
+            String vtc = parser.getAttributeValue(null,"vtc");
             String houseName = parser.getAttributeValue(null,"co");
-            Toast.makeText(getActivity(),name,Toast.LENGTH_LONG).show();
+            String dist = parser.getAttributeValue(null,"dist");
+            String state = parser.getAttributeValue(null,"state");
+            String lm = parser.getAttributeValue(null,"lm");
+
+            int currentyear=Calendar.getInstance().get(Calendar.YEAR);
+            int age=currentyear-Integer.parseInt(year);
+
+            //Toast.makeText(getActivity(),name,Toast.LENGTH_LONG).show();
             customer_name.setText(name);
-            //customer_address.setText(newCard.getAddress());
-            //customer_age.setText(newCard.yob);
+            customer_name.setFocusable(false);
+            customer_address.setText( houseName +" "+location+" "+lm+" "+ vtc+ " "+ pincode+ ""+dist+" "+state);
+            customer_address.setFocusable(false);
+            customer_mobileno.setText("");
+            customer_age.setText(age);
+            customer_age.setFocusable(false);
+            aadhar_id.setText(uid);
+            aadhar_id.setFocusable(false);
+            if(gender.equalsIgnoreCase("M"))
+            {male.setChecked(true);}
+        else{
+        female.setChecked(true);
+    }
+
+
+
+
 
         } catch(XmlPullParserException xppe) {
 
@@ -662,19 +573,16 @@ public class AddCustomerFragment extends Fragment {
             } catch (IOException ioe)
             {
 
-                
+
             }
 
         }
     }
 
 
-
-
     private boolean setCustomerData()
     {
         customer_table = new CustomerTable();
-        customer_table.setCustomerIdValue("");
         customer_table.setCustomerNameValue(customer_name.getText().toString());
         customer_table.setVillageNameValue(villageSpinner.getSelectedItem().toString());
         customer_table.setCustomerAddressValue(customer_address.getText().toString());
@@ -682,21 +590,16 @@ public class AddCustomerFragment extends Fragment {
         customer_table.setCustomerAgeValue(customer_age.getText().toString());
         customer_table.setCustomerGenderValue(selected_gender);
         customer_table.setUniqueIdValue(uniqueIdTxt.getText().toString());
-        customer_table.setAadharIdValue("");
+        customer_table.setAadharIdValue(aadhar_id.getText().toString());
+        customer_table.setImagePathValue("CU_"+customer_table.getUniqueIdValue());
+        customer_table.setCityId(cityid);
         customer_table.setVillageIdValue(villageId);
         customer_table.setAddedDateValue(getCurrentDateTime());
         customer_table.setUpload_statusValue("0");
-        FileHelper.savePNGImage(Folders.CHULHAFOLDER,custBitmap);
+
         return false;
     }
 
-    private String getCurrentDateTime()
-    {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        currentDateTime = sdf.format(new Date());
-
-        return currentDateTime;
-    }
 
     public void setGender()
     {

@@ -5,30 +5,44 @@ public class PaymentTable {
 
     public static final String PAYMENT_TABLE="PaymentTable";
 
-    public static final String PAYMENT_ID="payment_id",PAYMENT_AMOUNT="payment_amount",
-                               ADVANCE_AMOUNT="advance_amount",REMAINING_AMOUNT="reamaining_amount",
-                               UPLOAD_STATUS="upload_status",CHULLHA_IMAGE="chullha_image",
-                               CUSTOMER_ID="customer_id",KITCHEN_ID="kitchen_id",COST_OF_CHULLHA="cost_of_chullha";
+    public static final String PAYMENT_ID="payment_id",PAYMENT_AMOUNT="payment_amount",TOTAL_PAID="total_paid",
+                               REMAINING_AMOUNT="remaining_amount",UPLOAD_STATUS="upload_status",RECEIPT_IMAGE="receipt_image",
+                               CUSTOMER_ID="customer_id",TECHNICIAN_ID="technician_id",KITCHEN_ID="kitchen_id",
+                               INSTALLMENT_ID="installment_id",DATE_OF_PAYMENT="date_of_payment",TYPE="type",
+                               PAYMENT_TYPE="payment_type",RECEIPT_NO="receipt_no",ISSUED_BY_ID="issued_by_id",
+                               CHULLHA_ID="chullha_id",UPDATE_DATE="update_date",PAYMENT_UNIQUE_ID="payment_unique_id";
 
     public static final String CREATE_PAYMENT_TABLE="CREATE TABLE " + PAYMENT_TABLE +
-            "("+PAYMENT_ID+" TEXT PRIMARY KEY ,"+PAYMENT_AMOUNT+" TEXT,"
-            +ADVANCE_AMOUNT+" TEXT,"+REMAINING_AMOUNT+" TEXT, "+UPLOAD_STATUS+" TEXT, "
-            +CHULLHA_IMAGE+" TEXT, "+CUSTOMER_ID+" TEXT)";
+            "("+PAYMENT_ID+" TEXT PRIMARY KEY ,"+PAYMENT_AMOUNT+" TEXT,"+TOTAL_PAID+" TEXT,"+REMAINING_AMOUNT+" TEXT, "+UPLOAD_STATUS+" TEXT, "
+            +RECEIPT_IMAGE+" TEXT, "+CUSTOMER_ID+" TEXT, "+INSTALLMENT_ID+" TEXT, "+DATE_OF_PAYMENT+" TEXT, "+TECHNICIAN_ID+" TEXT, "+KITCHEN_ID+" TEXT , "
+            +PAYMENT_TYPE+" TEXT, "+RECEIPT_NO+" TEXT, "+ISSUED_BY_ID+" TEXT, "+TYPE+" TEXT, "+CHULLHA_ID+" TEXT, "+UPDATE_DATE+" TEXT, "+PAYMENT_UNIQUE_ID+" TEXT)";
 
-    private String payment_idValue,payment_amountValue,advance_amountValue,reamaining_amountValue,upload_statusValue,imagePathValue,customerIdValue,customerName;
+    private String payment_idValue,payment_amountValue,totalPaidValue,remaining_amountValue,upload_statusValue,customerIdValue,receiptImageValue,installmentIdValue,dateOfPaymentValue,technicianIdValue,kitchenIdValue,paymentTypeValue,receiptNoValue,issuedByIdValue,typeValue,chullhaIdValue,updateDateValue,paymentUniqueIdValue;
 
-    public PaymentTable() {
-    }
-
-    public PaymentTable(String payment_idValue, String payment_amountValue, String advance_amountValue, String reamaining_amountValue, String upload_statusValue,String imagePathValue,String customerIdValue,String customerName) {
+    public PaymentTable(String payment_idValue, String payment_amountValue, String totalPaidValue, String remaining_amountValue, String upload_statusValue,String customerIdValue,String receiptImageValue,String installmentIdValue,String dateOfPaymentValue,String technicianIdValue,String kitchenIdValue,String paymentTypeValue,String receiptNoValue,String issuedByIdValue,String typeValue,String chullhaIdValue,String updateDateValue,String paymentUniqueIdValue) {
         this.payment_idValue = payment_idValue;
         this.payment_amountValue = payment_amountValue;
-        this.advance_amountValue = advance_amountValue;
-        this.reamaining_amountValue = reamaining_amountValue;
+        this.totalPaidValue = totalPaidValue;
+        this.remaining_amountValue = remaining_amountValue;
         this.upload_statusValue = upload_statusValue;
-        this.imagePathValue=imagePathValue;
         this.customerIdValue=customerIdValue;
-        this.customerName=customerName;
+        this.receiptImageValue=receiptImageValue;
+        this.customerIdValue=customerIdValue;
+        this.installmentIdValue=installmentIdValue;
+        this.dateOfPaymentValue=dateOfPaymentValue;
+        this.technicianIdValue=technicianIdValue;
+        this.kitchenIdValue=kitchenIdValue;
+        this.paymentTypeValue=paymentTypeValue;
+        this.receiptNoValue=receiptNoValue;
+        this.issuedByIdValue=issuedByIdValue;
+        this.typeValue=typeValue;
+        this.chullhaIdValue=chullhaIdValue;
+        this.updateDateValue=updateDateValue;
+        this.paymentUniqueIdValue=paymentUniqueIdValue;
+    }
+
+    public PaymentTable() {
+
     }
 
     public String getPayment_idValue() {
@@ -48,19 +62,19 @@ public class PaymentTable {
     }
 
     public String getAdvance_amountValue() {
-        return advance_amountValue;
+        return totalPaidValue;
     }
 
     public void setAdvance_amountValue(String advance_amountValue) {
-        this.advance_amountValue = advance_amountValue;
+        this.totalPaidValue = advance_amountValue;
     }
 
-    public String getReamaining_amountValue() {
-        return reamaining_amountValue;
+    public String getRemaining_amountValue() {
+        return remaining_amountValue;
     }
 
-    public void setReamaining_amountValue(String reamaining_amountValue) {
-        this.reamaining_amountValue = reamaining_amountValue;
+    public void setRemaining_amountValue(String remaining_amountValue) {
+        this.remaining_amountValue = remaining_amountValue;
     }
 
     public String getUpload_statusValue() {
@@ -71,14 +85,6 @@ public class PaymentTable {
         this.upload_statusValue = upload_statusValue;
     }
 
-    public String getImagePathValue() {
-        return imagePathValue;
-    }
-
-    public void setImagePathValue(String imagePathValue) {
-        this.imagePathValue = imagePathValue;
-    }
-
     public String getCustomerIdValue() {
         return customerIdValue;
     }
@@ -87,11 +93,107 @@ public class PaymentTable {
         this.customerIdValue = customerIdValue;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getTotalPaidValue() {
+        return totalPaidValue;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setTotalPaidValue(String totalPaidValue) {
+        this.totalPaidValue = totalPaidValue;
+    }
+
+    public String getReceiptImageValue() {
+        return receiptImageValue;
+    }
+
+    public void setReceiptImageValue(String receiptImageValue) {
+        this.receiptImageValue = receiptImageValue;
+    }
+
+    public String getInstallmentIdValue() {
+        return installmentIdValue;
+    }
+
+    public void setInstallmentIdValue(String installmentIdValue) {
+        this.installmentIdValue = installmentIdValue;
+    }
+
+    public String getDateOfPaymentValue() {
+        return dateOfPaymentValue;
+    }
+
+    public void setDateOfPaymentValue(String dateOfPaymentValue) {
+        this.dateOfPaymentValue = dateOfPaymentValue;
+    }
+
+    public String getTechnicianIdValue() {
+        return technicianIdValue;
+    }
+
+    public void setTechnicianIdValue(String technicianIdValue) {
+        this.technicianIdValue = technicianIdValue;
+    }
+
+    public String getKitchenIdValue() {
+        return kitchenIdValue;
+    }
+
+    public void setKitchenIdValue(String kitchenIdValue) {
+        this.kitchenIdValue = kitchenIdValue;
+    }
+
+    public String getPaymentTypeValue() {
+        return paymentTypeValue;
+    }
+
+    public void setPaymentTypeValue(String paymentTypeValue) {
+        this.paymentTypeValue = paymentTypeValue;
+    }
+
+    public String getReceiptNoValue() {
+        return receiptNoValue;
+    }
+
+    public void setReceiptNoValue(String receiptNoValue) {
+        this.receiptNoValue = receiptNoValue;
+    }
+
+    public String getIssuedByIdValue() {
+        return issuedByIdValue;
+    }
+
+    public void setIssuedByIdValue(String issuedByIdValue) {
+        this.issuedByIdValue = issuedByIdValue;
+    }
+
+    public String getTypeValue() {
+        return typeValue;
+    }
+
+    public void setTypeValue(String typeValue) {
+        this.typeValue = typeValue;
+    }
+
+    public String getChullhaIdValue() {
+        return chullhaIdValue;
+    }
+
+    public void setChullhaIdValue(String chullhaIdValue) {
+        this.chullhaIdValue = chullhaIdValue;
+    }
+
+    public String getUpdateDateValue() {
+        return updateDateValue;
+    }
+
+    public void setUpdateDateValue(String updateDateValue) {
+        this.updateDateValue = updateDateValue;
+    }
+
+    public String getPaymentUniqueIdValue() {
+        return paymentUniqueIdValue;
+    }
+
+    public void setPaymentUniqueIdValue(String paymentUniqueIdValue) {
+        this.paymentUniqueIdValue = paymentUniqueIdValue;
     }
 }

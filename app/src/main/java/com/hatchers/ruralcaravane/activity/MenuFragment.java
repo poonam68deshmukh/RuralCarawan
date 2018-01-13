@@ -32,8 +32,9 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     private Toolbar menu_toolbar;
     PrefManager prefManager;
     private  FragmentTransaction fragmentTransaction;
-    private LinearLayout kitchen_linear,construction_linear,payment_linear;
+    private LinearLayout kitchen_linear,payment_linear;
     private CustomerTable customertable;
+
     public static MenuFragment getInstance(CustomerTable customertable)
     {
         MenuFragment fragment = new MenuFragment();
@@ -41,7 +42,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         args.putParcelable(CustomerTable.CUSTOMER_TABLE, customertable);
         fragment.setArguments(args);
         return fragment;
-
     }
 
 
@@ -70,14 +70,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
 
         kitchen_linear=(LinearLayout)view.findViewById(R.id.kitchen_linear);
-        construction_linear=(LinearLayout)view.findViewById(R.id.construction_linear);
         payment_linear=(LinearLayout)view.findViewById(R.id.payment_linear);
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
 
-
         kitchen_linear.setOnClickListener(this);
-        construction_linear.setOnClickListener(this);
         payment_linear.setOnClickListener(this);
 
 
@@ -109,10 +106,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
                 fragmentTransaction.replace(R.id.frame_layout,kitchenSuitabilityList).addToBackStack(null).commit();
                 break;
 
-            case R.id.construction_linear:
-                //ConstructionTeamListFragment constructionTeamListFragment = ConstructionTeamListFragment.getInstance(customertable);
-               // fragmentTransaction.replace(R.id.frame_layout,constructionTeamListFragment).addToBackStack(null).commit();
-                break;
 
             case R.id.payment_linear:
                 PaymentDetailsFragment paymentDetailsFragment=PaymentDetailsFragment.getInstance(customertable);

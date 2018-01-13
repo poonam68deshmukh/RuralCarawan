@@ -1,9 +1,13 @@
 package com.hatchers.ruralcaravane.customer_registration;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,10 +16,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.customer_registration.adapter.CustomerAdapter;
 import com.hatchers.ruralcaravane.pref_manager.PrefManager;
+import com.hatchers.ruralcaravane.runtime_permissions.RuntimePermissions;
 import com.hatchers.ruralcaravane.user_login.LoginActivity;
 import com.hatchers.ruralcaravane.user_login.UserDetailsFragment;
 
@@ -27,7 +33,7 @@ public class CustomerRegistrationActivity extends AppCompatActivity
     public static ViewPager viewPager;
     PrefManager prefManager;
     FragmentTransaction fragmentTransaction;
-
+    CustomerListFragment customerListFragment;
     private int[] tabIcons = {
             R.drawable.customer_list,
             R.drawable.add_customer
@@ -40,18 +46,17 @@ public class CustomerRegistrationActivity extends AppCompatActivity
 
         customer_toolbar = (Toolbar)findViewById(R.id.customer_toolbar);
         setSupportActionBar(customer_toolbar);
-
         initializations();
-
         SetupViewPager();
-
         setupTabIcons();
-
         tabListener();
-
         viewPagerListener();
-
         clickListener();
+
+
+        RuntimePermissions.checkCameraPermission(CustomerRegistrationActivity.this);
+        RuntimePermissions.checkReadExternalStoragePermission(CustomerRegistrationActivity.this);
+        RuntimePermissions.checkWriteExternalStoragePermission(CustomerRegistrationActivity.this);
     }
 
     private void setupTabIcons()
@@ -79,11 +84,14 @@ public class CustomerRegistrationActivity extends AppCompatActivity
 
     private void SetupViewPager()
     {
+        customerListFragment=   new CustomerListFragment();
         CustomerAdapter adapter = new CustomerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CustomerListFragment(), "Customer List");
+        adapter.addFragment(customerListFragment, "Customer List");
         adapter.addFragment(new AddCustomerFragment(), "Add Customer");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+
 }
 
     private void tabListener()
@@ -118,6 +126,12 @@ public class CustomerRegistrationActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int position) {
 
+
+                if(position==0)
+                {
+                    customerListFragment.setData();
+
+                }
             }
 
             @Override
@@ -166,4 +180,94 @@ public class CustomerRegistrationActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+
+            case RuntimePermissions.MY_PERMISSIONS_REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                RuntimePermissions.checkReadExternalStoragePermission(CustomerRegistrationActivity.this);
+
+                            }
+                        }, 500);
+
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+
+            case RuntimePermissions.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                RuntimePermissions.checkWriteExternalStoragePermission(CustomerRegistrationActivity.this);
+
+                            }
+                        }, 500);
+
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+            case RuntimePermissions.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        }, 500);
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+
+    }
+
 }

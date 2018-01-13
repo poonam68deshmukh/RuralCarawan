@@ -1,8 +1,13 @@
 package com.hatchers.ruralcaravane.construction_team;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
@@ -13,15 +18,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hatchers.ruralcaravane.construction_team.database.ConstructionTable;
 import com.hatchers.ruralcaravane.construction_team.database.ConstructionTableHelper;
 import com.hatchers.ruralcaravane.R;
+import com.hatchers.ruralcaravane.file.FileHelper;
+import com.hatchers.ruralcaravane.file.Folders;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
 import com.hatchers.ruralcaravane.pref_manager.PrefManager;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -39,8 +51,14 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
     private RadioButton male, female;
     private String selectedGender = "";
     PrefManager prefManager;
+    private ImageView half_constructed_image,complete_constructed_image;
+    private int CAMERA = 1;
+    private TextView constructionUniqueIdText;
+    Bitmap conBitmap,conBitmap1;
+    KitchenTable kitchen_table;
 
     ConstructionTable constructionTable;
+    private int RESULT_CANCELED;
 
     public static ConstructionTeamRegistrationFragment newInstance(KitchenTable kitchenTable) {
         ConstructionTeamRegistrationFragment fragment = new ConstructionTeamRegistrationFragment();
@@ -103,6 +121,8 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
         radioGroupGender = (RadioGroup) view.findViewById(R.id.radio_gender);
         male = (RadioButton) view.findViewById(R.id.male);
         female = (RadioButton) view.findViewById(R.id.female);
+        half_constructed_image=(ImageView)view.findViewById(R.id.half_constructed_image);
+        complete_constructed_image=(ImageView)view.findViewById(R.id.complete_constructed_image);
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = getActivity().getWindow();
@@ -132,7 +152,8 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
                             .setTitleText("Please wait");
 
                     sweetAlertDialog.show();
-
+                    FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap,"KIT_Step1_image"+kitchenTable.getKitchenUniqueIdValue());
+                    FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap1,"KIT_Step1_image"+kitchenTable.getKitchenUniqueIdValue());
                     if(ConstructionTableHelper.insertConstructionTeamData(getContext(), constructionTable))
                     {
                         sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
@@ -143,13 +164,17 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismissWithAnimation();
 
-
                                 construction_member_name.setText("");
                                 construction_member_address.setText("");
                                 construction_member_mobileno.setText("");
                                 construction_member_age.setText("");
+                                half_constructed_image.setImageResource(R.drawable.camera);
+                                complete_constructed_image.setImageResource(R.drawable.camera);
                                 male.setChecked(false);
                                 female.setChecked(false);
+                                getActivity().onBackPressed();
+                                conBitmap=null;
+                                conBitmap1=null;
                             }
                         });
                     }
@@ -169,6 +194,20 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
                 }
             }
         });
+
+        half_constructed_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog();
+            }
+        });
+
+        complete_constructed_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog();
+            }
+        });
     }
 
     private void setConstructionTeamData()
@@ -182,7 +221,9 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
         constructionTable.setTechnicianGenderValue(selectedGender);
         constructionTable.setKitchentUniqueId(kitchenTable.getKitchenUniqueIdValue());
         constructionTable.setKitchenIdValue(kitchenTable.getKitchen_idValue());
-    }
+        kitchenTable.setStep1_imageValue("KIT_Step1_"+kitchenTable.getKitchenUniqueIdValue());
+        kitchenTable.setStep2_imageValue("KIT_Step2_"+kitchenTable.getKitchenUniqueIdValue());
+        }
 
 
     public void setGender()
@@ -242,6 +283,59 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
 
         }
         return response;
+    }
+
+
+    private void showPictureDialog()
+    {
+        final CharSequence[] options = {"Take Photo", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Add Photo!");
+        builder.setItems(options,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                takePhotoFromCamera();
+                                break;
+
+                            case 2:
+                                dialog.dismiss();
+                        }
+                    }
+                });
+        AlertDialog alert=builder.create();
+        alert.setCancelable(false);
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
+    private void takePhotoFromCamera()
+    {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == this.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == CAMERA) {
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            Bitmap thumbnail1 = (Bitmap) data.getExtras().get("data");
+            half_constructed_image.setImageBitmap(thumbnail);
+            complete_constructed_image.setImageBitmap(thumbnail1);
+            conBitmap=thumbnail;
+            conBitmap1=thumbnail1;
+
+        }
     }
 
 }
