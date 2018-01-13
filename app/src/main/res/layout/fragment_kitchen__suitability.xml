@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     tools:context=".kitchen_suitability.KitchenSuitabilityFragment">
 
@@ -10,10 +9,33 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/colorAccent"
-        app:navigationIcon="@drawable/back_arrow"
-        android:id="@+id/kitchen_toolbar"
-        app:titleTextColor="@color/colorWhite"
-        app:title="Kitchen Suitability">
+        android:id="@+id/kitchen_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:id="@+id/kitchen_btnBack"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_title"
+                android:textColor="@color/white"
+                android:text="Kitchen Suitability "
+                android:layout_marginLeft="15dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 
@@ -36,13 +58,12 @@
 
 
             <LinearLayout
-                android:background="@drawable/shape"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:weightSum="2">
 
 
@@ -52,14 +73,10 @@
                     android:text="Unique Id:"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/uniqueIdTxt"/>
+                    android:id="@+id/uniqueIdTxt"
+                    android:textColor="@color/black"/>
 
 
                 <TextView
@@ -67,50 +84,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
-                    android:textStyle="bold"
                     android:id="@+id/kitchenUniqueIdText"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorDarkgray"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
 
             <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/houseTpye_spinnerLayout"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal"
-        android:background="@drawable/shape">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:orientation="horizontal">
 
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/house_type"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginRight="16dp"/>
 
         <Spinner
-            android:background="@android:color/transparent"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/house_type_survey"
-            android:padding="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
-            android:layout_marginRight="20dp"
             android:spinnerMode="dropdown"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/spinner_dropdown_house"
-            android:layout_gravity="center|end"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/spinner_drop_down"/>
+            style="@android:style/Widget.Holo.Light.Spinner"/>
 
     </LinearLayout>
 
@@ -118,11 +131,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/roofTpye_spinnerLayout"
-        android:layout_marginTop="35dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:orientation="horizontal"
-        android:background="@drawable/shape"
         android:layout_below="@id/houseTpye_spinnerLayout">
 
 
@@ -130,60 +142,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/roof_type"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginRight="16dp"/>
 
         <Spinner
-            android:background="@android:color/transparent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/roof_type"
-            android:padding="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
+            android:layout_weight="1"
             android:spinnerMode="dropdown"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_dropdown_roof"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/spinner_drop_down"/>
+            style="@android:style/Widget.Holo.Light.Spinner"/>
 
     </LinearLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/shape"
-        android:layout_below="@id/roofTpye_spinnerLayout"
-        android:id="@+id/kitchenHeight_layout">
-
-        <android.support.design.widget.TextInputEditText
-            android:drawableLeft="@drawable/kitchen"
-            android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kitchen"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="16dp"/>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Kitchen Height(in feet) "
-            android:textColorHint="@color/colorAccent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center"
-            android:maxLength="2"
-            android:drawablePadding="20dp"
-            android:imeOptions="actionNext"
-            android:id="@+id/kitchen_height"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textSize="18dp"
-            android:padding="15dp"
-            />
+            android:layout_below="@id/roofTpye_spinnerLayout"
+            android:id="@+id/kitchenHeight_layout">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Kitchen Height(in feet) "
+                android:textColorHint="@color/DarkBrown"
+                android:maxLength="2"
+                android:imeOptions="actionNext"
+                android:id="@+id/kitchen_height"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="18dp"
+                android:paddingBottom="15dp"/>
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 
 
         <TextView
@@ -191,50 +196,35 @@
             android:text="Take Image of Planned Area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:id="@+id/text1"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:id="@+id/img_layout"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_below="@id/text1">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/shape3"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:id="@+id/takePicture"
-                    android:src="@drawable/ic_add_image"/>
-
-
-            </RelativeLayout>
-
+        <ImageView
+            android:layout_below="@id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:scaleType="fitXY"
+            android:id="@+id/takePicture"
+            android:src="@drawable/capture_area"/>
 
         <Button
-        android:layout_below="@id/img_layout"
-        android:background="@drawable/shape1"
+        android:layout_below="@id/takePicture"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:text="Next"
         android:id="@+id/upload"/>
-
         </LinearLayout>
 
         <FrameLayout

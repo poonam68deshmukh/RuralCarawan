@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 
@@ -33,7 +34,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     private Toolbar menu_toolbar;
     PrefManager prefManager;
     private  FragmentTransaction fragmentTransaction;
-    private LinearLayout kitchen_linear,payment_linear;
+    private Button kitchen_linear,payment_linear;
     private CustomerTable customertable;
 
     public MenuFragment()
@@ -77,8 +78,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         ((AppCompatActivity)getActivity()).setSupportActionBar(menu_toolbar);
         prefManager=new PrefManager(getActivity());
 
-        kitchen_linear=(LinearLayout)view.findViewById(R.id.kitchen_linear);
-        payment_linear=(LinearLayout)view.findViewById(R.id.payment_linear);
+        kitchen_linear=(Button)view.findViewById(R.id.kitchen_linear);
+        payment_linear=(Button)view.findViewById(R.id.payment_linear);
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
 

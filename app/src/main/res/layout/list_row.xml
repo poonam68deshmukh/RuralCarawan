@@ -1,87 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="10dip">
+    android:padding="16dp">
 
-
-    <LinearLayout android:id="@+id/thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="3dip"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="5dip">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/customer_image"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
-            app:border_color="@color/colorAccent"
-            app:border_width="2dp"
-            android:src="@drawable/user_profile"/>
-
-    </LinearLayout>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/customer_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/user_profile"
+        android:layout_marginRight="16dp"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:id="@+id/l1"
-        android:layout_toRightOf="@+id/thumbnail">
-
-
-    <TextView
-        android:id="@+id/customer_name"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:text="Customer Name"
-        android:textColor="#040404"
-        android:padding="2dp"
-        android:typeface="sans"
-        android:textSize="15dip"
-        android:textStyle="bold"/>
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+
+        <TextView
+            android:id="@+id/customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Name"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:typeface="sans"/>
+
+        <TextView
+            android:id="@+id/customer_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:text="Address"
+            android:textColor="@color/black"
+            android:layout_marginTop="2.5dp"/>
+
+
+        <TextView
+            android:id="@+id/customer_mobileno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mobile"
+            android:textColor="@color/black"
+            android:layout_marginTop="2.5dp"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/customer_age"
-        android:textColor="#040404"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/customer_age"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_marginTop="1dip"
-        android:text="Age" />
-
-        </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/customer_address"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:text="Address"
-        android:maxLines="3"
-        android:textStyle="bold"
-        android:layout_below="@id/l1"/>
+        android:text="Age"
+        android:textColor="@color/black"/>
 
 
-       <TextView
-           android:id="@+id/customer_mobileno"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textColor="#343434"
-           android:layout_weight="1"
-           android:textSize="10dip"
-           android:textStyle="bold"
-           android:layout_toRightOf="@+id/thumbnail"
-            android:layout_below="@id/customer_address"
-           android:layout_marginTop="1dip"
-           android:text="Mobile" />
-
-</RelativeLayout>
+</LinearLayout>

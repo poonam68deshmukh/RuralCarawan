@@ -11,19 +11,40 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/colorAccent"
-        app:title="Kitchen List"
-        app:titleTextColor="@color/colorWhite"
-        app:navigationIcon="@drawable/back_arrow"
         android:id="@+id/kitchenListToolbar">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:id="@+id/kitchenList_btnBack"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_title"
+                android:textColor="@color/white"
+                android:text="Kitchen List"
+                android:layout_marginLeft="15dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:layout_below="@id/kitchenListToolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorGray">
+        android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/kitchenRecyclerView"

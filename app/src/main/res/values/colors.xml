@@ -4,11 +4,10 @@
     <color name="colorPrimaryDark">#094625</color>
     <color name="colorAccent">#096534</color>
 
-    <color name="white">#FFF</color>
-    <color name="black">#000</color>
-  <!--  <color name="DarkBrown">#544420</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+  <color name="DarkBrown">#544420</color>
     <color name="Brown">#816830</color>
--->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray">#F4F4F4</color>
     <color name="colorDarkgray">#dddddd</color>
