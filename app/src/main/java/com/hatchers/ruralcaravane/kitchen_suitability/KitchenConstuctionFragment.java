@@ -1,10 +1,16 @@
 package com.hatchers.ruralcaravane.kitchen_suitability;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,14 +24,25 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.construction_team.ConstructionTeamRegistrationFragment;
 import com.hatchers.ruralcaravane.construction_team.adapter.ConstructionListAdapter;
 import com.hatchers.ruralcaravane.construction_team.database.ConstructionTable;
 import com.hatchers.ruralcaravane.construction_team.database.ConstructionTableHelper;
+import com.hatchers.ruralcaravane.file.FileHelper;
+import com.hatchers.ruralcaravane.file.FileType;
+import com.hatchers.ruralcaravane.file.Folders;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
+import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTableHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class KitchenConstuctionFragment extends Fragment {
 
@@ -37,6 +54,9 @@ public class KitchenConstuctionFragment extends Fragment {
     private TextView houseTypeTxt, roofTypeTxt, heightTxt;
     private ImageView kitchenConstructionImage;
     private Toolbar kitchen_const_Toolbar;
+    private ImageView half_constructed_image,complete_constructed_image;
+    private int HALF_IMAGE = 1, FULL_IMAGE = 2;
+    Bitmap conBitmap,conBitmap1;
 
 
     public KitchenConstuctionFragment()
@@ -72,14 +92,6 @@ public class KitchenConstuctionFragment extends Fragment {
 
         setKitchenData();
 
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
-        }
-
         return view;
     }
 
@@ -105,6 +117,17 @@ public class KitchenConstuctionFragment extends Fragment {
         constructionRecyclerView.setAdapter(constructionListAdapter);
         constructionListAdapter.notifyDataSetChanged();
 
+        half_constructed_image=(ImageView)view.findViewById(R.id.half_constructed_image);
+        complete_constructed_image=(ImageView)view.findViewById(R.id.complete_constructed_image);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
+        }
+
     }
 
 
@@ -113,6 +136,44 @@ public class KitchenConstuctionFragment extends Fragment {
         houseTypeTxt.setText(String.valueOf("House Type : "+kitchenTable.getHouse_typeValue()));
         roofTypeTxt.setText(String.valueOf("Roof Type : "+kitchenTable.getRoof_typeValue()));
         heightTxt.setText(String.valueOf("Height : "+kitchenTable.getKitchen_heightValue()));
+
+        File image = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep1_imageValue(), FileType.PNG);
+        if (image != null) {
+            Glide.with(getActivity())
+                    .load(image.getAbsolutePath())
+                    .error(R.drawable.ic_add_image)
+                    .into(half_constructed_image);
+        }
+
+        File image1 = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep2_imageValue(), FileType.PNG);
+        if (image1 != null) {
+            Glide.with(getActivity())
+                    .load(image1.getAbsolutePath())
+                    .error(R.drawable.ic_add_image)
+                    .into(complete_constructed_image);
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        File image = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep1_imageValue(), FileType.PNG);
+        if (image != null) {
+            Glide.with(getActivity())
+                    .load(image.getAbsolutePath())
+                    .error(R.drawable.ic_add_image)
+                    .into(half_constructed_image);
+        }
+
+        File image1 = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getStep2_imageValue(), FileType.PNG);
+        if (image1 != null) {
+            Glide.with(getActivity())
+                    .load(image1.getAbsolutePath())
+                    .error(R.drawable.ic_add_image)
+                    .into(complete_constructed_image);
+        }
+
     }
 
     private void clickListners()
@@ -132,6 +193,157 @@ public class KitchenConstuctionFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+
+        half_constructed_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog(half_constructed_image);
+            }
+        });
+
+        complete_constructed_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog(complete_constructed_image);
+            }
+        });
     }
+
+    private void showPictureDialog(final ImageView imageView)
+    {
+        final CharSequence[] options = {"Take Photo", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Add Photo!");
+        builder.setItems(options,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                takePhotoFromCamera(imageView);
+                                break;
+
+                            case 2:
+                                dialog.dismiss();
+                        }
+                    }
+                });
+        AlertDialog alert=builder.create();
+        alert.setCancelable(false);
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
+    private void takePhotoFromCamera(ImageView imageView)
+    {
+        if(imageView==half_constructed_image)
+        {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, HALF_IMAGE);
+        }
+        else
+        {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, FULL_IMAGE);
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == HALF_IMAGE) {
+            final Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+           // half_constructed_image.setImageBitmap(thumbnail);
+            half_constructed_image.post(new Runnable() {
+                @Override
+                public void run() {
+                    half_constructed_image.setImageBitmap(thumbnail);
+                }
+            });
+            conBitmap=thumbnail;
+            FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap,"KIT_Step1_image"+kitchenTable.getKitchenUniqueIdValue());
+            kitchenTable.setStep1_imageValue("KIT_Step2_"+kitchenTable.getKitchenUniqueIdValue());
+            SweetAlertDialog sweetAlertDialog =new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE)
+                    .setTitleText("Please wait");
+
+            sweetAlertDialog.show();
+
+            if(KitchenTableHelper.updateKitchenData(getActivity(),kitchenTable))
+            {
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.setTitleText("Image Uploaded Successfully");
+                sweetAlertDialog.setConfirmText("Ok");
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+            }
+            else
+            {
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.setTitleText("Image Upload Failed");
+                sweetAlertDialog.setConfirmText("Ok");
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+            }
+        }
+        if (requestCode == FULL_IMAGE) {
+            final Bitmap thumbnail1 = (Bitmap) data.getExtras().get("data");
+           // complete_constructed_image.setImageBitmap(thumbnail1);
+            complete_constructed_image.post(new Runnable() {
+                @Override
+                public void run() {
+                    complete_constructed_image.setImageBitmap(thumbnail1);
+                }
+            });
+
+            conBitmap1=thumbnail1;
+            FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap1,"KIT_Step2_image"+kitchenTable.getKitchenUniqueIdValue());
+            kitchenTable.setStep2_imageValue("KIT_Step2_"+kitchenTable.getKitchenUniqueIdValue());
+            SweetAlertDialog sweetAlertDialog =new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE)
+                    .setTitleText("Please wait");
+
+            sweetAlertDialog.show();
+
+            if(KitchenTableHelper.updateKitchenData(getActivity(),kitchenTable))
+            {
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.setTitleText("Image Uploaded Successfully");
+                sweetAlertDialog.setConfirmText("Ok");
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+            }
+            else
+            {
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.setTitleText("Image Upload Failed");
+                sweetAlertDialog.setConfirmText("Ok");
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+            }
+        }
+
+    }
+
 
 }

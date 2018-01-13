@@ -16,10 +16,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.hatchers.ruralcaravane.R;
-import com.hatchers.ruralcaravane.customer_registration.adapter.CustomerAdapter;
+import com.hatchers.ruralcaravane.customer_registration.adapter.CustomerTabAdapter;
 import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 import com.hatchers.ruralcaravane.runtime_permissions.RuntimePermissions;
 import com.hatchers.ruralcaravane.user_login.LoginActivity;
@@ -44,8 +43,6 @@ public class CustomerRegistrationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_registration);
 
-        customer_toolbar = (Toolbar)findViewById(R.id.customer_toolbar);
-        setSupportActionBar(customer_toolbar);
         initializations();
         SetupViewPager();
         setupTabIcons();
@@ -67,6 +64,9 @@ public class CustomerRegistrationActivity extends AppCompatActivity
 
     private void initializations()
     {
+        customer_toolbar = (Toolbar)findViewById(R.id.customer_toolbar);
+        setSupportActionBar(customer_toolbar);
+
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         tabLayout = (TabLayout)findViewById(R.id.tabs_layout);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -85,12 +85,11 @@ public class CustomerRegistrationActivity extends AppCompatActivity
     private void SetupViewPager()
     {
         customerListFragment=   new CustomerListFragment();
-        CustomerAdapter adapter = new CustomerAdapter(getSupportFragmentManager());
+        CustomerTabAdapter adapter = new CustomerTabAdapter(getSupportFragmentManager());
         adapter.addFragment(customerListFragment, "Customer List");
         adapter.addFragment(new AddCustomerFragment(), "Add Customer");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
 
 }
 
@@ -99,7 +98,10 @@ public class CustomerRegistrationActivity extends AppCompatActivity
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
+               if(tab.getPosition()==0)
+               {
+                   customerListFragment.setData();
+               }
             }
 
             @Override
@@ -181,9 +183,9 @@ public class CustomerRegistrationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
         switch (requestCode) {
 
             case RuntimePermissions.MY_PERMISSIONS_REQUEST_CAMERA: {

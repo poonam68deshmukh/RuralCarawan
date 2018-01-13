@@ -37,11 +37,20 @@ public class CustomerListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_customer__list, container, false);
+
+        initializations(view);
+
+        setData();
+
+    return view;
+    }
+
+    private void initializations(View view)
+    {
         no_cust_txt=(TextView)view.findViewById(R.id.no_cust_txt);
         customerRecyclerView = (RecyclerView) view.findViewById(R.id.customerRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         customerRecyclerView.setLayoutManager(layoutManager);
-
 
         customerRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         customerRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -64,12 +73,12 @@ public class CustomerListFragment extends Fragment {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
 
-    return view;
     }
 
     public void setData()
     {
-        try {
+        try
+        {
             customerTables = CustomerTableHelper.getCustomerdataList(getContext());
             customerListAdapter = new CustomerListAdapter(getContext(), customerTables);
             customerRecyclerView.setAdapter(customerListAdapter);

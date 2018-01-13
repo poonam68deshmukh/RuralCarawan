@@ -22,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -79,14 +78,14 @@ public class AddCustomerFragment extends Fragment {
     private int RESULT_CANCELED;
 
 
-    public AddCustomerFragment() {
+    public AddCustomerFragment()
+    {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_add__customer, container, false);
 
@@ -103,19 +102,8 @@ public class AddCustomerFragment extends Fragment {
         villageSelectedListner();
         setGender();
 
-
-        if (Build.VERSION.SDK_INT >= 21)
-        {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
-        }
-
         return view;
     }
-
-
 
     private void initializations(View view)
     {
@@ -579,8 +567,7 @@ public class AddCustomerFragment extends Fragment {
         }
     }
 
-
-    private boolean setCustomerData()
+    private void setCustomerData()
     {
         customer_table = new CustomerTable();
         customer_table.setCustomerNameValue(customer_name.getText().toString());
@@ -597,9 +584,7 @@ public class AddCustomerFragment extends Fragment {
         customer_table.setAddedDateValue(getCurrentDateTime());
         customer_table.setUpload_statusValue("0");
 
-        return false;
     }
-
 
     public void setGender()
     {

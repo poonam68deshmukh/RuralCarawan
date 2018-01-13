@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:padding="10dp">
 
 
         <RelativeLayout
@@ -103,66 +104,6 @@
         android:id="@+id/member_gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@id/member_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/l3">
-
-
-                <TextView
-                    android:gravity="center"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Half Constructed Image"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:paddingLeft="20dp"/>
-
-                <ImageView
-                    android:id="@+id/half_constructed_image"
-                    android:src="@drawable/camera"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginBottom="20dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_toRightOf="@+id/l3"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@id/member_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/l4">
-
-
-                <TextView
-                    android:gravity="center"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Complete Constructed Image"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:paddingLeft="20dp"/>
-
-                <ImageView
-                    android:id="@+id/complete_constructed_image"
-                    android:src="@drawable/camera"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginBottom="20dp"/>
-
-            </LinearLayout>
 
 
         </RelativeLayout>

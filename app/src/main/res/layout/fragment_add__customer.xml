@@ -338,7 +338,7 @@
             android:id="@+id/customer_age"
             android:inputType="number"
             android:singleLine="true"
-            android:maxLength="3"
+            android:maxLength="2"
             android:minEms="2"
             android:textSize="18dp"
             android:padding="15dp"

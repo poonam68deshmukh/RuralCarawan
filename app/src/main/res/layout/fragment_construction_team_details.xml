@@ -202,6 +202,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_gravity="center"
                     android:drawablePadding="20dp"
+                    android:maxLength="2"
                     android:id="@+id/construction_member_age"
                     android:inputType="number"
                     android:singleLine="true"
@@ -250,63 +251,9 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/images"
-                android:gravity="center"
-                android:layout_below="@id/radio_layout"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="16dp"
-                android:text="Half Constructed Image"/>
-
-            <ImageView
-                android:id="@+id/half_constructed_image"
-                android:src="@drawable/camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"/>
-
-            </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/images1"
-                    android:gravity="center"
-                    android:layout_toRightOf="@id/images"
-                    android:layout_below="@id/radio_layout"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
-
-                    <TextView
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="16dp"
-                        android:text="Complete Constructed Image"/>
-
-                    <ImageView
-                        android:id="@+id/complete_constructed_image"
-                        android:src="@drawable/camera"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"/>
-
-                </LinearLayout>
 
             <Button
-                android:layout_below="@id/images1"
+                android:layout_below="@id/radio_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape1"

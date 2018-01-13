@@ -102,14 +102,6 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
         initialise( rootView );
         clickListners();
 
-
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
-        }
-
         return rootView;
     }
 
@@ -128,7 +120,7 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.DarkBrown));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
 
         btnpickAddress.setOnClickListener(this);

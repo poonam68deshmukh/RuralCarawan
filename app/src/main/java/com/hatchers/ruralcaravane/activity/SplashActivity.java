@@ -12,17 +12,24 @@ import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.user_login.LoginActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity
+{
     PrefManager prefManager;
+    int SPLASH_TIME_OUT = 3000;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        prefManager=new PrefManager(this);
+        initializations();
+    }
 
-        int SPLASH_TIME_OUT = 3000;
+    private void initializations()
+    {
+        prefManager = new PrefManager(this);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -31,20 +38,16 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
-
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window =getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.DarkBrown));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 
-
     public void check()
     {
-        prefManager = new PrefManager(this);
-
         if (prefManager.isLoggedIn()) {
 
             Intent intent=new Intent(SplashActivity.this, CustomerRegistrationActivity.class);

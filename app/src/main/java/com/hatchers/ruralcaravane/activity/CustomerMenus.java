@@ -1,5 +1,6 @@
 package com.hatchers.ruralcaravane.activity;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,11 @@ public class CustomerMenus extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         MenuFragment menuFragment = MenuFragment.getInstance(customer);
         fragmentTransaction.replace(R.id.frame_layout,menuFragment).commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
