@@ -34,7 +34,7 @@
             <LinearLayout
                 android:id="@+id/map_layout"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="130dp"
                 android:background="@mipmap/map"
                 android:orientation="vertical">
             </LinearLayout>
@@ -43,14 +43,15 @@
                 android:id="@+id/btnpickAdress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="#999999"
                 android:textAllCaps="false"
                 android:text="Tap to pick your location"
                 android:textColor="@color/colorWhite"/>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:padding="20dp"
                 android:background="@color/colorWhite">
 
@@ -58,33 +59,35 @@
                    android:layout_width="wrap_content"
                    android:layout_height="40dp"
                    android:src="@drawable/ic_location"
-                   android:padding="5dp"
-                   android:id="@+id/loc_img"/>
+                   android:id="@+id/loc_img"
+                   android:layout_centerVertical="true"
+                   android:layout_marginRight="20dp"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorAccent"
-                    android:id="@+id/place_name"
-                    android:gravity="center|start"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@id/loc_img"
-                    android:layout_toRightOf="@id/loc_img"
-                    android:text="Place name"/>
-
-                <TextView
-                    android:textColor="@color/colorAccent"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/loc_img"
-                    android:layout_toEndOf="@id/loc_img"
-                    android:layout_below="@id/place_name"
-                    android:id="@+id/address_txt"
-                    android:text=" Complete Address"
-                    android:textSize="16dp"/>
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/place_name"
+                        android:text="Place name"
+                        android:textStyle="bold"/>
 
-            </RelativeLayout>
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/address_txt"
+                        android:text="Complete Address"
+                        android:textSize="16dp"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

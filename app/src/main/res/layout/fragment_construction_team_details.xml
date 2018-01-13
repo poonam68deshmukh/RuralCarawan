@@ -13,15 +13,36 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        app:title="Construction Team Details"
-        app:titleTextColor="@color/colorWhite"
-        app:navigationIcon="@drawable/back_arrow"
         android:background="@color/colorAccent"
         android:id="@+id/construction_toolbar">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:id="@+id/construction_btnBack"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_title"
+                android:textColor="@color/colorWhite"
+                android:text="Construction Team Details"
+                android:layout_marginLeft="15dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
-
 
     <ScrollView
         android:layout_below="@id/construction_toolbar"
@@ -36,176 +57,179 @@
             android:orientation="vertical"
             android:weightSum="1">
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/customerRegistration_txt"
                 android:text="@string/construction_team_member"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorAccent"
-                android:textSize="20dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/black"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 android:gravity="center"/>
 
             <Button
-                android:layout_marginTop="40dp"
-                android:layout_below="@id/customerRegistration_txt"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_Byscanid"
                 android:text="Scan ID Card"
                 android:textAllCaps="false"
-                android:textSize="20dp"
                 android:textColor="@color/colorWhite"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textStyle="bold"
-                android:background="@drawable/shape1"
-                android:layout_centerHorizontal="true"/>
+                android:background="@color/colorPrimary"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/customer_name"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center_vertical"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/customername_layout">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:hint="Enter Member Name "
+                        android:imeOptions="actionNext"
+                        android:id="@+id/construction_member_name"
+                        android:inputType="textCapWords"
+                        android:singleLine="true"
+                        android:textSize="14dp"
+                        android:paddingBottom="15dp"/>
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/customer_address"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_vertical"/>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_below="@id/register_Byscanid"
-                android:background="@drawable/shape"
-                android:id="@+id/customername_layout">
+                android:id="@+id/customeraddress_layout">
 
                 <android.support.design.widget.TextInputEditText
-                    android:drawableLeft="@drawable/customer_name"
-                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter Member Name "
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="20dp"
-                    android:imeOptions="actionNext"
-                    android:id="@+id/construction_member_name"
-                    android:inputType="textCapWords"
-                    android:singleLine="true"
-                    android:textSize="18dp"
-                    android:padding="15dp"
-                    />
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_below="@id/customername_layout"
-                android:background="@drawable/shape"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/customeraddress_layout"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp">
-
-                <android.support.design.widget.TextInputEditText
-                    android:drawableLeft="@drawable/customer_address"
-                    android:background="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Enter Member Address "
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_gravity="center"
-                    android:drawablePadding="20dp"
                     android:id="@+id/construction_member_address"
                     android:inputType="textCapWords"
-                    android:textSize="18dp"
-                    android:padding="15dp"
-                    />
+                    android:textSize="14dp"
+                    android:paddingBottom="15dp"/>
 
             </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mobile_number"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_vertical"/>
             <android.support.design.widget.TextInputLayout
                 android:layout_below="@id/customeraddress_layout"
-                android:background="@drawable/shape"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/customermobile_layout"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp">
+                android:id="@+id/customermobile_layout">
 
                 <android.support.design.widget.TextInputEditText
-                    android:drawableLeft="@drawable/mobile_number"
-                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter Member Mobile Number "
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_gravity="center"
-                    android:drawablePadding="20dp"
+                    android:layout_height="40dp"
+                    android:hint="Enter Member Mobile Number"
                     android:id="@+id/construction_member_mobileno"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:textSize="18dp"
-                    android:padding="15dp"
-                    />
+                    android:textSize="14dp"
+                    android:paddingBottom="15dp"/>
 
             </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/customer_age"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_vertical"/>
             <android.support.design.widget.TextInputLayout
-                android:layout_below="@id/customermobile_layout"
-                android:background="@drawable/shape"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/customerage_layout"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp">
+                android:id="@+id/customerage_layout">
 
                 <android.support.design.widget.TextInputEditText
-                    android:drawableLeft="@drawable/customer_age"
-                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Enter Member Age"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:layout_gravity="center"
-                    android:drawablePadding="20dp"
-                    android:maxLength="2"
                     android:id="@+id/construction_member_age"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:textSize="18dp"
-                    android:padding="15dp"
-                    />
+                    android:textSize="14dp"
+                    android:paddingBottom="15dp"/>
 
             </android.support.design.widget.TextInputLayout>
 
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_below="@id/customerage_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
-                android:id="@+id/radio_layout">
+                android:id="@+id/radio_layout"
+                android:gravity="center_horizontal">
 
                 <RadioGroup
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/radio_gender"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp">
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -221,27 +245,82 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/colorAccent"
                         android:id="@+id/female"
-                        android:text="Female"
-                        />
+                        android:text="Female" />
                 </RadioGroup>
 
             </LinearLayout>
 
-
-            <Button
-                android:layout_below="@id/radio_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape1"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal">
+                <LinearLayout
+                    android:id="@+id/images"
+                    android:gravity="center"
+                    android:layout_below="@id/radio_layout"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:text="Half Constructed Image"/>
+
+                    <ImageView
+                        android:id="@+id/half_constructed_image"
+                        android:src="@drawable/camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/images1"
+                    android:gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:text="Complete Constructed Image"/>
+
+                    <ImageView
+                        android:id="@+id/complete_constructed_image"
+                        android:src="@drawable/camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_below="@id/images1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/colorWhite"
                 android:id="@+id/saveBtn"
                 android:text="Save"/>
 
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
