@@ -253,6 +253,10 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
             construction_member_name.setError(null);
         }
 
+
+
+
+        
         if (construction_member_age.getText().toString().trim().length() == 0) {
             construction_member_age.setError("Please Enter Construction Member Age ");
             response = false;
