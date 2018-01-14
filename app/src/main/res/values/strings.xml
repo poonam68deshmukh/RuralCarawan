@@ -22,5 +22,7 @@
         <item>Other</item>
     </string-array>
 
+    <string name="Rs">\u20B9</string>
+
 
 </resources>

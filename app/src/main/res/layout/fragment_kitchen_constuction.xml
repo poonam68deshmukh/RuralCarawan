@@ -12,9 +12,36 @@
         android:layout_height="54dp"
         android:background="@color/colorAccent"
         app:titleTextColor="@color/white"
-        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
-        app:title="Kitchen Details"
         android:id="@+id/kitchen_const_Toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/kitchn_detail_back"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_title"
+                android:textColor="@color/white"
+                android:layout_gravity="start|center"
+                android:text="Kitchen Details "
+                android:layout_marginLeft="15dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        </LinearLayout>
+
     </android.support.v7.widget.Toolbar>
 
 
@@ -81,13 +108,94 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/DarkGrey"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp">
+
+            <LinearLayout
+                android:id="@+id/images"
+                android:gravity="center"
+                android:layout_below="@id/radio_layout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:text="Half Constructed Image"/>
+
+
+                <ImageView
+                    android:id="@+id/half_constructed_image1"
+                    android:src="@drawable/ic_add_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/images1"
+                android:gravity="center"
+                android:layout_toRightOf="@id/images"
+                android:layout_below="@id/radio_layout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:text="Complete Constructed Image"/>
+
+                <ImageView
+                    android:id="@+id/complete_constructed_image1"
+                    android:src="@drawable/ic_add_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/desc_txt"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:text="Construction Team"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/kitchen_details"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/const_list"
-        android:layout_below="@+id/kitchen_details"
+        android:layout_below="@+id/desc_txt"
         android:layout_marginTop="16dp"/>
 
         <android.support.design.widget.FloatingActionButton

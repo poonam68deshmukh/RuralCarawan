@@ -10,10 +10,39 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorAccent"
-        app:navigationIcon="@drawable/back_arrow"
         app:title="Current Location"
+        app:contentInsetStart="0dp"
         app:titleTextColor="#fff">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/back_img_address"
+                android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+            <TextView
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/thumbnail"
+                android:layout_toRightOf="@+id/thumbnail"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:gravity="center|start"
+                android:layout_gravity="center|start"
+                android:text="Current Location"
+                android:textColor="#ffffff"
+                android:textSize="20dip"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 

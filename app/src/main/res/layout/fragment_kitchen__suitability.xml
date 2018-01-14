@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     tools:context=".kitchen_suitability.KitchenSuitabilityFragment">
 
@@ -9,11 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/colorAccent"
-        android:id="@+id/kitchen_toolbar">
+        android:id="@+id/kitchen_toolbar"
+        app:contentInsetStart="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <ImageButton
@@ -23,7 +25,8 @@
                 android:src="@drawable/ic_arrow_back_white_24dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:id="@+id/kitchen_btnBack"/>
+                android:layout_marginLeft="5dp"
+                android:id="@+id/kitch_back"/>
 
 
             <TextView
@@ -31,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/toolbar_title"
                 android:textColor="@color/white"
+                android:layout_gravity="start|center"
                 android:text="Kitchen Suitability "
                 android:layout_marginLeft="15dp"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>

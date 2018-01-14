@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
@@ -34,6 +35,7 @@ public class KitchenSuitabilityList extends Fragment {
     KitchenListAdapter kitchenListAdapter;
     FragmentTransaction fragmentTransaction;
     ArrayList<KitchenTable> kitchenTables;
+    ImageView backImg;
 
     public KitchenSuitabilityList() {
        // Required empty public constructor
@@ -73,6 +75,7 @@ public class KitchenSuitabilityList extends Fragment {
 
         btnfloatadd=(FloatingActionButton)view.findViewById(R.id.kitchenList);
         kitchenListToolbar=(Toolbar)view.findViewById(R.id.kitchenListToolbar);
+        backImg = (ImageView)view.findViewById(R.id.back_kitchn_list);
 
         kitchenRecyclerView = (RecyclerView) view.findViewById(R.id.kitchenRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -98,7 +101,7 @@ public class KitchenSuitabilityList extends Fragment {
 
     private void onClickListeners()
     {
-        kitchenListToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

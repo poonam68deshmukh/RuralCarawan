@@ -49,12 +49,13 @@ public class CustomerListAdapter  extends RecyclerView.Adapter<CustomerListAdapt
 
         holder.customer_name.setText(String.valueOf(customerTable.getCustomerNameValue() + ""));
         holder.address.setText(String.valueOf(customerTable.getCustomerAddressValue() + ""));
-        holder.mobile.setText(String.valueOf("Mobile-"+customerTable.getCustomerMobilenoValue() + ""));
-        holder.age.setText(String.valueOf("Age-"+customerTable.getCustomerAgeValue()+ ""));
+        holder.mobile.setText(String.valueOf("Mobile :"+customerTable.getCustomerMobilenoValue() + ""));
+        holder.age.setText(String.valueOf("Age "+customerTable.getCustomerAgeValue()+ ""));
 
         File image = FileHelper.createfile(Folders.CUSTOMERFOLDER, customerTable.getImagePathValue(), FileType.PNG);
         Glide.with(context)
                 .load(image.getAbsoluteFile())
+                .error(R.drawable.user_profile)
                 .into(holder.user_profile);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -52,6 +52,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.xml.transform.sax.SAXResult;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -119,7 +121,7 @@ public class AddCustomerFragment extends Fragment {
         customer_name = (TextInputEditText) view.findViewById(R.id.customer_name);
         customer_address = (TextInputEditText) view.findViewById(R.id.customer_address);
         customer_mobileno = (TextInputEditText) view.findViewById(R.id.customer_mobileno);
-        customer_age = (TextInputEditText) view.findViewById(R.id.customer_age);
+        customer_age = (TextInputEditText) view.findViewById(R.id.customer_age_txt);
         radioGroupGender = (RadioGroup) view.findViewById(R.id.radio_gender);
         male = (RadioButton) view.findViewById(R.id.male);
         female = (RadioButton) view.findViewById(R.id.female);
@@ -479,28 +481,26 @@ public class AddCustomerFragment extends Fragment {
 
     void parseQRCode(String qrResponse)
     {
+        String newWord;
+        String substr=qrResponse.substring(0,5);
 
-        String newWord = qrResponse.substring(0,1)+qrResponse.substring(2);       /* String a="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<PrintLetterBarcodeData \n" +
-                "uid=\"275821312546\" \n" +
-                "name=\"Prasad Wamanrao Gote\" \n" +
-                "gender=\"M\" \n" +
-                "yob=\"1990\" \n" +
-                "co=\"S/O Wamanrao Gote\" \n" +
-                "lm=\"GUAVA TREE\" \n" +
-                "loc=\"NEW SWAMI VIVEKANAND HOUSING SOC, PLOT N. 12 N-8\" \n" +
-                "vtc=\"CIDCO\" \n" +
-                "dist=\"Aurangabad\" \n" +
-                "state=\"Maharashtra\" \n" +
-                "pc=\"431003\"/>";
-       */
+        if(substr.contains("/"))
+        {
+            newWord = qrResponse.substring(0,1)+qrResponse.substring(2);
+        }
+        else
+        {
+            newWord=qrResponse;
+        }
 
        /*
-       </?xml version="1.0" encoding="UTF-8"?> <PrintLetterBarcodeData uid="679503416602" name="Gopika Narayan Nikam" gender="FEMALE" yob="1994" co="null" lm="near kumavat mangal karyalay" loc="suyong colony,padampura" vtc="Aurangabad" po="Kranti Chowk" dist="Aurangabad" state="Maharashtra" pc="431005" dob="30-07-1994"/>
+       </?xml version="1.0" encoding="UTF-8"?>
+       <PrintLetterBarcodeData uid="679503416602" name="Gopika Narayan Nikam" gender="FEMALE" yob="1994" co="null" lm="near kumavat mangal karyalay" loc="suyong colony,padampura" vtc="Aurangabad" po="Kranti Chowk" dist="Aurangabad" state="Maharashtra" pc="431005" dob="30-07-1994"/>
        */
 
 
-       //</?xml version="1.0" encoding="UTF-8"?> <PrintLetterBarcodeData uid="679503416602" name="Gopika Narayan Nikam" gender="FEMALE" yob="1994" co="null" lm="near kumavat mangal karyalay" loc="suyong colony,padampura" vtc="Aurangabad" po="Kranti Chowk" dist="Aurangabad" state="Maharashtra" pc="431005" dob="30-07-1994"/>
+       //</?xml version="1.0" encoding="UTF-8"?>
+        // <PrintLetterBarcodeData uid="679503416602" name="Gopika Narayan Nikam" gender="FEMALE" yob="1994" co="null" lm="near kumavat mangal karyalay" loc="suyong colony,padampura" vtc="Aurangabad" po="Kranti Chowk" dist="Aurangabad" state="Maharashtra" pc="431005" dob="30-07-1994"/>
        XmlPullParser parser = null;
         InputStream stream = null;
         try {
@@ -509,7 +509,8 @@ public class AddCustomerFragment extends Fragment {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(stream, null);
             parser.nextTag();
-            if (!parser.getName().equals("PrintLetterBarcodeData")) {
+            if (!parser.getName().equals("PrintLetterBarcodeData"))
+            {
                 // not an Aadhaar QR Code
                 // mIntentIntegrator.initiateScan();
                 return;
@@ -535,7 +536,7 @@ public class AddCustomerFragment extends Fragment {
             customer_address.setText( houseName +" "+location+" "+lm+" "+ vtc+ " "+ pincode+ ""+dist+" "+state);
             customer_address.setFocusable(false);
             customer_mobileno.setText("");
-            customer_age.setText(age);
+            customer_age.setText(String.valueOf(age));
             customer_age.setFocusable(false);
             aadhar_id.setText(uid);
             aadhar_id.setFocusable(false);
@@ -544,10 +545,6 @@ public class AddCustomerFragment extends Fragment {
         else{
         female.setChecked(true);
     }
-
-
-
-
 
         } catch(XmlPullParserException xppe) {
 

@@ -50,8 +50,16 @@ public class ConstructionListAdapter extends RecyclerView.Adapter<ConstructionLi
         holder.member_name.setText(String.valueOf(constructionTable.getTechnicianNameValue() + ""));
         holder.construction_mobile_number.setText(String.valueOf(constructionTable.getTechnicianMobileNoValue() + ""));
         holder.member_address.setText(String.valueOf(constructionTable.getTechnicianAddressValue() + ""));
-        holder.age.setText("Age- "+String.valueOf(constructionTable.getTechnicianAgeValue() + ""));
-        holder.member_gender.setText(String.valueOf(constructionTable.getTechnicianGenderValue() + ""));
+        holder.age.setText("Age : "+String.valueOf(constructionTable.getTechnicianAgeValue() + ""));
+        if(constructionTable.getTechnicianGenderValue().equalsIgnoreCase("F"))
+        {
+            holder.member_gender.setText(String.valueOf("Gender : Female"));
+
+        }
+        else
+        {
+            holder.member_gender.setText(String.valueOf("Gender : Male"));
+        }
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

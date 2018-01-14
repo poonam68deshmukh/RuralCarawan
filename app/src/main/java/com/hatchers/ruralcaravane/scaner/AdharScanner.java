@@ -47,7 +47,7 @@ public class AdharScanner extends AppCompatActivity implements QRCodeReaderView.
     @Override
     public void onQRCodeRead(String text, PointF[] points) {
        // resultTextView.setText(text);
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
         Log.d("Data",text);
         Intent intent=new Intent();
         intent.putExtra("MESSAGE",text);

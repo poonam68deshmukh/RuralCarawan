@@ -11,6 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/colorAccent"
+        app:title="Kitchen List"
+        app:contentInsetStart="0dp"
+        app:titleTextColor="@color/colorWhite"
         android:id="@+id/kitchenListToolbar">
 
         <LinearLayout
@@ -18,15 +21,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:layout_width="50dp"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_arrow_back_white_24dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:id="@+id/kitchenList_btnBack"/>
-
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/back_kitchn_list"
+                android:src="@drawable/ic_arrow_back_black_24dp"/>
 
             <TextView
                 android:layout_width="match_parent"

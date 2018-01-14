@@ -61,6 +61,7 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
     private TextView constructionUniqueIdText;
     ConstructionTable constructionTable;
     private int SCAN_ID=4;
+    ImageView backImg;
 
     public static ConstructionTeamRegistrationFragment newInstance(KitchenTable kitchenTable)
     {
@@ -106,7 +107,7 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
 
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         construction_toolbar = (Toolbar) view.findViewById(R.id.construction_toolbar);
-
+        backImg = (ImageView)view.findViewById(R.id.const_back);
 
         register_Byscanid=(Button)view.findViewById(R.id.register_Byscanid);
         saveBtn = (Button) view.findViewById(R.id.saveBtn);
@@ -130,7 +131,7 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
     private void onclicklisteners()
     {
 
-        construction_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

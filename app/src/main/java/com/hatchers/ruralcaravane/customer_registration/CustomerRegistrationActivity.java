@@ -69,7 +69,6 @@ public class CustomerRegistrationActivity extends AppCompatActivity
 
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         tabLayout = (TabLayout)findViewById(R.id.tabs_layout);
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         prefManager=new PrefManager(getApplicationContext());
 
@@ -169,6 +168,7 @@ public class CustomerRegistrationActivity extends AppCompatActivity
         switch (item.getItemId())
         {
             case R.id.profile:
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 UserDetailsFragment userDetailsFragment=new UserDetailsFragment();
                 fragmentTransaction.replace(R.id.frame_layout2,userDetailsFragment).addToBackStack(null).commit();
                 break;

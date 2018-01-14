@@ -57,7 +57,7 @@ public class KitchenConstuctionFragment extends Fragment {
     private ImageView half_constructed_image,complete_constructed_image;
     private int HALF_IMAGE = 1, FULL_IMAGE = 2;
     Bitmap conBitmap,conBitmap1;
-
+    ImageView backImg;
 
     public KitchenConstuctionFragment()
     {
@@ -97,6 +97,7 @@ public class KitchenConstuctionFragment extends Fragment {
 
     private void initializations(View view)
     {
+        backImg = (ImageView)view.findViewById(R.id.kitchn_detail_back);
         add_construction=(FloatingActionButton)view.findViewById(R.id.add_const);
         constructionRecyclerView=(RecyclerView)view.findViewById(R.id.const_list);
         houseTypeTxt = (TextView)view.findViewById(R.id.housetype_txt);
@@ -187,7 +188,7 @@ public class KitchenConstuctionFragment extends Fragment {
             }
         });
 
-        kitchen_const_Toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

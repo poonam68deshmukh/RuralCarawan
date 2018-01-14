@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     tools:context="com.hatchers.ruralcaravane.payment_details.PaymentDetailsFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        app:contentInsetStart="0dp"
         android:background="@color/colorAccent"
         android:id="@+id/payment_toolbar">
 
@@ -16,15 +18,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:layout_width="50dp"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_arrow_back_white_24dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:id="@+id/payment_btnBack"/>
-
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/payment_btnBack"
+                android:src="@drawable/ic_arrow_back_black_24dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Total Paid "
                     android:imeOptions="actionNext"
-                    android:id="@+id/advance_amount"
+                    android:id="@+id/paid_amount"
                     android:inputType="number"
                     android:singleLine="true"
                     android:textSize="14dp"

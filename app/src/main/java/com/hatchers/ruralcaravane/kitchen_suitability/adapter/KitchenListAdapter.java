@@ -66,6 +66,7 @@ public class KitchenListAdapter extends RecyclerView.Adapter<KitchenListAdapter.
         File image = FileHelper.createfile(Folders.CHULHAFOLDER, kitchenTable.getPlaceImageValue(), FileType.PNG);
         Glide.with(context)
                 .load(image.getAbsoluteFile())
+                .error(R.drawable.kitchen_image)
                 .into(holder.captureKitchenImage);
 
 

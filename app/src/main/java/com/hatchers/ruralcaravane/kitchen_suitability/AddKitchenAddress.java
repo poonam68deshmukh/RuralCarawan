@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
 
     private CustomerTable customertable;
     private KitchenTable kitchenTable;
+    private ImageView backImg;
 
     public static AddKitchenAddress getInstance(CustomerTable customertable, KitchenTable kitchenTable)
     {
@@ -113,6 +115,7 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
         placeNameTxt=(TextView) rootView.findViewById(R.id.place_name);
         addresstxt=(TextView) rootView.findViewById(R.id.address_txt);
         toolbar_add_address = (Toolbar) rootView.findViewById(R.id.toolbar_add_address);
+        backImg = (ImageView)rootView.findViewById(R.id.back_img_address);
         map=new MapViewFragment("maharastra india");
         map.setArguments(getActivity().getIntent().getExtras());
 
@@ -138,7 +141,7 @@ public class AddKitchenAddress extends Fragment implements View.OnClickListener{
 
     private void clickListners()
     {
-        toolbar_add_address.setNavigationOnClickListener(new View.OnClickListener() {
+        backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

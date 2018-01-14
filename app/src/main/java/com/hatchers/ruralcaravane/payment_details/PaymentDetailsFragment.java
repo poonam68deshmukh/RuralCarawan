@@ -10,6 +10,8 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +44,11 @@ public class PaymentDetailsFragment extends Fragment {
     private int RESULT_CANCELED;
     Bitmap payBitmap;
     private Toolbar payment_toolbar;
-    private ImageButton payment_btnBack;
+    private ImageView payment_btnBack;
     private TextInputEditText payment_amount,paid_amount,remaining_amount;
     private ImageView takePhoto;
     private Button savePayment;
-    private TextView paymentUniqueId;
+    private String paymentUniqueId;
 
 
     PaymentTable paymentTable;
@@ -85,8 +87,7 @@ public class PaymentDetailsFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(payment_toolbar);
         initializations(view);
         onClickListeners();
-        //calculateRemainingAmount();
-
+        addTextListner();
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window =getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -99,7 +100,7 @@ public class PaymentDetailsFragment extends Fragment {
 
     private void initializations(View view) {
         payment_toolbar = (Toolbar) view.findViewById(R.id.payment_toolbar);
-        payment_btnBack = (ImageButton) view.findViewById(R.id.payment_btnBack);
+        payment_btnBack = (ImageView) view.findViewById(R.id.payment_btnBack);
         payment_amount = (TextInputEditText) view.findViewById(R.id.payment_amount);
         paid_amount = (TextInputEditText) view.findViewById(R.id.paid_amount);
         remaining_amount = (TextInputEditText) view.findViewById(R.id.remaining_amount);
@@ -150,6 +151,7 @@ public class PaymentDetailsFragment extends Fragment {
                                 remaining_amount.setText("");
                                 takePhoto.setImageResource(R.mipmap.receipt);
                                 payBitmap=null;
+                                getActivity().onBackPressed();
                             }
                         });
                     }
@@ -235,8 +237,58 @@ public class PaymentDetailsFragment extends Fragment {
 
     private void calculateRemainingAmount()
     {
-        int remainingAmount= Integer.parseInt(payment_amount.getText().toString())- Integer.parseInt(paid_amount.getText().toString());
-        remaining_amount.setText(String.valueOf(remainingAmount));
+        int remainingAmount;
+        if(payment_amount.getText().toString().equalsIgnoreCase("") ||
+                paid_amount.getText().toString().equalsIgnoreCase(""))
+        {
+            remainingAmount= 0;
+            remaining_amount.setText(String.valueOf(remainingAmount));
+        }
+        else
+        {
+            remainingAmount= Integer.parseInt(payment_amount.getText().toString())- Integer.parseInt(paid_amount.getText().toString());
+            remaining_amount.setText(String.valueOf(remainingAmount));
+        }
+
+    }
+
+    private void addTextListner()
+    {
+        payment_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                calculateRemainingAmount();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateRemainingAmount();
+            }
+        });
+
+        paid_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                calculateRemainingAmount();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                calculateRemainingAmount();
+
+            }
+        });
     }
 
 
@@ -245,7 +297,7 @@ public class PaymentDetailsFragment extends Fragment {
         Date dNow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
         String datetime = ft.format(dNow);
-        paymentUniqueId.setText("PAY"+datetime);
+        paymentUniqueId="PAY"+datetime;
 
         return "" ;
     }

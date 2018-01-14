@@ -14,27 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/colorAccent"
+        app:contentInsetStart="0dp"
         android:id="@+id/construction_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:layout_width="50dp"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_arrow_back_white_24dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:id="@+id/construction_btnBack"/>
-
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/const_back"
+                android:src="@drawable/ic_arrow_back_black_24dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/toolbar_title"
+                android:layout_gravity="start|center"
                 android:textColor="@color/colorWhite"
                 android:text="Construction Team Details"
                 android:layout_marginLeft="15dp"
@@ -59,7 +59,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/customerRegistration_txt"
                 android:text="@string/construction_team_member"
                 android:layout_marginTop="16dp"
@@ -206,6 +206,7 @@
                     android:layout_gravity="center"
                     android:id="@+id/construction_member_age"
                     android:inputType="number"
+                    android:maxLength="2"
                     android:singleLine="true"
                     android:textSize="14dp"
                     android:paddingBottom="15dp"/>
@@ -250,66 +251,9 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal">
-                <LinearLayout
-                    android:id="@+id/images"
-                    android:gravity="center"
-                    android:layout_below="@id/radio_layout"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="16dp"
-                        android:text="Half Constructed Image"/>
-
-                    <ImageView
-                        android:id="@+id/half_constructed_image"
-                        android:src="@drawable/camera"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/images1"
-                    android:gravity="center"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="16dp"
-                        android:text="Complete Constructed Image"/>
-
-                    <ImageView
-                        android:id="@+id/complete_constructed_image"
-                        android:src="@drawable/camera"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"/>
-
-                </LinearLayout>
-            </LinearLayout>
 
             <Button
-                android:layout_below="@id/images1"
+                android:layout_below="@id/radio_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"

@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.hatchers.ruralcaravane.construction_team.adapter.ConstructionListAdapter;
 import com.hatchers.ruralcaravane.construction_team.database.ConstructionTable;
@@ -39,6 +40,7 @@ public class ConstructionTeamListFragment extends Fragment {
     private ConstructionListAdapter constructionListAdapter;
 
     ArrayList<ConstructionTable> constructionTables;
+    ImageView backImg;
 
 
     private CustomerTable customertable;
@@ -103,6 +105,7 @@ public class ConstructionTeamListFragment extends Fragment {
 
     private void initializations(View view)
     {
+        backImg = (ImageView)view.findViewById(R.id.const_team_back);
         constructionTeamListToolbar=(Toolbar)view.findViewById(R.id.constructionTeamListToolbar);
         add_construction=(FloatingActionButton)view.findViewById(R.id.add_construction);
         constructionRecyclerView=(RecyclerView)view.findViewById(R.id.constructionRecyclerView);
@@ -119,7 +122,7 @@ public class ConstructionTeamListFragment extends Fragment {
             }
         });
 
-        constructionTeamListToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

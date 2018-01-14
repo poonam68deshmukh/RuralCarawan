@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 public class PaymentDetailsListFragment extends Fragment {
 
     RecyclerView paymentRecyclerView;
+    ImageView backImg;
     PaymentTable paymentTable;
     PaymentListAdapter paymentListAdapter;
 
@@ -71,6 +73,7 @@ public class PaymentDetailsListFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(paymentListToolbar);
         paymentListToolbar=(Toolbar)view.findViewById(R.id.paymentListToolbar);
         paymentListBtn=(FloatingActionButton)view.findViewById(R.id.paymentListBtn);
+        backImg = (ImageView)view.findViewById(R.id.back_paymt_list);
 
         paymentRecyclerView = (RecyclerView) view.findViewById(R.id.paymentRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -96,7 +99,7 @@ public class PaymentDetailsListFragment extends Fragment {
 
     private void onClickListeners()
     {
-        paymentListToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
