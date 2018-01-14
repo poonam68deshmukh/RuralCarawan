@@ -257,11 +257,12 @@ public class KitchenConstuctionFragment extends Fragment {
         if (resultCode == Activity.RESULT_CANCELED) {
             return;
         }
-        if (requestCode == HALF_IMAGE) {
-            final Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            half_constructed_image.setImageBitmap(thumbnail);
+        if (requestCode == HALF_IMAGE)
+        {
+            conBitmap = (Bitmap) data.getExtras().get("data");
 
-            conBitmap=thumbnail;
+            half_constructed_image.setImageBitmap(conBitmap);
+
             FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap,"KIT_Step1_image"+kitchenTable.getKitchenUniqueIdValue());
             kitchenTable.setStep1_imageValue("KIT_Step1_"+kitchenTable.getKitchenUniqueIdValue());
             SweetAlertDialog sweetAlertDialog =new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE)
@@ -278,12 +279,13 @@ public class KitchenConstuctionFragment extends Fragment {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismissWithAnimation();
+                        half_constructed_image.setImageBitmap(conBitmap);
                     }
                 });
             }
             else
             {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Image Upload Failed");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -294,11 +296,10 @@ public class KitchenConstuctionFragment extends Fragment {
                 });
             }
         }
-        if (requestCode == FULL_IMAGE) {
-            final Bitmap thumbnail1 = (Bitmap) data.getExtras().get("data");
-            complete_constructed_image.setImageBitmap(thumbnail1);
+        else if (requestCode == FULL_IMAGE) {
+             conBitmap1 = (Bitmap) data.getExtras().get("data");
 
-            conBitmap1=thumbnail1;
+
             FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap1,"KIT_Step2_image"+kitchenTable.getKitchenUniqueIdValue());
             kitchenTable.setStep2_imageValue("KIT_Step2_"+kitchenTable.getKitchenUniqueIdValue());
             SweetAlertDialog sweetAlertDialog =new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE)
@@ -315,12 +316,13 @@ public class KitchenConstuctionFragment extends Fragment {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismissWithAnimation();
+                        complete_constructed_image.setImageBitmap(conBitmap1);
                     }
                 });
             }
             else
             {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Image Upload Failed");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {

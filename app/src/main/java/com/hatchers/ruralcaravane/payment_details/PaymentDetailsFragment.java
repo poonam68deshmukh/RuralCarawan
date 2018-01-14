@@ -85,7 +85,7 @@ public class PaymentDetailsFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(payment_toolbar);
         initializations(view);
         onClickListeners();
-        calculateRemainingAmount();
+        //calculateRemainingAmount();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window =getActivity().getWindow();

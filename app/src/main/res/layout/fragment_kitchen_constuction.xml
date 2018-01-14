@@ -127,6 +127,7 @@
                         android:textSize="16dp"
                         android:text="Half Constructed Image"/>
 
+                    
                     <ImageView
                         android:id="@+id/half_constructed_image1"
                         android:src="@drawable/ic_add_image"
