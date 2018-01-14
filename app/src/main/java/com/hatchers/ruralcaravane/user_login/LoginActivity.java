@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_Failed() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Invalid Login");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_Response_Failed() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Login Failed");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_Json_Error() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Login Error");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_No_Connection_Error() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Check internet connection");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_Server_Error() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Server Error");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_Network_Error() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Network Error");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_Parse_Error() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Parse Error");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -218,7 +218,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onLogin_Unknown_Error() {
-                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                 sweetAlertDialog.setTitleText("Unknown Error");
                 sweetAlertDialog.setConfirmText("Ok");
                 sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {

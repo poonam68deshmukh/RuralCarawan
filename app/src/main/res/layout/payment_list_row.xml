@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="10dip">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical"
+        android:id="@+id/l1">
+
+
+    <TextView
+        android:id="@+id/cost_of_chullha"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Total Cost Of Chullha"
+        android:textColor="#040404"
+        android:padding="2dp"
+        android:textStyle="bold"
+        android:textSize="15dip" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/total_paid"
+        android:text="Total Paid"
+        android:textStyle="bold"
+        android:layout_below="@id/l1"/>
+
+
+       <TextView
+           android:id="@+id/remaining_amount"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#343434"
+           android:layout_weight="1"
+           android:textSize="10dip"
+           android:textStyle="bold"
+           android:layout_marginTop="1dip"
+           android:text="Remaining Amount" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_below="@id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/receipt_image"
+        android:src="@drawable/ic_add_image"/>
+</RelativeLayout>

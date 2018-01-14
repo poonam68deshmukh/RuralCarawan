@@ -60,7 +60,6 @@ public class KitchenListAdapter extends RecyclerView.Adapter<KitchenListAdapter.
                 FragmentTransaction fragmentTransaction =((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
                 KitchenConstuctionFragment kitchenConstuctionFragment=KitchenConstuctionFragment.newInstance(kitchenTable);
                 fragmentTransaction.replace(R.id.frame_layout,kitchenConstuctionFragment).addToBackStack(null).commit();
-
             }
         });
 

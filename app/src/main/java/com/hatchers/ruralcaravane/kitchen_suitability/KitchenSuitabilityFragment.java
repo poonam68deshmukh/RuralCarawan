@@ -49,7 +49,6 @@ public class KitchenSuitabilityFragment extends Fragment implements
 
     Bitmap kitBitmap;
     private Toolbar kitchen_toolbar;
-    private ImageButton kitchen_btnBack;
     private Spinner house_type, roof_type;
     private TextInputEditText kitchen_height;
     private ImageView takePicture;
@@ -114,7 +113,6 @@ public class KitchenSuitabilityFragment extends Fragment implements
     {
         kitchen_toolbar = (Toolbar) view.findViewById(R.id.kitchen_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(kitchen_toolbar);
-        kitchen_btnBack = (ImageButton) view.findViewById(R.id.kitchen_btnBack);
         house_type = (Spinner) view.findViewById(R.id.house_type_survey);
         roof_type = (Spinner) view.findViewById(R.id.roof_type);
         kitchen_height = (TextInputEditText) view.findViewById(R.id.kitchen_height);
@@ -154,7 +152,7 @@ public class KitchenSuitabilityFragment extends Fragment implements
 
     private void onclicklisteners()
     {
-        kitchen_btnBack.setOnClickListener(new View.OnClickListener() {
+        kitchen_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

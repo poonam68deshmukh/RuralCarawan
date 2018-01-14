@@ -35,7 +35,7 @@ public class ConstructionTableHelper {
                 values.put(ConstructionTable.KITCHEN_UNIQUE_ID,constructionTable.getKitchentUniqueId());
                 values.put(ConstructionTable.ADDED_BY_ID,constructionTable.getAddedByIdValue());
                 values.put(ConstructionTable.ADDED_DATE,getCurrentDateTime());
-                values.put(ConstructionTable.UPDATE_DATE,constructionTable.getUpdateDateValue());
+                values.put(ConstructionTable.UPDATE_DATE,getCurrentDateTime());
 
 
 

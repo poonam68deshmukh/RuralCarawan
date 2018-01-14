@@ -20,6 +20,10 @@ public class PrefManager {
     public static final String VILLAGE_ID = "vilage_id";
     public static final String TQ_ID = "tq_id";
     public static final String BIRTHDAY = "birthday";
+    public static final String TYPE = "type";
+    public static final String CITY_ID ="city_id";
+    public static final String STATE_ID="state_id";
+    public static final String GENDER="gender";
 
 
 
@@ -123,6 +127,7 @@ public class PrefManager {
         editor.commit();
     }
 
+
     public String getTqId() {
         return sharedpreferences.getString(TQ_ID, null);
     }
@@ -135,6 +140,48 @@ public class PrefManager {
 
     public String getBirthday() {
         return sharedpreferences.getString(BIRTHDAY, null);
+    }
+
+
+    public String getType() {
+        return sharedpreferences.getString(TYPE, null);
+    }
+
+
+    public void setType(String type) {
+        editor.putString(TYPE, type);
+        editor.commit();
+    }
+
+    public String getCityId() {
+        return sharedpreferences.getString(CITY_ID, null);
+    }
+
+
+    public void setCityId(String cityId) {
+        editor.putString(CITY_ID, cityId);
+        editor.commit();
+    }
+
+
+    public String getStateId() {
+        return sharedpreferences.getString(STATE_ID, null);
+    }
+
+
+    public void setStateId(String stateId) {
+        editor.putString(STATE_ID, stateId);
+        editor.commit();
+    }
+
+    public String getGender() {
+        return sharedpreferences.getString(GENDER, null);
+    }
+
+
+    public void setGender(String gender) {
+        editor.putString(GENDER, gender);
+        editor.commit();
     }
 
 

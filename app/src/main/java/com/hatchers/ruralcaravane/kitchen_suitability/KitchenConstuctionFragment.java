@@ -117,8 +117,8 @@ public class KitchenConstuctionFragment extends Fragment {
         constructionRecyclerView.setAdapter(constructionListAdapter);
         constructionListAdapter.notifyDataSetChanged();
 
-        half_constructed_image=(ImageView)view.findViewById(R.id.half_constructed_image);
-        complete_constructed_image=(ImageView)view.findViewById(R.id.complete_constructed_image);
+        half_constructed_image=(ImageView)view.findViewById(R.id.half_constructed_image1);
+        complete_constructed_image=(ImageView)view.findViewById(R.id.complete_constructed_image1);
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
@@ -259,16 +259,11 @@ public class KitchenConstuctionFragment extends Fragment {
         }
         if (requestCode == HALF_IMAGE) {
             final Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-           // half_constructed_image.setImageBitmap(thumbnail);
-            half_constructed_image.post(new Runnable() {
-                @Override
-                public void run() {
-                    half_constructed_image.setImageBitmap(thumbnail);
-                }
-            });
+            half_constructed_image.setImageBitmap(thumbnail);
+
             conBitmap=thumbnail;
             FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap,"KIT_Step1_image"+kitchenTable.getKitchenUniqueIdValue());
-            kitchenTable.setStep1_imageValue("KIT_Step2_"+kitchenTable.getKitchenUniqueIdValue());
+            kitchenTable.setStep1_imageValue("KIT_Step1_"+kitchenTable.getKitchenUniqueIdValue());
             SweetAlertDialog sweetAlertDialog =new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE)
                     .setTitleText("Please wait");
 
@@ -301,13 +296,7 @@ public class KitchenConstuctionFragment extends Fragment {
         }
         if (requestCode == FULL_IMAGE) {
             final Bitmap thumbnail1 = (Bitmap) data.getExtras().get("data");
-           // complete_constructed_image.setImageBitmap(thumbnail1);
-            complete_constructed_image.post(new Runnable() {
-                @Override
-                public void run() {
-                    complete_constructed_image.setImageBitmap(thumbnail1);
-                }
-            });
+            complete_constructed_image.setImageBitmap(thumbnail1);
 
             conBitmap1=thumbnail1;
             FileHelper.savePNGImage(Folders.CHULHAFOLDER,conBitmap1,"KIT_Step2_image"+kitchenTable.getKitchenUniqueIdValue());

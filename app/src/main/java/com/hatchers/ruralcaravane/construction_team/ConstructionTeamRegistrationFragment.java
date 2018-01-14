@@ -42,6 +42,8 @@ import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.hatchers.ruralcaravane.current_date_time_function.CurrentDateTime.getCurrentDateTime;
+
 
 public class ConstructionTeamRegistrationFragment extends Fragment {
 
@@ -105,7 +107,7 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         construction_toolbar = (Toolbar) view.findViewById(R.id.construction_toolbar);
 
-        construction_btnBack = (ImageButton) view.findViewById(R.id.construction_btnBack);
+
         register_Byscanid=(Button)view.findViewById(R.id.register_Byscanid);
         saveBtn = (Button) view.findViewById(R.id.saveBtn);
         construction_member_name = (TextInputEditText) view.findViewById(R.id.construction_member_name);
@@ -128,7 +130,7 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
     private void onclicklisteners()
     {
 
-        construction_btnBack.setOnClickListener(new View.OnClickListener() {
+        construction_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
@@ -201,6 +203,8 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
         constructionTable.setTechnicianAgeValue(construction_member_age.getText().toString());
         constructionTable.setTechnicianMobileNoValue(construction_member_mobileno.getText().toString());
         constructionTable.setTechnicianGenderValue(selectedGender);
+        constructionTable.setAddedDateValue(getCurrentDateTime());
+        constructionTable.setUpdateDateValue(getCurrentDateTime());
         constructionTable.setKitchentUniqueId(kitchenTable.getKitchenUniqueIdValue());
         constructionTable.setKitchenIdValue(kitchenTable.getKitchen_idValue());
     }
@@ -280,9 +284,13 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
             try {
                 JSONObject object = new JSONObject(scanData);
                 construction_member_name.setText(object.getString("name"));
+                construction_member_name.setFocusable(false);
                 construction_member_address.setText(object.getString("address"));
+                construction_member_address.setFocusable(false);
                 construction_member_age.setText(object.getString("age"));
+                construction_member_age.setFocusable(false);
                 construction_member_mobileno.setText(object.getString("mobile"));
+                construction_member_mobileno.setFocusable(false);
                 selectedGender = object.getString("gender");
                 if(selectedGender.equalsIgnoreCase("F"))
                 {
@@ -292,10 +300,6 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
                 {
                     male.setChecked(true);
                 }
-                construction_member_name.setFocusable(false);
-                construction_member_address.setFocusable(false);
-                construction_member_age.setFocusable(false);
-                construction_member_mobileno.setFocusable(false);
                 female.setClickable(false);
                 male.setClickable(false);
             }
@@ -305,8 +309,6 @@ public class ConstructionTeamRegistrationFragment extends Fragment {
             }
         }
     }
-
-
 
 }
 

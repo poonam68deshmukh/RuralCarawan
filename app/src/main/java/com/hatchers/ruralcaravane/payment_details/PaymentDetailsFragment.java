@@ -1,22 +1,15 @@
 package com.hatchers.ruralcaravane.payment_details;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,25 +18,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hatchers.ruralcaravane.R;
-import com.hatchers.ruralcaravane.construction_team.database.ConstructionTable;
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
 import com.hatchers.ruralcaravane.file.FileHelper;
 import com.hatchers.ruralcaravane.file.Folders;
 import com.hatchers.ruralcaravane.payment_details.database.PaymentDetailsHelper;
 import com.hatchers.ruralcaravane.payment_details.database.PaymentTable;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -60,7 +43,7 @@ public class PaymentDetailsFragment extends Fragment {
     Bitmap payBitmap;
     private Toolbar payment_toolbar;
     private ImageButton payment_btnBack;
-    private TextInputEditText payment_amount,advance_amount,remaining_amount;
+    private TextInputEditText payment_amount,paid_amount,remaining_amount;
     private ImageView takePhoto;
     private Button savePayment;
     private TextView paymentUniqueId;
@@ -102,6 +85,7 @@ public class PaymentDetailsFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(payment_toolbar);
         initializations(view);
         onClickListeners();
+        calculateRemainingAmount();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window =getActivity().getWindow();
@@ -117,7 +101,7 @@ public class PaymentDetailsFragment extends Fragment {
         payment_toolbar = (Toolbar) view.findViewById(R.id.payment_toolbar);
         payment_btnBack = (ImageButton) view.findViewById(R.id.payment_btnBack);
         payment_amount = (TextInputEditText) view.findViewById(R.id.payment_amount);
-        advance_amount = (TextInputEditText) view.findViewById(R.id.advance_amount);
+        paid_amount = (TextInputEditText) view.findViewById(R.id.paid_amount);
         remaining_amount = (TextInputEditText) view.findViewById(R.id.remaining_amount);
         takePhoto = (ImageView) view.findViewById(R.id.takePhoto);
         savePayment = (Button) view.findViewById(R.id.savePayment);
@@ -162,7 +146,7 @@ public class PaymentDetailsFragment extends Fragment {
                                 sweetAlertDialog.dismissWithAnimation();
 
                                 payment_amount.setText("");
-                                advance_amount.setText("");
+                                paid_amount.setText("");
                                 remaining_amount.setText("");
                                 takePhoto.setImageResource(R.mipmap.receipt);
                                 payBitmap=null;
@@ -240,13 +224,19 @@ public class PaymentDetailsFragment extends Fragment {
         paymentTable=new PaymentTable();
 
         paymentTable.setPayment_amountValue(payment_amount.getText().toString());
-        paymentTable.setTotalPaidValue(advance_amount.getText().toString());
+        paymentTable.setTotalPaidValue(paid_amount.getText().toString());
         paymentTable.setRemaining_amountValue(remaining_amount.getText().toString());
         paymentTable.setDateOfPaymentValue(getCurrentDateTime());
         paymentTable.setUpdateDateValue(getCurrentDateTime());
         paymentTable.setUpload_statusValue("0");
         paymentTable.setPaymentUniqueIdValue(generateUniqueId());
 
+    }
+
+    private void calculateRemainingAmount()
+    {
+        int remainingAmount= Integer.parseInt(payment_amount.getText().toString())- Integer.parseInt(paid_amount.getText().toString());
+        remaining_amount.setText(String.valueOf(remainingAmount));
     }
 
 
@@ -271,11 +261,11 @@ public class PaymentDetailsFragment extends Fragment {
             payment_amount.setError(null);
         }
 
-        if (advance_amount.getText().toString().trim().length() == 0) {
-            advance_amount.setError("Please Enter Advance Amount");
+        if (paid_amount.getText().toString().trim().length() == 0) {
+            paid_amount.setError("Please Enter Advance Amount");
             response = false;
         } else {
-            advance_amount.setError(null);
+            paid_amount.setError(null);
         }
 
         if (remaining_amount.getText().toString().trim().length() == 0) {

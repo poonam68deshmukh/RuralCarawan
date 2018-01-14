@@ -57,7 +57,7 @@
                     android:layout_gravity="center"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_account_circle_black_24dp"
+                    android:src="@drawable/user_profile"
                     app:border_color="@color/colorAccent"
                     app:border_width="2dp" />
 

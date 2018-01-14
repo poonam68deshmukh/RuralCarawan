@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
 import com.hatchers.ruralcaravane.database.DatabaseHandler;
 import com.hatchers.ruralcaravane.kitchen_suitability.database.KitchenTable;
 
@@ -147,7 +148,7 @@ public class PaymentDetailsHelper {
         }
     }
 
-    public static ArrayList<PaymentTable> getPaymentDetailsList(Context context)
+    public static ArrayList<PaymentTable> getPaymentDetailsList(Context context, CustomerTable customertable)
     {
         ArrayList<PaymentTable> paymentTableArrayList = new ArrayList<PaymentTable>();
         SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();

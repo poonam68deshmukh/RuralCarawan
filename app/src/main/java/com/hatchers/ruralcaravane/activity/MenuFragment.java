@@ -21,6 +21,7 @@ import com.hatchers.ruralcaravane.construction_team.ConstructionTeamListFragment
 import com.hatchers.ruralcaravane.customer_registration.database.CustomerTable;
 import com.hatchers.ruralcaravane.kitchen_suitability.KitchenSuitabilityList;
 import com.hatchers.ruralcaravane.payment_details.PaymentDetailsFragment;
+import com.hatchers.ruralcaravane.payment_details.PaymentDetailsListFragment;
 import com.hatchers.ruralcaravane.pref_manager.PrefManager;
 import com.hatchers.ruralcaravane.R;
 import com.hatchers.ruralcaravane.user_login.LoginActivity;
@@ -107,8 +108,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
 
             case R.id.payment_linear:
-                PaymentDetailsFragment paymentDetailsFragment=PaymentDetailsFragment.getInstance(customertable);
-                fragmentTransaction.replace(R.id.frame_layout,paymentDetailsFragment).addToBackStack(null).commit();
+                PaymentDetailsListFragment paymentDetailsListFragment=PaymentDetailsListFragment.getInstance(customertable);
+                fragmentTransaction.replace(R.id.frame_layout,paymentDetailsListFragment).addToBackStack(null).commit();
                 break;
 
             default:

@@ -30,7 +30,6 @@ public class KitchenSuitabilityList extends Fragment {
 
     private FloatingActionButton btnfloatadd;
     private Toolbar kitchenListToolbar;
-    private ImageButton kitchenList_btnBack;
     private RecyclerView kitchenRecyclerView;
     KitchenListAdapter kitchenListAdapter;
     FragmentTransaction fragmentTransaction;
@@ -74,7 +73,6 @@ public class KitchenSuitabilityList extends Fragment {
 
         btnfloatadd=(FloatingActionButton)view.findViewById(R.id.kitchenList);
         kitchenListToolbar=(Toolbar)view.findViewById(R.id.kitchenListToolbar);
-        kitchenList_btnBack=(ImageButton)view.findViewById(R.id.kitchenList_btnBack);
 
         kitchenRecyclerView = (RecyclerView) view.findViewById(R.id.kitchenRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -100,12 +98,13 @@ public class KitchenSuitabilityList extends Fragment {
 
     private void onClickListeners()
     {
-        kitchenList_btnBack.setOnClickListener(new View.OnClickListener() {
+        kitchenListToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
             }
         });
+
         btnfloatadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

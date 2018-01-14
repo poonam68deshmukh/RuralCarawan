@@ -1,7 +1,10 @@
 package com.hatchers.ruralcaravane.payment_details.database;
 
 
-public class PaymentTable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PaymentTable implements Parcelable{
 
     public static final String PAYMENT_TABLE="PaymentTable";
 
@@ -44,6 +47,66 @@ public class PaymentTable {
     public PaymentTable() {
 
     }
+
+    protected PaymentTable(Parcel in) {
+        payment_idValue = in.readString();
+        payment_amountValue = in.readString();
+        totalPaidValue = in.readString();
+        remaining_amountValue = in.readString();
+        upload_statusValue = in.readString();
+        customerIdValue = in.readString();
+        receiptImageValue = in.readString();
+        installmentIdValue = in.readString();
+        dateOfPaymentValue = in.readString();
+        technicianIdValue = in.readString();
+        kitchenIdValue = in.readString();
+        paymentTypeValue = in.readString();
+        receiptNoValue = in.readString();
+        issuedByIdValue = in.readString();
+        typeValue = in.readString();
+        chullhaIdValue = in.readString();
+        updateDateValue = in.readString();
+        paymentUniqueIdValue = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(payment_idValue);
+        dest.writeString(payment_amountValue);
+        dest.writeString(totalPaidValue);
+        dest.writeString(remaining_amountValue);
+        dest.writeString(upload_statusValue);
+        dest.writeString(customerIdValue);
+        dest.writeString(receiptImageValue);
+        dest.writeString(installmentIdValue);
+        dest.writeString(dateOfPaymentValue);
+        dest.writeString(technicianIdValue);
+        dest.writeString(kitchenIdValue);
+        dest.writeString(paymentTypeValue);
+        dest.writeString(receiptNoValue);
+        dest.writeString(issuedByIdValue);
+        dest.writeString(typeValue);
+        dest.writeString(chullhaIdValue);
+        dest.writeString(updateDateValue);
+        dest.writeString(paymentUniqueIdValue);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<PaymentTable> CREATOR = new Creator<PaymentTable>() {
+        @Override
+        public PaymentTable createFromParcel(Parcel in) {
+            return new PaymentTable(in);
+        }
+
+        @Override
+        public PaymentTable[] newArray(int size) {
+            return new PaymentTable[size];
+        }
+    };
 
     public String getPayment_idValue() {
         return payment_idValue;

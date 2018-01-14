@@ -314,7 +314,7 @@ public class AddCustomerFragment extends Fragment {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismissWithAnimation();
-                                profileImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
+                                profileImage.setImageResource(R.drawable.user_profile);
                                 custBitmap=null;
                                 customer_name.setText("");
                                 customer_address.setText("");
@@ -570,8 +570,9 @@ public class AddCustomerFragment extends Fragment {
     private void setCustomerData()
     {
         customer_table = new CustomerTable();
+
         customer_table.setCustomerNameValue(customer_name.getText().toString());
-        customer_table.setVillageNameValue(villageSpinner.getSelectedItem().toString());
+        //customer_table.setVillageNameValue(villageSpinner.getSelectedItem().toString());
         customer_table.setCustomerAddressValue(customer_address.getText().toString());
         customer_table.setCustomerMobilenoValue(customer_mobileno.getText().toString());
         customer_table.setCustomerAgeValue(customer_age.getText().toString());
@@ -604,6 +605,13 @@ public class AddCustomerFragment extends Fragment {
     private boolean checkValidation()
     {
         boolean response = true;
+
+        if (aadhar_id.getText().toString().trim().length() == 0) {
+            aadhar_id.setError("Please Enter Aadhar Number");
+            response = false;
+        } else {
+            aadhar_id.setError(null);
+        }
 
         if (customer_name.getText().toString().trim().length() == 0) {
             customer_name.setError("Please Enter Customer Name");
@@ -641,6 +649,42 @@ public class AddCustomerFragment extends Fragment {
             // one of the radio buttons is checked
 
         }
+
+/*
+        if (citySpinner.getSelectedItem().toString().trim().equalsIgnoreCase("City")) {
+
+            View selectedView = citySpinner.getSelectedView();
+            if (selectedView != null && selectedView instanceof TextView) {
+                TextView selectedTextView = (TextView) selectedView;
+                if (citySpinner.getSelectedItemPosition() == 0) {
+                    String errorString = "Please Select City";
+                    selectedTextView.setError(errorString);
+
+                } else {
+                    selectedTextView.setError(null);
+                }
+            }
+            response = false;
+        }
+
+
+        if (villageSpinner.getSelectedItem().toString().trim().equalsIgnoreCase("Village")) {
+
+            View selectedView = villageSpinner.getSelectedView();
+            if (selectedView != null && selectedView instanceof TextView) {
+                TextView selectedTextView = (TextView) selectedView;
+                if (villageSpinner.getSelectedItemPosition() == 0) {
+                    String errorString = "Please Select Village";
+                    selectedTextView.setError(errorString);
+
+                } else {
+                    selectedTextView.setError(null);
+                }
+            }
+            response = false;
+        }
+*/
+
         return response;
     }
 }

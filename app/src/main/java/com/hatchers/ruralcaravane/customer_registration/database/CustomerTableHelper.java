@@ -21,7 +21,7 @@ public class CustomerTableHelper {
             SQLiteDatabase db = new DatabaseHandler(context).getWritableDatabase();
             ContentValues values = new ContentValues();
 
-
+                values.put(CustomerTable.CUSTOMER_ID, customer_table.getCustomerIdValue());
                 values.put(CustomerTable.CUSTOMER_MOBILENO, customer_table.getCustomerMobilenoValue());
                 values.put(CustomerTable.CUSTOMER_AGE, customer_table.getCustomerAgeValue());
                 values.put(CustomerTable.CUSTOMER_NAME,customer_table.getCustomerNameValue());
