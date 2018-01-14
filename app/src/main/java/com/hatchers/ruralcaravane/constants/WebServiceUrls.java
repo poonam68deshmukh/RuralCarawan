@@ -6,7 +6,7 @@ package com.hatchers.ruralcaravane.constants;
 public class WebServiceUrls
 {
 
-    public static final String urlUserLogin="http://hatchers.in/sapu/index.php/api/v1/login";
+    public static final String urlUserLogin="http://hatchers.in/caravan/index.php/api/v1/login";
     public static final String urlGetCityList = "http://www.hatchers.in/caravan/index.php/api/v1/getCityList";
     public static final String urlGetVillageList = "http://www.hatchers.in/caravan/index.php/api/v1/getVillageList";
 

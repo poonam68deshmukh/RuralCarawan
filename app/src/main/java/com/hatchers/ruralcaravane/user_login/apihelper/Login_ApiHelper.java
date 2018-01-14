@@ -42,24 +42,28 @@ public class Login_ApiHelper
                             JSONObject jsonObject = result.getJSONObject(0);
 
 
+
                             /*{"status":"Success","count":1,"type":"login","result":
                             [{"id":"1","fname":"vishal","lname":"landepatil","mobile":"9975294782",
                             "type":"SHG","gender":"M","village_id":"1","city_id":"1","state_id":"1",
-                            "password":"user@123"}],"message":"Login successfully"}*/
-                            PrefManager prefManager=new PrefManager(activity);
-                            //prefManager.setUserName(jsonObject.getString("fname")+" "+jsonObject.getString("lname"));
+                            "password":"user@123","villagename":"abad","cityname":"abad"}],
+                            "message":"Login successfully"}*/
+                             PrefManager prefManager=new PrefManager(activity);
+                            prefManager.setUserName(jsonObject.getString("fname")+" "+jsonObject.getString("lname"));
                             prefManager.setUserId(jsonObject.getString("id"));
-                            prefManager.setVillageName(jsonObject.getString("village_name"));
-                            prefManager.setVillageId(jsonObject.getString("vilage_id"));
-                            prefManager.setTqId(jsonObject.getString("tq_id"));
+                            //prefManager.setFname(jsonObject.getString("fname")+" "+jsonObject.getString("lname"));
+                            //prefManager.setLname(jsonObject.getString("lname"));
                             prefManager.setMobile(jsonObject.getString("mobile"));
-                            prefManager.setBirthday(jsonObject.getString("dob"));
+                            prefManager.setType(jsonObject.getString("type"));
+                            prefManager.setGender(jsonObject.getString("gender"));
+                            prefManager.setVillageId(jsonObject.getString("village_id"));
+                            prefManager.setCityId(jsonObject.getString("city_id"));
+                            prefManager.setStateId(jsonObject.getString("state_id"));
                             prefManager.setPassword(jsonObject.getString("password"));
-                            //prefManager.setType(jsonObject.getString("type"));
-                            //prefManager.setCityId(jsonObject.getString("city_id"));
-                            //prefManager.setStateId(jsonObject.getString("state_id"));
-                            //prefManager.setGender(jsonObject.getString("gender"));
-
+                            prefManager.setVillageName(jsonObject.getString("villagename"));
+                            prefManager.setCityname(jsonObject.getString("cityname"));
+                            //prefManager.setTqId(jsonObject.getString("tq_id"));
+                            //prefManager.setBirthday(jsonObject.getString("dob"));
 
                             prefManager.createLogin(jsonObject.getString("mobile"));
                             loginUser.fireOnLoginEvent(LoginUser.LOGIN_SUCCESS);
